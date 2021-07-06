@@ -1,0 +1,81 @@
+<app-header></app-header>
+
+<div class="mt-40 flex items-center justify-center px-16">
+  <div class="relative w-full max-w-3xl">
+
+    <div class="absolute top-8 -left-4 w-80 h-80 bg-cyan-400 filter blur-2xl mix-blend-multiply rounded-full">
+    </div>
+    <div class="absolute top-8 -right-4 w-80 h-80 bg-yellow-400 filter blur-2xl mix-blend-multiply rounded-full">
+    </div>
+    <div class="absolute bottom-4 left-48 w-96 h-80 bg-rose-400 filter blur-2xl mix-blend-multiply rounded-full">
+    </div>
+
+    <div class="container relative mx-auto bg-white shadow p-8 rounded-md">
+      <div class="text-4xl text-yellow-400 mb-10">
+        User Management
+      </div>
+
+      <!-- component -->
+      <div class="overflow-x-auto">
+        <div class="flex items-center justify-center overflow-hidden">
+          <div class="">
+            <div class="rounded my-6">
+              <table class="min-w-max w-full table-auto">
+                <thead class="border-b border-gray-200">
+                <tr class="font-semibold text-gray-600">
+                  <th class="py-3 px-6 text-center">First name</th>
+                  <th class="py-3 px-6 text-center">Last name</th>
+                  <th class="py-3 px-6 text-center">Emails</th>
+                  <th class="py-3 px-6 text-center">Username</th>
+                  <th class="py-3 px-6 text-center">Colors</th>
+                  <th class="py-3 px-6 text-center">Actions</th>
+                </tr>
+                </thead>
+                <tbody class="text-gray-500 text-sm">
+                <tr class="border-b border-gray-200" *ngFor="let user of users; let i = index" [ngClass]="i % 2 == 0? 'bg-gray-50': 'bg-white'">
+                  <td class="py-2 px-6 text-center whitespace-nowrap">
+                    <div class="flex items-center">
+                      <span>{{user.firstName}}</span>
+                    </div>
+                  </td>
+                  <td class="py-2 px-6 text-center whitespace-nowrap">
+                    <div class="flex items-center">
+                      <span>{{user.lastName}}</span>
+                    </div>
+                  </td>
+                  <td class="py-2 px-6 text-center whitespace-nowrap">
+                    <div class="flex items-center">
+                      <span>{{user.email}}</span>
+                    </div>
+                  </td>
+                  <td class="py-2 px-6 text-center whitespace-nowrap">
+                    <div class="flex items-center">
+                      <span>{{user.userName}}</span>
+                    </div>
+                  </td>
+                  <td class="py-2 px-6 text-center whitespace-nowrap">
+                    <div class="flex items-center">
+                      <div class="p-px w-full  rounded-xl" [style.background-color]="user.color">&nbsp;</div>
+            </div>
+                  </td>
+                  <td class="py-2 px-6 text-center whitespace-nowrap">
+                    <div class="flex items-center">
+                      <button  class="rounded-md py-px px-2" (click)= "editUser(user)"><fa-icon [icon]="editIcon" fixedWidth class="text-gray-400 hover:text-cyan-500 text-lg"></fa-icon></button>
+                      <button (click)= "deleteUser(user)" class="rounded-md p-2"><fa-icon [icon]="deleteIcon" fixedWidth class="text-gray-400 hover:text-rose-500 text-lg"></fa-icon></button>
+
+                    </div>
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+         </div>
+  </div>
+</div>
+
+
+
+

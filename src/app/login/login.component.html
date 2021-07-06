@@ -1,0 +1,49 @@
+<div class=" min-h-screen flex items-center justify-center px-16">
+  <div class="relative w-full max-w-lg">
+
+    <div class="absolute top-8 -left-4 w-80 h-80 bg-cyan-400 filter blur-2xl mix-blend-multiply rounded-full">
+    </div>
+    <div class="absolute top-8 -right-4 w-80 h-80 bg-yellow-400 filter blur-2xl mix-blend-multiply rounded-full">
+    </div>
+    <div class="absolute bottom-16 left-28 w-80 h-80 bg-rose-400 filter blur-2xl mix-blend-multiply rounded-full">
+    </div>
+
+    <div class="container relative mx-auto bg-white shadow p-8 rounded-md">
+      <div class="text-4xl text-cyan-500 mb-10">
+        Login
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="signIn()">
+        <div class="space-y-8">
+          <div class="textbox">
+            <input type="text" name="" value=""  placeholder=" " formControlName="username" id="loginUser">
+            <label>Username</label>
+          </div>
+          <span [class.invisible]="!(this.form.get('username').invalid && (this.form.get('username').dirty || this.form.get('username').touched))"
+            class="text-red-500 text-xs">Username is invalid</span>
+          <div class="textbox">
+            <input type="text" name="" placeholder=" " formControlName="password" value="">
+            <label>Password</label>
+          </div>
+          <span
+            [class.invisible]="!(this.form.get('password').invalid && (this.form.get('password').dirty || this.form.get('password').touched))"
+            class="text-red-500 text-xs">Password is invalid</span>
+          <div class="flex justify-between mt-4 text-cyan-500">
+            <div [class.invisible]="loginSuccessful" class="text.xs text-red-500">Wrong login data!</div>
+            <div>
+              <button type="submit" [class.disabled]="actionDisabled" (click)="signIn()"
+                      class="rounded-md p-2 bg-cyan-500 text-white">Sign in
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+

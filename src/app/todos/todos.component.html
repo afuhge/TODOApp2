@@ -1,0 +1,68 @@
+<app-header></app-header>
+
+<div class="mt-40 flex items-center justify-center px-16">
+  <div class="relative w-full max-w-3xl">
+
+    <div class="absolute top-8 -left-4 w-80 h-80 bg-cyan-400 filter blur-2xl mix-blend-multiply rounded-full">
+    </div>
+    <div class="absolute top-8 -right-4 w-80 h-80 bg-yellow-400 filter blur-2xl mix-blend-multiply rounded-full">
+    </div>
+    <div class="absolute bottom-4 left-48 w-96 h-80 bg-rose-400 filter blur-2xl mix-blend-multiply rounded-full">
+    </div>
+
+    <div class="container relative mx-auto bg-white shadow p-8 rounded-md">
+      <div class="text-4xl text-rose-400 mb-10">
+        TODOs
+      </div>
+
+      <!-- component -->
+      <div>
+        <div class="border-b-2  mb-4 border-gray-300 p-2 font-semibold  grid grid-cols-12 items-center">
+          <div class=""></div>
+          <div class="col-span-5 flex space-x-2">
+            <div>
+              <fa-icon [icon]="todo" class="text-gray-400"></fa-icon>
+            </div>
+            <div>Name</div>
+          </div>
+          <div class="col-span-2 flex space-x-2">
+            <div>
+              <fa-icon [icon]="date" class="text-gray-400"></fa-icon>
+            </div>
+            <div>Date</div>
+          </div>
+          <div class="col-span-4 flex space-x-2">
+            <fa-icon [icon]="assignees" class="text-gray-400"></fa-icon>
+            <div>Assignees</div>
+          </div>
+        </div>
+
+        <div class="space-y-2" cdkDropList  [cdkDropListData]="todos" (cdkDropListDropped)="drop($event)">
+          <div class="border-2 border-gray-100 p-2 cursor-move  grid grid-cols-12 items-center rounded-xl"
+               *ngFor="let todo of todos" cdkDrag [class.opacity-40]="todo.done">
+            <div (click)="markAsDone(todo)">
+              <fa-icon [icon]="todo.done? checked: check" class="text-gray-500 hover:text-rose-400 cursor-pointer text-xl"></fa-icon>
+            </div>
+            <div class="text-xl col-span-5">
+              {{todo.name }}
+            </div>
+            <div class="col-span-2">
+              {{ todo.date | date: 'mediumDate'}}
+            </div>
+            <div class="flex m-0.5 col-span-4 flex-wrap">
+              <div class="p-0.5" *ngFor="let assignee of todo.assignees">
+                <span class="py-px px-4 w-full rounded-xl text-white"
+                      [style.background-color]="assignee.color">{{assignee.name}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+

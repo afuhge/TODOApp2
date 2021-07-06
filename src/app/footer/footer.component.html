@@ -1,0 +1,27 @@
+<div class="relative bottom-0 m-0 mt-32 ">
+  <div class="max-w-full bg-gray-50 border-t border-gray-200 text-sm text-gray-400 flex justify-between items-center p-4 rounded-b-md">
+      <div>
+        ©2021 All rights preserved.
+      </div>
+    <div class="flex flex-col justify-center  items-center space-y-2">
+      <div class="flex space-x-8">
+          <div [routerLink]="'/linkedin'" class="cursor-pointer hover:text-gray-700 text-xl">
+            <fa-icon [icon]="linkedIn" class="text-gray-400 hover:text-gray-700"></fa-icon>
+          </div>
+          <div [routerLink]="'/github'" class="hover:text-gray-700 cursor-pointer text-xl">
+            <fa-icon [icon]="gitHub" class="text-gray-400 hover:text-gray-700"></fa-icon>
+          </div>
+        </div>
+
+      <div class="flex space-x-4">
+        <div [routerLink]="'/privacy'" [routerLinkActive]="'text-gray-700'" class="cursor-pointer hover:text-gray-700">
+          Privacy
+        </div>
+        <span>|</span>
+        <div class="hover:text-gray-700 cursor-pointer">
+          Imprint
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

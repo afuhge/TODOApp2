@@ -1,0 +1,55 @@
+<div class=" min-h-screen flex items-center justify-center px-16">
+  <div class="relative w-full max-w-2xl">
+
+    <div class="absolute top-8 -left-4 w-80 h-80 bg-cyan-400 filter blur-2xl mix-blend-multiply rounded-full">
+    </div>
+    <div class="absolute top-8 -right-4 w-80 h-80 bg-yellow-400 filter blur-2xl mix-blend-multiply rounded-full">
+    </div>
+    <div class="absolute bottom-8 left-28 w-80 h-80 bg-rose-400 filter blur-2xl mix-blend-multiply rounded-full">
+    </div>
+
+    <div class="container relative mx-auto bg-white shadow p-8 rounded-md">
+      <div class="text-4xl text-cyan-500 mb-10">
+        Wrong URL Parameters
+      </div>
+  <div class="space-y-2 divide-y">
+    <div>
+      <div class="font-semibold text-gray-600">
+        URL
+      </div>
+      <div>
+        {{ deviceInfo.href }}
+      </div>
+    </div>
+    <div>
+      <div class="font-semibold text-gray-600">
+        Browser
+      </div>
+      <div>
+        {{ deviceInfo.browser }}
+      </div>
+    </div>
+    <div>
+      <div class="font-semibold text-gray-600">
+        Browser-Language
+      </div>
+      <div>
+        {{ deviceInfo.language}}
+      </div>
+    </div>
+    <div>
+      <div class="font-semibold text-gray-600">
+        Dimensions
+      </div>
+      <div>
+        {{ deviceInfo.dimensions.width}}x{{deviceInfo.dimensions.height}}
+      </div>
+    </div>
+  </div>
+    </div>
+  </div>
+</div>
+
+
+
+
