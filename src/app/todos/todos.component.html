@@ -1,7 +1,7 @@
 <app-header></app-header>
 
 <div class="mt-40 flex items-center justify-center px-16">
-  <div class="relative w-full max-w-3xl">
+  <div class="relative w-full max-w-5xl">
 
     <div class="absolute top-8 -left-4 w-80 h-80 bg-cyan-400 filter blur-2xl mix-blend-multiply rounded-full">
     </div>
@@ -43,19 +43,43 @@
             <div (click)="markAsDone(todo)">
               <fa-icon [icon]="todo.done? checked: check" class="text-gray-500 hover:text-rose-400 cursor-pointer text-xl"></fa-icon>
             </div>
-            <div class="text-xl col-span-5">
-              {{todo.name }}
+            <div class="text-xl col-span-5 truncate">
+              {{todo.name  || '-/-' }}
             </div>
             <div class="col-span-2">
-              {{ todo.date | date: 'mediumDate'}}
+              {{ (todo.date | date: 'mediumDate') || '-/-'}}
             </div>
             <div class="flex m-0.5 col-span-4 flex-wrap">
-              <div class="p-0.5" *ngFor="let assignee of todo.assignees">
+              <ng-container *ngIf="todo.assignees.length; else noAssignees">
+                <div class="p-0.5" *ngFor="let assignee of todo.assignees">
                 <span class="py-px px-4 w-full rounded-xl text-white"
                       [style.background-color]="assignee.color">{{assignee.name}}</span>
-              </div>
+                </div>
+              </ng-container>
+              <ng-template #noAssignees>
+                <span class="italic text-gray-400">No assignees</span>
+              </ng-template>
             </div>
           </div>
+          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="border-2 border-gray-100 p-2 grid grid-cols-12 items-center rounded-xl">
+           <div>
+             <button type="submit" [disabled]="!form.valid">
+               <fa-icon [icon]="plusIcon" class="text-gray-500 cursor-pointer text-xl hover:text-rose-400"></fa-icon>
+             </button>
+           </div>
+            <div class="text-xl col-span-5">
+              <input type="text" placeholder="Enter todo name" formControlName="name" class="outline-none">
+            </div>
+            <div class="col-span-2">
+              <input type="date" name="deadline" placeholder="Enter deadline" formControlName="date" class="outline-none" style="width: 155px;">
+            </div>
+            <div class="flex m-0.5 px-2 col-span-4 flex-wrap">
+               <button (click)="toggleDropDown($event)" [hidden]="!isHidden" class="p-2 border-2 rounded-md">Select assignees</button>
+                <select class="form-multiselect block w-full mt-1" multiple [style.display]="isHidden? 'none' : 'block'" formControlName="assignees">
+                  <option *ngFor="let user of users" value="{{user.lastName}}" [ngValue]="user" >{{user.firstName}} {{user.lastName}}</option>
+                </select>
+            </div>
+          </form>
         </div>
       </div>
     </div>

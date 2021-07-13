@@ -7,6 +7,8 @@ import {HeaderComponent} from '../header/header.component';
 import {HeaderModule} from '../header/header.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {UserService} from '../services/user.service';
 
 
 
@@ -25,9 +27,14 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
     HeaderModule,
     FontAwesomeModule,
     DragDropModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   exports: [
     TodosComponent,
+  ],
+  providers: [
+    UserService,
   ],
 })
 export class TodosModule { }

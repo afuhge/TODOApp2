@@ -6,6 +6,7 @@ import {DashboardComponent} from '../dashboard/dashboard.component';
 import {HeaderModule} from '../header/header.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FooterModule} from '../footer/footer.module';
+import {UserService} from '../services/user.service';
 
 
 
@@ -28,5 +29,8 @@ import {FooterModule} from '../footer/footer.module';
   exports: [
     UsersComponent,
   ],
+  providers: [
+    UserService,
+  ]
 })
 export class UsersModule { }

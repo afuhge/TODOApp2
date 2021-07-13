@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import {faPencilAlt, IconDefinition, faTrash} from '@fortawesome/free-solid-svg-icons';
+import {UserService} from '../services/user.service';
 
 export class User {
   public firstName: string;
@@ -22,40 +23,14 @@ export class UsersComponent {
   public  deleteIcon: IconDefinition = faTrash;
 
   constructor(
+    private userService: UserService,
   ) {
-   /* this.userService.getUsers()
+    this.userService.getUsers()
       .subscribe(users => {
         console.log(users);
         this.users = users;
       });
-    */
-
-    this.users = [
-      {
-        email: 'anni',
-        color: '#abcdef',
-        userName: 'anni',
-        password: '12345',
-        lastName: 'fuh',
-        firstName: 'annie',
-      },
-      {
-        email: 'anni',
-        color: '#abcdef',
-        userName: 'anni',
-        password: 'abcdef',
-        lastName: 'fuh',
-        firstName: 'annie',
-      },
-      {
-        email: 'anni',
-        color: '#abcdef',
-        userName: 'anni',
-        password: '12345',
-        lastName: 'fuh',
-        firstName: 'annie',
-      },
-    ];
+    
   }
 
 

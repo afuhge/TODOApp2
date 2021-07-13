@@ -10,6 +10,7 @@ import {UsersModule} from './users/users.module';
 import {PageNotFoundModule} from './page-not-found/page-not-found.module';
 import {FooterModule} from './footer/footer.module';
 import {DragDropModule} from '@angular/cdk/drag-drop';
+import {UserService} from './services/user.service';
 
 
 
@@ -56,7 +57,6 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     DragDropModule,
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
