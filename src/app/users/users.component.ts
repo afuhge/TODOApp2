@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import {faPencilAlt, IconDefinition, faTrash} from '@fortawesome/free-solid-svg-icons';
 import {UserService} from '../services/user.service';
+import {Title} from '@angular/platform-browser';
+import {NotifcationService, Notification} from '../services/notifcation.service';
 
 export class User {
   public firstName: string;
@@ -24,17 +26,28 @@ export class UsersComponent {
 
   constructor(
     private userService: UserService,
+    private titleService: Title,
+    private notifierService: NotifcationService,
   ) {
     this.userService.getUsers()
       .subscribe(users => {
         console.log(users);
         this.users = users;
       });
-    
+
+    this.titleService.setTitle('User Management');
   }
 
 
   editUser(user: User): void {
+    console.log('hie');
+    const notification: Notification = {
+      isSuccess: true,
+      message: 'User editted yay',
+      title: 'success',
+    };
+    console.log(notification);
+    this.notifierService.addNotification(notification);
 
   }
 

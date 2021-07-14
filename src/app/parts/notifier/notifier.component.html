@@ -1,0 +1,16 @@
+<div class="space-y-2 top-24 right-8 z-10 absolute">
+  <div class="bg-white shadow-md border-l-4 w-80 px-4 py-2" *ngFor="let notification of notifications" [ngClass]="notification.isSuccess? 'border-cyan-500': 'border-rose-500'">
+    <div class="flex justify-between items-start">
+      <div class="space-y-2">
+        <div class="text-lg font-semibold">{{ notification.title }}</div>
+        <div>{{ notification.message }}</div>
+      </div>
+      <div>
+        <button (click)="closeNotification(notification)" class="outline-none">
+          <fa-icon [icon]="close" class="text-gray-400"></fa-icon>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+

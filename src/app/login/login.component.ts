@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from '@angular/router';
 import {ApiUrlHelperService} from '../services/api-url-helper.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-login',
@@ -24,9 +25,10 @@ export class LoginComponent {
 
   constructor(
     private router: Router,
+    private titleService: Title
   ) {
     console.log(this.form.status);
-
+    this.titleService.setTitle('Login');
     this.form.statusChanges.subscribe((status => {
       this.actionDisabled = status === 'INVALID';
     }));

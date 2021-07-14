@@ -11,6 +11,7 @@ import {faSquare} from '@fortawesome/free-regular-svg-icons';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {UserService} from '../services/user.service';
 import {User} from '../users/users.component';
+import {Title} from '@angular/platform-browser';
 
 class TODO {
   public name: string;
@@ -46,7 +47,9 @@ export class TodosComponent {
 
   constructor(
     private userService: UserService,
+    private titleService: Title
   ) {
+    this.titleService.setTitle('TODOs');
     userService.getUsers().subscribe((users: User[]) => {
       this.users = users;
     });

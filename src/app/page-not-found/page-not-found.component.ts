@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Title} from '@angular/platform-browser';
 
 interface DeviceInfo {
    browser: string;
@@ -17,7 +18,10 @@ interface DeviceInfo {
 })
 export class PageNotFoundComponent  {
 public deviceInfo: DeviceInfo;
-  constructor() {
+  constructor(
+    private titleService: Title
+  ) {
+    this.titleService.setTitle('Page not found');
     const navigator = window.navigator;
     this.deviceInfo = {
       browser: navigator.userAgent,

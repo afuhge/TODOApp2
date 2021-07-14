@@ -26,4 +26,8 @@ export class ApiUrlHelperService {
   public static getLoginUrl(id: string): string {
     return ApiUrlHelperService.getBaseUrl(id) + '/login';
   }
+
+  public static getLandingUrl(id: string): string {
+    return ApiUrlHelperService.getBaseUrl(id) + '/landing-page';
+  }
 }

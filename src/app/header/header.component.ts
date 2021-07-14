@@ -11,26 +11,14 @@ export class HeaderComponent  {
   public dashboardURL: string = '';
   public todoURL: string = '';
   public userURL: string = '';
+  public landingURL: string = '';
   constructor(
     private router: Router,
   ) {
     this.dashboardURL = ApiUrlHelperService.getDashboardUrl('id');
     this.todoURL = ApiUrlHelperService.getTODOsUrl('id');
     this.userURL = ApiUrlHelperService.getUsersUrl('id');
-  }
-
-
-
-  public goToDashboard(): void {
-    this.router.navigateByUrl(this.dashboardURL);
-  }
-
-  public goToTODOs(): void {
-    this.router.navigateByUrl(this.todoURL);
-  }
-
-  public goToUsers(): void {
-    this.router.navigateByUrl(this.userURL);
+    this.landingURL = ApiUrlHelperService.getLandingUrl('id');
   }
 
   public goToLogin(): void {
