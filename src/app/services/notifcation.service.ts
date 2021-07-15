@@ -10,33 +10,23 @@ export class Notification {
   providedIn: 'root'
 })
 export class NotifcationService {
-  public notifications: Notification[] = [];
-  constructor() {
-    const test: Notification[] = [
-      {
-        title: 'Success!',
-        message: 'YAY!',
-        isSuccess: true,
-      },
-      {
-        title: 'Failure!',
-        message: 'oh no!',
-        isSuccess: false,
-      },
-      {
-        title: 'Success!',
-        message: 'this is a great test wuhuuu',
-        isSuccess: true,
-      },
-    ];
-    this.notifications = test;
+  public notification$: BehaviorSubject<Notification> = new BehaviorSubject<Notification>(null);
+
+  public success(message: string): void {
+    const notification: Notification = {
+      isSuccess: true,
+      message,
+      title: 'Success!'
+    };
+    this.notification$.next(notification);
   }
 
-  public addNotification(notification: Notification): void {
-    this.notifications.push(notification);
-  }
-
-  public getNotifications(): Observable<Notification[]> {
-    return of(this.notifications);
+  public error(message: string): void {
+    const notification: Notification = {
+      isSuccess: false,
+      message,
+      title: 'Error!'
+    };
+    this.notification$.next(notification);
   }
 }

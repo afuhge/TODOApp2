@@ -40,6 +40,7 @@
         <div class="space-y-2" cdkDropList  [cdkDropListData]="todos" (cdkDropListDropped)="drop($event)">
           <div class="border-2 border-gray-100 p-2 cursor-move  grid grid-cols-12 items-center rounded-xl"
                *ngFor="let todo of todos" cdkDrag [class.opacity-40]="todo.done">
+            <div class="bg-gray-50 rounded-xl" style="height:52px;" *cdkDragPlaceholder></div>
             <div (click)="markAsDone(todo)">
               <fa-icon [icon]="todo.done? checked: check" class="text-gray-500 hover:text-rose-400 cursor-pointer text-xl"></fa-icon>
             </div>

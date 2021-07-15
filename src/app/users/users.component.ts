@@ -40,18 +40,13 @@ export class UsersComponent {
 
 
   editUser(user: User): void {
-    console.log('hie');
-    const notification: Notification = {
-      isSuccess: true,
-      message: 'User editted yay',
-      title: 'success',
-    };
-    console.log(notification);
-    this.notifierService.addNotification(notification);
+    this.notifierService.success('User editted. Yay!');
 
   }
 
-  deleteUser(user: User): void {}
+  deleteUser(user: User): void {
+    this.notifierService.error('You failed.sorry!');
+  }
 
   addUser(user: User): void {}
 }
