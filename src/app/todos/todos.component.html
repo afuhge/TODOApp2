@@ -37,15 +37,16 @@
           </div>
         </div>
 
-        <div class="space-y-2" cdkDropList  [cdkDropListData]="todos" (cdkDropListDropped)="drop($event)">
+        <div class="space-y-2" cdkDropList [cdkDropListData]="todos" (cdkDropListDropped)="drop($event)">
           <div class="border-2 border-gray-100 p-2 cursor-move  grid grid-cols-12 items-center rounded-xl"
                *ngFor="let todo of todos" cdkDrag [class.opacity-40]="todo.done">
             <div class="bg-gray-50 rounded-xl" style="height:52px;" *cdkDragPlaceholder></div>
             <div (click)="markAsDone(todo)">
-              <fa-icon [icon]="todo.done? checked: check" class="text-gray-500 hover:text-rose-400 cursor-pointer text-xl"></fa-icon>
+              <fa-icon [icon]="todo.done? checked: check"
+                       class="text-gray-500 hover:text-rose-400 cursor-pointer text-xl"></fa-icon>
             </div>
             <div class="text-xl col-span-5 truncate">
-              {{todo.name  || '-/-' }}
+              {{todo.name || '-/-' }}
             </div>
             <div class="col-span-2">
               {{ (todo.date | date: 'mediumDate') || '-/-'}}
@@ -62,23 +63,29 @@
               </ng-template>
             </div>
           </div>
-          <form [formGroup]="form" (ngSubmit)="onSubmit()" class="border-2 border-gray-100 p-2 grid grid-cols-12 items-center rounded-xl">
-           <div>
-             <button type="submit" [disabled]="!form.valid">
-               <fa-icon [icon]="plusIcon" class="text-gray-500 cursor-pointer text-xl hover:text-rose-400"></fa-icon>
-             </button>
-           </div>
+          <form [formGroup]="form" (ngSubmit)="onSubmit()"
+                class="border-2 border-gray-100 p-2 grid grid-cols-12 items-center rounded-xl">
+            <div>
+              <button type="submit" [disabled]="!form.valid">
+                <fa-icon [icon]="plusIcon" class="text-gray-500 cursor-pointer text-xl hover:text-rose-400"></fa-icon>
+              </button>
+            </div>
             <div class="text-xl col-span-5">
               <input type="text" placeholder="Enter todo name" formControlName="name" class="outline-none">
             </div>
             <div class="col-span-2">
-              <input type="date" name="deadline" placeholder="Enter deadline" formControlName="date" class="outline-none" style="width: 155px;">
+              <input type="date" name="deadline" placeholder="Enter deadline" formControlName="date"
+                     class="outline-none" style="width: 155px;">
             </div>
             <div class="flex m-0.5 px-2 col-span-4 flex-wrap">
-               <button (click)="toggleDropDown($event)" [hidden]="!isHidden" class="p-2 border-2 rounded-md">Select assignees</button>
-                <select class="form-multiselect block w-full mt-1" multiple [style.display]="isHidden? 'none' : 'block'" formControlName="assignees">
-                  <option *ngFor="let user of users" value="{{user.lastName}}" [ngValue]="user" >{{user.firstName}} {{user.lastName}}</option>
-                </select>
+              <button (click)="toggleDropDown($event)" [hidden]="!isHidden" class="p-2 border-2 rounded-md">Select
+                assignees
+              </button>
+              <select class="form-multiselect block w-full mt-1" multiple [style.display]="isHidden? 'none' : 'block'"
+                      formControlName="assignees">
+                <option *ngFor="let user of users" value="{{user.lastName}}"
+                        [ngValue]="user">{{user.firstName}} {{user.lastName}}</option>
+              </select>
             </div>
           </form>
         </div>

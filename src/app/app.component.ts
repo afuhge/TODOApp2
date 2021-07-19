@@ -1,5 +1,4 @@
-import {Component, OnInit} from '@angular/core';
-import {UserService} from './services/user.service';
+import {Component} from '@angular/core';
 
 
 @Component({
@@ -10,11 +9,9 @@ import {UserService} from './services/user.service';
 export class AppComponent {
 
 
-  constructor(
-  ) {
+  constructor() {
 
   }
-
 
 
 }

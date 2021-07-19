@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {ApiUrlHelperService} from '../services/api-url-helper.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -34,7 +34,7 @@ export class LoginComponent {
     }));
   }
 
-  private checkInputs(): boolean{
+  private checkInputs(): boolean {
     if (this.form.get('username').value !== this.user.username || this.form.get('password').value !== this.user.password) {
       return false;
     }
@@ -43,7 +43,7 @@ export class LoginComponent {
 
 
   public signIn(): void {
-    if (this.checkInputs()){
+    if (this.checkInputs()) {
       this.loginSuccessful = true;
       this.router.navigateByUrl(ApiUrlHelperService.getDashboardUrl('id'));
     }

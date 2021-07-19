@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {Title} from '@angular/platform-browser';
 
 interface DeviceInfo {
-   browser: string;
-   language: string;
-   dimensions: {
-     width: number,
-     height: number,
-   };
-   href: string;
+  browser: string;
+  language: string;
+  dimensions: {
+    width: number,
+    height: number,
+  };
+  href: string;
 }
 
 @Component({
@@ -16,13 +16,19 @@ interface DeviceInfo {
   templateUrl: './page-not-found.component.html',
   styleUrls: ['./page-not-found.component.css']
 })
-export class PageNotFoundComponent  {
-public deviceInfo: DeviceInfo;
+export class PageNotFoundComponent {
+  public deviceInfo: DeviceInfo;
+
   constructor(
     private titleService: Title
   ) {
     this.titleService.setTitle('Page not found');
     const navigator = window.navigator;
+    this.setUpDeviceInfo();
+  }
+
+  @HostListener('window:resize')
+  private setUpDeviceInfo(): void {
     this.deviceInfo = {
       browser: navigator.userAgent,
       language: navigator.language,
@@ -33,6 +39,4 @@ public deviceInfo: DeviceInfo;
       }
     };
   }
-
-
 }

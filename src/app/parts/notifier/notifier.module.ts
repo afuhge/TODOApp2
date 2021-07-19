@@ -1,8 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 import {NotifierComponent} from './notifier.component';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
-
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -12,9 +12,11 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
   imports: [
     CommonModule,
     FontAwesomeModule,
+    BrowserAnimationsModule,
   ],
   exports: [
     NotifierComponent,
   ],
 })
-export class NotifierModule { }
+export class NotifierModule {
+}

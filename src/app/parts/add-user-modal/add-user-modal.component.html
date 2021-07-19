@@ -1,0 +1,21 @@
+<div class="fixed top-0 bottom-0 p-48 w-full bg-gray-600 bg-opacity-50 z-10">
+  <app-modal-wrapper (primaryAction)="addUser()" [header]="'Add User'" (secondaryAction)="closeModal()"
+                     [primaryText]="'Add User'" [headerClasses]="'text-yellow-400'"
+                     [classes]="'bg-yellow-400 hover:bg-yellow-500 border-yellow-400 hover:border-yellow-500'">
+    <form>
+      <div>
+        <input type="text" placeholder="HI">
+      </div>
+      <div>
+        <input type="text" placeholder="HI">
+      </div>
+      <div>
+        <input type="text" placeholder="HI">
+      </div>
+      <div class="">
+        <input type="text" placeholder="HI">
+      </div>
+    </form>
+
+  </app-modal-wrapper>
+</div>

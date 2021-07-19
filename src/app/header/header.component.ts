@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
 import {ApiUrlHelperService} from '../services/api-url-helper.service';
 import {Router} from '@angular/router';
 
@@ -7,11 +7,12 @@ import {Router} from '@angular/router';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent  {
+export class HeaderComponent {
   public dashboardURL: string = '';
   public todoURL: string = '';
   public userURL: string = '';
   public landingURL: string = '';
+
   constructor(
     private router: Router,
   ) {

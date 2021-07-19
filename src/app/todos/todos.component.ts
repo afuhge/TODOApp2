@@ -1,11 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {
-  faCalendarAlt,
-  faCheckCircle,
-  faCheckSquare, faPlus,
-  faUsers,
-  IconDefinition
-} from '@fortawesome/free-solid-svg-icons';
+import {Component} from '@angular/core';
+import {faCalendarAlt, faCheckSquare, faPlus, faUsers, IconDefinition} from '@fortawesome/free-solid-svg-icons';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {faSquare} from '@fortawesome/free-regular-svg-icons';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -19,10 +13,12 @@ class TODO {
   public assignees: Assignee[];
   public done: boolean;
 }
+
 class Assignee {
   public name: string;
   public color: string;
 }
+
 @Component({
   selector: 'app-todos',
   templateUrl: './todos.component.html',
@@ -32,7 +28,7 @@ export class TodosComponent {
   public check: IconDefinition = faSquare;
   public checked: IconDefinition = faCheckSquare;
   public assignees: IconDefinition = faUsers;
-  public date: IconDefinition  = faCalendarAlt;
+  public date: IconDefinition = faCalendarAlt;
   public todo: IconDefinition = faCheckSquare;
   public plusIcon: IconDefinition = faPlus;
   public todos: TODO[] = [];
@@ -113,7 +109,7 @@ export class TodosComponent {
   }
 
   public markAsDone(todo: TODO): void {
-    todo.done = ! todo.done;
+    todo.done = !todo.done;
   }
 
   public onSubmit(): void {

@@ -12,7 +12,8 @@ import {FooterModule} from './footer/footer.module';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {LandingPageModule} from './landing-page/landing-page.module';
 import {NotifierModule} from './parts/notifier/notifier.module';
-import { NotifierComponent } from './parts/notifier/notifier.component';
+import {ModalWrapperModule} from './libs/modal-wrapper/modal-wrapper.module';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
 
 const routes: Routes = [
@@ -63,6 +64,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     DragDropModule,
     NotifierModule,
+    ModalWrapperModule,
   ],
   bootstrap: [AppComponent]
 })

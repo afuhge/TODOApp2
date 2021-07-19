@@ -1,11 +1,12 @@
-import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable, of} from 'rxjs';
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
 
 export class Notification {
   public title: string;
   public message: string;
   public isSuccess: boolean;
 }
+
 @Injectable({
   providedIn: 'root'
 })

@@ -1,0 +1,19 @@
+<div class="max-w-xl bg-white rounded-xl shadow-md mx-auto">
+  <div class="space-y-2 px-8 py-4">
+    <div *ngIf="header.length" class="text-2xl font-semibold mb-2"
+         [ngClass]="headerClasses? headerClasses: 'text-cyan-500'"> {{ header}}</div>
+    <ng-content></ng-content>
+  </div>
+  <div class="bg-gray-50 rounded-b-xl">
+    <div class="flex justify-end space-x-2 mt-2 px-8 py-4">
+      <div *ngIf="secondaryAction">
+        <button (click)="secondaryAction.emit()"
+                class="focus:outline-none rounded-md p-2 bg-white hover:bg-gray-200 border-2 border-gray-100">{{secondaryText || 'Cancel' }}</button>
+      </div>
+      <div>
+        <button (click)="primaryAction.emit()" class="focus:outline-none rounded-md p-2 border-2 text-white"
+                [ngClass]="classes?classes:'bg-cyan-500 hover:bg-cyan-600 border-cyan-500 hover:border-cyan-600 '">{{primaryText || 'Save' }}</button>
+      </div>
+    </div>
+  </div>
+</div>

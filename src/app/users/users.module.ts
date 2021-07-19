@@ -1,13 +1,14 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { UsersComponent } from './users.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {UsersComponent} from './users.component';
 import {RouterModule} from '@angular/router';
-import {DashboardComponent} from '../dashboard/dashboard.component';
 import {HeaderModule} from '../header/header.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {FooterModule} from '../footer/footer.module';
 import {UserService} from '../services/user.service';
-
+import {AddUserModalModule} from '../parts/add-user-modal/add-user-modal.module';
+import {EditUserModalModule} from '../parts/edit-user-modal/edit-user-modal.module';
+import {DeleteUserModalModule} from '../parts/delete-user-modal/delete-user-modal.module';
 
 
 @NgModule({
@@ -25,6 +26,9 @@ import {UserService} from '../services/user.service';
     HeaderModule,
     FontAwesomeModule,
     FooterModule,
+    AddUserModalModule,
+    EditUserModalModule,
+    DeleteUserModalModule,
   ],
   exports: [
     UsersComponent,
@@ -33,4 +37,5 @@ import {UserService} from '../services/user.service';
     UserService,
   ]
 })
-export class UsersModule { }
+export class UsersModule {
+}

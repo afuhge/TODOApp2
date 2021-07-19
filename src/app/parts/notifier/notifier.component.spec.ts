@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { NotifierComponent } from './notifier.component';
+import {NotifierComponent} from './notifier.component';
 
 describe('NotifierComponent', () => {
   let component: NotifierComponent;
@@ -8,9 +8,9 @@ describe('NotifierComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ NotifierComponent ]
+      declarations: [NotifierComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

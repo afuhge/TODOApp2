@@ -12,40 +12,40 @@
       <div class="text-4xl text-cyan-500 mb-10">
         Wrong URL Parameters
       </div>
-  <div class="space-y-2 divide-y">
-    <div>
-      <div class="font-semibold text-gray-600">
-        URL
+      <div class="space-y-2 divide-y">
+        <div>
+          <div class="font-semibold text-gray-600">
+            URL
+          </div>
+          <div>
+            {{ deviceInfo.href }}
+          </div>
+        </div>
+        <div>
+          <div class="font-semibold text-gray-600">
+            Browser
+          </div>
+          <div>
+            {{ deviceInfo.browser }}
+          </div>
+        </div>
+        <div>
+          <div class="font-semibold text-gray-600">
+            Browser-Language
+          </div>
+          <div>
+            {{ deviceInfo.language}}
+          </div>
+        </div>
+        <div>
+          <div class="font-semibold text-gray-600">
+            Dimensions
+          </div>
+          <div>
+            {{ deviceInfo.dimensions.width}}x{{deviceInfo.dimensions.height}}
+          </div>
+        </div>
       </div>
-      <div>
-        {{ deviceInfo.href }}
-      </div>
-    </div>
-    <div>
-      <div class="font-semibold text-gray-600">
-        Browser
-      </div>
-      <div>
-        {{ deviceInfo.browser }}
-      </div>
-    </div>
-    <div>
-      <div class="font-semibold text-gray-600">
-        Browser-Language
-      </div>
-      <div>
-        {{ deviceInfo.language}}
-      </div>
-    </div>
-    <div>
-      <div class="font-semibold text-gray-600">
-        Dimensions
-      </div>
-      <div>
-        {{ deviceInfo.dimensions.width}}x{{deviceInfo.dimensions.height}}
-      </div>
-    </div>
-  </div>
     </div>
   </div>
 </div>

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import {HttpHeaders, HttpClient} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
 import {User} from '../users/users.component';
 
@@ -9,9 +9,11 @@ export class UserService {
   private usersUrl = 'api/users';  // URL to web api
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
-  constructor() { }
+
+  constructor() {
+  }
 
   public getUsers(): Observable<User[]> {
     const users: User[] = [

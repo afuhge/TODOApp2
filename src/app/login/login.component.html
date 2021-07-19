@@ -16,10 +16,11 @@
       <form [formGroup]="form" (ngSubmit)="signIn()">
         <div class="space-y-8">
           <div class="textbox">
-            <input type="text" name="" value=""  placeholder=" " formControlName="username" id="loginUser">
+            <input type="text" name="" value="" placeholder=" " formControlName="username" id="loginUser">
             <label>Username</label>
           </div>
-          <span [class.invisible]="!(this.form.get('username').invalid && (this.form.get('username').dirty || this.form.get('username').touched))"
+          <span
+            [class.invisible]="!(this.form.get('username').invalid && (this.form.get('username').dirty || this.form.get('username').touched))"
             class="text-red-500 text-xs">Username is invalid</span>
           <div class="textbox">
             <input type="text" name="" placeholder=" " formControlName="password" value="">

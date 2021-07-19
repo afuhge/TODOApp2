@@ -11,17 +11,18 @@ import {RouterModule} from '@angular/router';
   ],
   imports: [
     CommonModule,
-      HeaderModule,
-      RouterModule.forChild([
+    HeaderModule,
+    RouterModule.forChild([
         {
           path: '',
           component: LandingPageComponent,
         }
-        ]
-      ),
-    ],
+      ]
+    ),
+  ],
   exports: [
     LandingPageComponent,
   ]
 })
-export class LandingPageModule { }
+export class LandingPageModule {
+}

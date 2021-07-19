@@ -1,6 +1,6 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { ApiUrlHelperService } from './api-url-helper.service';
+import {ApiUrlHelperService} from './api-url-helper.service';
 
 describe('ApiUrlHelperService', () => {
   let service: ApiUrlHelperService;

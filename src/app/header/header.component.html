@@ -18,22 +18,27 @@
         </div>
       </a>
       <div>
-        <a [routerLink]="dashboardURL" [routerLinkActive]="'text-cyan-600'" class="font-medium text-gray-500 hover:text-cyan-600 cursor-pointer">
+        <a [routerLink]="dashboardURL" [routerLinkActive]="'text-cyan-600'"
+           class="font-medium text-gray-500 hover:text-cyan-600 cursor-pointer">
           Dashboard
         </a>
       </div>
       <div>
-        <a [routerLink]="todoURL" [routerLinkActive]="'text-rose-600'" class="font-medium text-gray-500 hover:text-rose-600 cursor-pointer">
+        <a [routerLink]="todoURL" [routerLinkActive]="'text-rose-600'"
+           class="font-medium text-gray-500 hover:text-rose-600 cursor-pointer">
           TODOs
         </a>
       </div>
       <div>
-        <a [routerLink]="userURL" [routerLinkActive]="'text-yellow-500'" class="font-medium text-gray-500 hover:text-yellow-500 cursor-pointer">
+        <a [routerLink]="userURL" [routerLinkActive]="'text-yellow-500'"
+           class="font-medium text-gray-500 hover:text-yellow-500 cursor-pointer">
           User Management
         </a>
       </div>
       <div>
-        <a class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base text-white bg-cyan-500 hover:bg-cyan-600 cursor-pointer" (click)="goToLogin()">
+        <a
+          class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base text-white bg-cyan-500 hover:bg-cyan-600 cursor-pointer"
+          (click)="goToLogin()">
           Logout
         </a>
       </div>

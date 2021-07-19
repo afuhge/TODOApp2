@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiUrlHelperService {
 
-  constructor() { }
+  constructor() {
+  }
 
-  public static getBaseUrl(id: string): string{
+  public static getBaseUrl(id: string): string {
     return `/${id}`;
   }
 
