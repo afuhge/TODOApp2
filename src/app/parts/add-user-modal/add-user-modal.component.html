@@ -1,21 +1,66 @@
-<div class="fixed top-0 bottom-0 p-48 w-full bg-gray-600 bg-opacity-50 z-10">
-  <app-modal-wrapper (primaryAction)="addUser()" [header]="'Add User'" (secondaryAction)="closeModal()"
-                     [primaryText]="'Add User'" [headerClasses]="'text-yellow-400'"
-                     [classes]="'bg-yellow-400 hover:bg-yellow-500 border-yellow-400 hover:border-yellow-500'">
-    <form>
-      <div>
-        <input type="text" placeholder="HI">
-      </div>
-      <div>
-        <input type="text" placeholder="HI">
-      </div>
-      <div>
-        <input type="text" placeholder="HI">
-      </div>
-      <div class="">
-        <input type="text" placeholder="HI">
-      </div>
+<app-modal-wrapper (primaryAction)="addUser()" [header]="'Add User'" (secondaryAction)="closeModal()"
+                   [primaryText]="'Add User'" [headerClasses]="'text-cyan-400'"
+                   [classes]="'bg-cyan-400 hover:bg-cyan-500 border-cyan-400 hover:border-cyan-500'">
+    <form [formGroup]="form"  (keyup.enter)="addUser()" class="space-y-2">
+        <div class="relative">
+            <input type="text" name="firstName" id="firstName" placeholder="first name"
+                   formControlName="firstName"
+            class="peer h-10 w-full  placeholder-transparent border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-cyan-500">
+
+           <label for="firstName" class="absolute left-0 -top-3.5 text-gray-500 transition-all
+                    peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500  peer-placeholder-shown:top-2">First name</label>
+            <span
+                    [class.invisible]="!(this.form.get('firstName').invalid && (this.form.get('firstName').dirty || this.form.get('firstName').touched))"
+                    class="text-red-500 text-xs">First name is invalid</span>
+
+        </div>
+        <div class="relative">
+            <input type="text" name="lastName" id="lastName" placeholder="last name"
+                   formControlName="lastName"
+                   class="peer h-10 w-full placeholder-transparent border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-cyan-500">
+
+            <label for="firstName" class="absolute left-0 -top-3.5 text-gray-500 transition-all
+                    peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500  peer-placeholder-shown:top-2">Last name</label>
+            <span
+                    [class.invisible]="!(this.form.get('lastName').invalid && (this.form.get('lastName').dirty || this.form.get('lastName').touched))"
+                    class="text-red-500 text-xs">Last name is invalid</span>
+
+        </div>
+        <div class="relative">
+            <input type="text" name="eMail" id="email" placeholder="email"
+                   formControlName="eMail"
+                   class="peer h-10 w-full  placeholder-transparent border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-cyan-500">
+
+            <label for="firstName" class="absolute left-0 -top-3.5 text-gray-500 transition-all
+                    peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500  peer-placeholder-shown:top-2">eMail</label>
+            <span
+                    [class.invisible]="!(this.form.get('eMail').invalid && (this.form.get('eMail').dirty || this.form.get('eMail').touched))"
+                    class="text-red-500 text-xs">eMail is invalid</span>
+
+        </div>
+        <div class="relative">
+            <input type="text" name="userName" id="userName" placeholder="userName"
+                   formControlName="userName"
+                   class="peer h-10 w-full  placeholder-transparent border-b-2 border-gray-300 text-gray-900 focus:outline-none focus:border-cyan-500">
+
+            <label for="userName" class="absolute left-0 -top-3.5 text-gray-500 transition-all
+                    peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500  peer-placeholder-shown:top-2">userName</label>
+            <span
+                    [class.invisible]="!(this.form.get('userName').invalid && (this.form.get('userName').dirty || this.form.get('userName').touched))"
+                    class="text-red-500 text-xs">userName is invalid</span>
+
+        </div>
+
+        <div class="relative">
+            <input type="color" name="color" id="color" placeholder="color"
+                   formControlName="color"
+                   class="peer h-8 w-1/2 placeholder-transparent text-gray-900 focus:outline-none focus:border-cyan-500">
+
+            <label for="color" class="absolute left-0 -top-4 text-gray-500 transition-all
+                    peer-placeholder-shown:text-base peer-placeholder-shown:text-gray-500  peer-placeholder-shown:top-2">color</label>
+
+        </div>
     </form>
 
-  </app-modal-wrapper>
-</div>
+</app-modal-wrapper>
+
