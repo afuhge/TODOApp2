@@ -9,7 +9,10 @@ import { FormInputComponent } from './form-input.component';
     FormInputComponent
   ],
   imports: [
-    CommonModule
-  ]
+    CommonModule,
+  ],
+  exports: [
+    FormInputComponent,
+  ],
 })
 export class FormInputModule { }

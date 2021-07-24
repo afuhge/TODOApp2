@@ -1,0 +1,41 @@
+.textbox {
+    border-bottom: 1px solid #ddd;
+    position: relative;
+
+}
+
+
+.textbox input:focus {
+    border-bottom: 1px solid #06b6d4;
+}
+
+.textbox input {
+    outline: none;
+    border: none;
+    background: none;
+    width: 100%;
+    height: 40px;
+    font-size: 16px;
+    padding: 0 5px;
+}
+
+.disabled {
+    opacity: 0.5;
+}
+
+.textbox label {
+    color: gray;
+    position: absolute;
+    left: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
+    transition: .3s ease-out;
+}
+
+.textbox input:focus ~ label,
+.textbox input:not(:placeholder-shown) ~ label {
+    top: -3px !important;
+    color: #06b6d4;
+}
