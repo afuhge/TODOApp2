@@ -7,51 +7,60 @@ import {User} from '../users/users.component';
 export class UserService {
 
   private usersUrl = 'api/users';  // URL to web api
-
+  public allUsers: User[] = [];
   httpOptions = {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
   constructor() {
-  }
-
-  public getUsers(): Observable<User[]> {
     const users: User[] = [
       {
         firstName: 'Annika',
         lastName: 'Fuh',
         userName: 'annie',
         password: '12345',
-        color: '#ddd',
-        email: 'a.fuh@blah.de'
+        color: '#dddddd',
+        eMail: 'a.fuh@blah.de'
       },
       {
         firstName: 'Anni',
         lastName: 'Fu',
         userName: 'annie',
         password: '12345',
-        color: 'red',
-        email: 'a.fuh@blah.de'
+        color: '#d11001',
+        eMail: 'a.fuh@blah.de'
       },
       {
         firstName: 'Peter',
         lastName: 'Parker',
         userName: 'annie',
         password: '12345',
-        color: '#000',
-        email: 'a.fuh@blah.de'
+        color: '#06b6d4',
+        eMail: 'a.fuh@blah.de'
       },
       {
         firstName: 'Alex',
         lastName: 'Ba',
         userName: 'Alex',
         password: '12345',
-        color: 'green',
-        email: 'a.fuh@blah.de'
+        color: '#404040',
+        eMail: 'a.fuh@blah.de'
       },
 
     ];
-
-    return of(users);
+    this.allUsers = users;
   }
+
+  public getUsers(): Observable<User[]> {
+
+    return of(this.allUsers);
+  }
+
+  public addUser(user: User): void {
+      this.allUsers.push(user);
+  }
+
+  public editUser(user: User): void {}
+
+  public deleteUser(user: User): void {}
 }

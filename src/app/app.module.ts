@@ -14,6 +14,7 @@ import {LandingPageModule} from './landing-page/landing-page.module';
 import {NotifierModule} from './parts/notifier/notifier.module';
 import {ModalWrapperModule} from './libs/modal-wrapper/modal-wrapper.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { UserService } from './services/user.service';
 
 
 const routes: Routes = [
@@ -66,7 +67,8 @@ const routes: Routes = [
     NotifierModule,
     ModalWrapperModule,
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  providers: [ UserService ],
 })
 export class AppModule {
 }

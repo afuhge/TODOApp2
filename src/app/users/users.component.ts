@@ -13,7 +13,7 @@ import {DeleteUserModalComponent} from '../parts/delete-user-modal/delete-user-m
 export class User {
   public firstName: string;
   public lastName: string;
-  public email: string;
+  public eMail: string;
   public userName: string;
   public password: string;
   public color: string;
@@ -25,7 +25,7 @@ export class User {
   styleUrls: ['./users.component.css']
 })
 export class UsersComponent {
-  users: User[] = [];
+  public users: User[] = [];
   public showAddModal: boolean = true;
 
   public editIcon: IconDefinition = faPencilAlt;
@@ -50,13 +50,15 @@ export class UsersComponent {
 
 
   editUser(user: User): void {
-    this.modalService.showModal(EditUserModalComponent);
+    const modal = this.modalService.showModal(EditUserModalComponent);
+    modal.instance.user = user;
     // this.notifierService.success('User editted. Yay!');
 
   }
 
   deleteUser(user: User): void {
-    this.modalService.showModal(DeleteUserModalComponent);
+   const modal = this.modalService.showModal(DeleteUserModalComponent);
+   modal.instance.user = user;
     // this.notifierService.error('You failed.sorry!');
   }
 

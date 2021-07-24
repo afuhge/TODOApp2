@@ -17,7 +17,7 @@ export class ModalService {
               private appRef: ApplicationRef,
               private injector: Injector) { }
 
-  private appendDialogComponentToBody(component: any): void {
+  private appendDialogComponentToBody(component: any): ComponentRef<any> {
     const componentFactory =
       this.componentFactoryResolver.resolveComponentFactory(component);
     const componentRef = componentFactory.create(this.injector);
@@ -27,6 +27,7 @@ export class ModalService {
     document.body.appendChild(domElem);
 
     this.componentRef = componentRef;
+    return componentRef;
   }
 
   private removeDialogComponentFromBody(): void {
@@ -34,8 +35,8 @@ export class ModalService {
     this.componentRef.destroy();
   }
 
-  public showModal(component: any): void {
-    this.appendDialogComponentToBody(component);
+  public showModal(component: any): ComponentRef<any> {
+    return this.appendDialogComponentToBody(component);
   }
 
   public closeModal(): void {

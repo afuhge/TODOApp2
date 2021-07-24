@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-form-input',
@@ -7,7 +8,8 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class FormInputComponent {
 
-  @Input() label : string;
+  @Input() label: string;
   @Input() type: string;
+  @Input() appFormControl: FormControl;
 
 }

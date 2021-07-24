@@ -2,23 +2,30 @@
                    [primaryText]="'Add User'" [headerClasses]="'text-cyan-400'"
                    [classes]="'bg-cyan-400 hover:bg-cyan-500 border-cyan-400 hover:border-cyan-500'">
     <form [formGroup]="form" (keyup.enter)="addUser()" class="space-y-4">
-        <div>
-            <app-form-input [type]="'text'" [label]="'First name'"></app-form-input>
-        </div>
-        <div>
-            <app-form-input [type]="'text'" [label]="'Last name'"></app-form-input>
-        </div>
-        <div>
-            <app-form-input [type]="'email'" [label]="'E-Mail'"></app-form-input>
-        </div>
-        <div>
-            <app-form-input [type]="'text'" [label]="'Username'"></app-form-input>
+        <div class="textbox">
+            <input type="text" name="" value="" placeholder=" " id="firstName" formControlName="firstName" >
+            <label for="firstName">First name</label>
         </div>
         <div class="textbox">
-            <input type="color" name="" value="" placeholder=" " id="color">
+            <input type="text" name="" value="" placeholder=" " id="lastName" formControlName="lastName" >
+            <label for="lastName">Last name</label>
+        </div>
+        <div class="textbox">
+            <input type="email" name="" value="" placeholder=" " id="eMail" formControlName="eMail" >
+            <label for="eMail">E-Mail</label>
+        </div>
+        <div class="textbox">
+            <input type="text" name="" value="" placeholder=" " id="userName" formControlName="userName" >
+            <label for="userName">Username</label>
+        </div>
+        <div class="textbox">
+            <input type="password" name="" value="" placeholder=" " id="password" formControlName="password" >
+            <label for="password">Password</label>
+        </div>
+        <div class="textbox-color">
+            <input type="color" name="" value="" placeholder=" " id="color" formControlName="color" >
             <label for="color">Color</label>
         </div>
-
     </form>
 
 </app-modal-wrapper>
