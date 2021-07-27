@@ -1,23 +1,15 @@
 import {Component} from '@angular/core';
-import {faCalendarAlt, faCheckSquare, faPlus, faUsers, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import {faCalendarAlt, faCheckSquare, faInfoCircle, faPlus, faUsers, IconDefinition} from '@fortawesome/free-solid-svg-icons';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {faSquare} from '@fortawesome/free-regular-svg-icons';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../services/user.service';
-import {User} from '../users/users.component';
+import {UserService} from '../../services/user.service';
+
 import {Title} from '@angular/platform-browser';
+import {TODO} from '../../models/todo';
+import {User} from '../../models/user';
 
-class TODO {
-  public name: string;
-  public date: string;
-  public assignees: Assignee[];
-  public done: boolean;
-}
 
-class Assignee {
-  public name: string;
-  public color: string;
-}
 
 @Component({
   selector: 'app-todos',
@@ -32,6 +24,8 @@ export class TodosComponent {
   public todo: IconDefinition = faCheckSquare;
   public plusIcon: IconDefinition = faPlus;
   public todos: TODO[] = [];
+  public isLoading: boolean = true;
+  public info: IconDefinition = faInfoCircle;
 
   public form: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
@@ -52,50 +46,42 @@ export class TodosComponent {
     this.todos = [
       {
         name: 'Clean dishes',
-        date: '07.07.2021',
-        done: false,
+        deadline: '11-02-2012',
+        creator: 1,
         assignees: [
-          {
-            name: 'Annie',
-            color: '#123456'
-          },
-          {
-            name: 'Alex',
-            color: '#ddd',
-          }
-        ]
+          1,
+          2,
+          3,
+          4,
+        ],
+        isDone: false,
       },
       {
-        name: 'Clean bathroom',
-        date: '07.07.2021',
-        done: false,
+        name: 'Clean kitchen',
+        deadline: '11-02-2012',
+        creator: 1,
         assignees: [
-          {
-            name: 'Annie',
-            color: '#172ab7'
-          },
-          {
-            name: 'Mike',
-            color: '#555',
-          }
-        ]
+          1,
+          2,
+          3,
+          4,
+        ],
+        isDone: false,
       },
       {
-        name: 'Clean room',
-        date: '07.07.2021',
-        done: false,
+        name: 'Cook',
+        deadline: '11-02-2012',
+        creator: 1,
         assignees: [
-          {
-            name: 'Anton',
-            color: '#123456'
-          },
-          {
-            name: 'Hannah',
-            color: '#555',
-          }
-        ]
-      }
+          1,
+          2,
+          3,
+          4,
+        ],
+        isDone: false,
+      },
     ];
+    this.isLoading = false;
   }
 
   public toggleDropDown($event: MouseEvent): void {
@@ -109,30 +95,27 @@ export class TodosComponent {
   }
 
   public markAsDone(todo: TODO): void {
-    todo.done = !todo.done;
+    todo.isDone = !todo.isDone;
   }
 
   public onSubmit(): void {
     console.log(this.form.get('assignees').value);
     this.todos.push({
       name: this.form.get('name').value,
-      done: false,
+      isDone: false,
       assignees: this.setAssignees(this.form.get('assignees').value),
-      date: this.form.get('date').value,
+      deadline: this.form.get('date').value,
+      creator: 1,
     });
 
     this.form.reset();
     this.isHidden = true;
   }
 
-  private setAssignees(users: User[]): Assignee[] {
-    const assignees: Assignee[] = [];
+  private setAssignees(users: User[]): number[] {
+    const assignees: number[] = [];
     users.forEach((user: User) => {
-      const newAssignee: Assignee = {
-        name: user.firstName + ' ' + user.lastName,
-        color: user.color,
-      };
-      assignees.push(newAssignee);
+      assignees.push(user.id);
     });
 
     console.log(assignees);

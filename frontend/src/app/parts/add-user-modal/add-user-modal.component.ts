@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {ModalService} from '../../services/modal.service';
-import { animate, state, style, transition, trigger } from '@angular/animations';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
-import { User } from '../../users/users.component';
+import {User} from '../../models/user';
+
 
 export class UserData {
   public firstName: string;

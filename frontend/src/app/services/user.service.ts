@@ -1,58 +1,26 @@
 import {Injectable} from '@angular/core';
-import {HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable, of} from 'rxjs';
-import {User} from '../users/users.component';
+import {User} from '../models/user';
 
 @Injectable()
 export class UserService {
 
-  private usersUrl = 'api/users';  // URL to web api
+  private usersUrl = 'http://localhost:3000/users';  // URL to web api
   public allUsers: User[] = [];
-  httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
-  };
 
-  constructor() {
-    const users: User[] = [
-      {
-        firstName: 'Annika',
-        lastName: 'Fuh',
-        userName: 'annie',
-        password: '12345',
-        color: '#dddddd',
-        eMail: 'a.fuh@blah.de'
-      },
-      {
-        firstName: 'Anni',
-        lastName: 'Fu',
-        userName: 'annie',
-        password: '12345',
-        color: '#d11001',
-        eMail: 'a.fuh@blah.de'
-      },
-      {
-        firstName: 'Peter',
-        lastName: 'Parker',
-        userName: 'annie',
-        password: '12345',
-        color: '#06b6d4',
-        eMail: 'a.fuh@blah.de'
-      },
-      {
-        firstName: 'Alex',
-        lastName: 'Ba',
-        userName: 'Alex',
-        password: '12345',
-        color: '#404040',
-        eMail: 'a.fuh@blah.de'
-      },
-
-    ];
-    this.allUsers = users;
+  constructor(
+    private http: HttpClient,
+  ) {
   }
 
   public getUsers(): Observable<User[]> {
-
+    const users = this.http.get<User[]>(this.usersUrl);
+    users.subscribe((u: User[]) => {
+      console.log('hi');
+      this.allUsers = u;
+    });
+    console.log(this.allUsers);
     return of(this.allUsers);
   }
 

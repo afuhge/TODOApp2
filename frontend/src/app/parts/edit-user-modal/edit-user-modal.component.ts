@@ -3,7 +3,8 @@ import {ModalService} from '../../services/modal.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserData } from '../add-user-modal/add-user-modal.component';
 import { UserService } from '../../services/user.service';
-import { User } from '../../users/users.component';
+import {User} from '../../models/user';
+
 
 @Component({
   selector: 'app-edit-user-modal',

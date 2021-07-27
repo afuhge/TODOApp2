@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {ApiUrlHelperService} from '../services/api-url-helper.service';
+import {ApiUrlHelperService} from '../../services/api-url-helper.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Title} from '@angular/platform-browser';
 

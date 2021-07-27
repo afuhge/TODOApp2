@@ -16,7 +16,8 @@
       </div>
 
       <!-- component -->
-      <div>
+      <ng-container *ngIf="!isLoading; else loading">
+        <ng-container *ngIf="todos.length; else noTodos">
         <div class="border-b-2  mb-4 border-gray-300 p-2 font-semibold  grid grid-cols-12 items-center">
           <div class=""></div>
           <div class="col-span-5 flex space-x-2">
@@ -39,23 +40,23 @@
 
         <div class="space-y-2" cdkDropList [cdkDropListData]="todos" (cdkDropListDropped)="drop($event)">
           <div class="border-2 border-gray-100 p-2 cursor-move  grid grid-cols-12 items-center rounded-xl"
-               *ngFor="let todo of todos" cdkDrag [class.opacity-40]="todo.done">
+               *ngFor="let todo of todos" cdkDrag [class.opacity-40]="todo.isDone">
             <div class="bg-gray-50 rounded-xl" style="height:52px;" *cdkDragPlaceholder></div>
             <div (click)="markAsDone(todo)">
-              <fa-icon [icon]="todo.done? checked: check"
+              <fa-icon [icon]="todo.isDone? checked: check"
                        class="text-gray-500 hover:text-rose-400 cursor-pointer text-xl"></fa-icon>
             </div>
             <div class="text-xl col-span-5 truncate">
               {{todo.name || '-/-' }}
             </div>
             <div class="col-span-2">
-              {{ (todo.date | date: 'mediumDate') || '-/-'}}
+              {{ (todo.deadline | date: 'mediumDate') || '-/-'}}
             </div>
             <div class="flex m-0.5 col-span-4 flex-wrap">
               <ng-container *ngIf="todo.assignees.length; else noAssignees">
                 <div class="p-0.5" *ngFor="let assignee of todo.assignees">
-                <span class="py-px px-4 w-full rounded-xl text-white"
-                      [style.background-color]="assignee.color">{{assignee.name}}</span>
+                <!--<span class="py-px px-4 w-full rounded-xl text-white"
+                      [style.background-color]="assignee.color">{{assignee.name}}</span>-->
                 </div>
               </ng-container>
               <ng-template #noAssignees>
@@ -89,7 +90,27 @@
             </div>
           </form>
         </div>
-      </div>
+        </ng-container>
+        <ng-template #noTodos>
+          <div class="mt-4">
+            <div class="px-6 py-4 rounded-lg border-2 border-cyan-500 border-l-8">
+              <div class="flex items-center space-x-4">
+                <div>
+                  <fa-icon [icon]="info" class="text-cyan-500 text-xl"></fa-icon>
+                </div>
+                <div class="text-gray-400">
+                  No Todos available.
+                </div>
+              </div>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+      <ng-template #loading>
+        <div class="mt-4">
+          <div *ngFor="let i of [1,2,3]" class="bg-gray-100 animate-pulse p-8 my-2 rounded-lg"></div>
+        </div>
+      </ng-template>
     </div>
   </div>
 </div>

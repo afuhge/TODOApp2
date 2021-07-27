@@ -35,13 +35,36 @@
           User Management
         </a>
       </div>
-      <div>
-        <a
-          class="ml-8 whitespace-nowrap inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base text-white bg-cyan-500 hover:bg-cyan-600 cursor-pointer"
-          (click)="goToLogin()">
-          Logout
-        </a>
+      <!-- This example requires Tailwind CSS v2.0+ -->
+      <div class="relative inline-block text-left">
+        <div>
+          <button type="button" class="focus:outline-none inline-flex justify-center " id="menu-button"  aria-expanded="true" aria-haspopup="true">
+           <div class="flex space-x-2 items-center">
+             <div class="rounded-full w-full h-full text-white p-3 flex justify-center font-semibold" [style.background-color]="intToRGB('Annika Fuhge')">
+               A F
+             </div>
+             <div class="hover:text-cyan-600">
+               <button (click)="toggleDropDown()">
+                 <fa-icon [icon]="chevronDown"></fa-icon>
+               </button>
+             </div>
+           </div>
+
+          </button>
+        </div>
+
+        <div [hidden]="hidden" class="origin-top-right absolute right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+          <div class="py-1" role="none">
+            <a
+              class="text-cyan-500 hover:text-cyan-600 cursor-pointer block w-full text-left px-4 py-2"
+              (click)="goToLogin()" role="menuitem" tabindex="-1" id="menu-item-1">
+              <fa-icon [icon]="logout"></fa-icon>
+              Logout
+            </a>
+          </div>
+        </div>
       </div>
+
     </div>
   </div>
 </div>

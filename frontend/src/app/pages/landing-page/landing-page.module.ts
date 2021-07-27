@@ -1,7 +1,7 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {LandingPageComponent} from './landing-page.component';
-import {HeaderModule} from '../header/header.module';
+import {HeaderModule} from '../../parts/header/header.module';
 import {RouterModule} from '@angular/router';
 
 

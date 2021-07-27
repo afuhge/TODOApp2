@@ -1,7 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import {ModalService} from '../../services/modal.service';
-import { User } from '../../users/users.component';
 import { UserService } from '../../services/user.service';
+import {User} from '../../models/user';
+
 
 @Component({
   selector: 'app-delete-user-modal',

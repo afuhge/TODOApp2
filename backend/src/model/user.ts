@@ -8,6 +8,7 @@ export class User {
   public eMail: string = '';
   public color: string = '';
   public password: string = '';
+  public isAdmin: boolean = false;
 
   public todos: number[] = [];
 

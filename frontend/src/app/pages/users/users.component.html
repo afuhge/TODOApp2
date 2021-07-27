@@ -35,7 +35,8 @@
 
             <!-- component -->
 
-
+<ng-container *ngIf="!isLoading; else loading">
+  <ng-container *ngIf="users.length; else noUsers">
             <div class="rounded my-6">
                 <table class="table-fixed">
                     <thead class="border-b-2 pb-2 border-gray-200">
@@ -93,6 +94,27 @@
                     </tbody>
                 </table>
             </div>
+  </ng-container>
+  <ng-template #noUsers>
+    <div class="mt-4">
+        <div class="px-6 py-4 rounded-lg border-2 border-cyan-500 border-l-8">
+          <div class="flex items-center space-x-4">
+            <div>
+              <fa-icon [icon]="info" class="text-cyan-500 text-xl"></fa-icon>
+            </div>
+            <div class="text-gray-400">
+              No users available.
+            </div>
+          </div>
+        </div>
+    </div>
+  </ng-template>
+</ng-container>
+          <ng-template #loading>
+            <div class="mt-4">
+              <div *ngFor="let i of [1,2,3]" class="bg-gray-100 animate-pulse p-8 my-2 rounded-lg"></div>
+            </div>
+          </ng-template>
         </div>
     </div>
 </div>
