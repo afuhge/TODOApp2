@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import {User} from '../models/user';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TODO} from '../models/todo';
-import {Observable, of} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -10,28 +10,32 @@ import {Observable, of} from 'rxjs';
 export class TodosService {
 
   private todosUrl = 'http://localhost:3000/todos';  // URL to web api
-  public allTodos: TODO[] = [];
-
+  private httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+  };
   constructor(
     private http: HttpClient,
   ) {
   }
 
-  public getTodos(): Observable<TODO[]> {
-    const todos = this.http.get<TODO[]>(this.todosUrl);
-    todos.subscribe((u) => {
-      console.log('hi');
-      this.allTodos = u;
-    });
-    console.log(this.allTodos);
-    return of(this.allTodos);
+  public loadTodo(): Observable<TODO[]> {
+    return this.http.get<TODO[]>(this.todosUrl);
+
   }
 
-  public addTodo(todo: TODO): void {
-    this.allTodos.push(todo);
+  public addTodo(todo: TODO): Observable<TODO> {
+    return this.http.post<TODO>(this.todosUrl, todo, this.httpOptions);
   }
 
-  public editTodo(todo: TODO): void {}
+  public editTodo(todo: TODO): Observable<TODO> {
+    const url = `${this.todosUrl}/${todo.id}`;
 
-  public deleteTodo(todo: TODO): void {}
+    return this.http.put<TODO>(url, todo, this.httpOptions);
+  }
+
+  public deleteTodo(todo: TODO): Observable<TODO> {
+    const url = `${this.todosUrl}/${todo.id}`;
+
+    return this.http.delete<TODO>(url, this.httpOptions);
+  }
 }

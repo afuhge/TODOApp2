@@ -16,8 +16,8 @@
       </div>
 
       <!-- component -->
-      <ng-container *ngIf="!isLoading; else loading">
-        <ng-container *ngIf="todos.length; else noTodos">
+      <ng-container *ngIf="users$ | async; else loading">
+        <ng-container *ngIf="todos?.length; else noTodos">
         <div class="border-b-2  mb-4 border-gray-300 p-2 font-semibold  grid grid-cols-12 items-center">
           <div class=""></div>
           <div class="col-span-5 flex space-x-2">

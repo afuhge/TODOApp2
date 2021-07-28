@@ -13,10 +13,10 @@ const user1: User = {
   color: '#dddddd',
   eMail: 'a.fuh@blah.de',
   isAdmin: true,
-  todos: [2],
+  todos: [5,6],
 };
 const user2: User = {
-  id: 3,
+  id: 2,
   firstName: 'Anni',
   lastName: 'Fu',
   userName: 'annie',
@@ -24,11 +24,11 @@ const user2: User = {
   color: '#d11001',
   eMail: 'a.fuh@blah.de',
   isAdmin: false,
-  todos: [1],
+  todos: [5],
 };
 
 const user3: User = {
-  id: 4,
+  id: 3,
   firstName: 'Peter',
   lastName: 'Parker',
   userName: 'annie',
@@ -36,11 +36,11 @@ const user3: User = {
   color: '#06b6d4',
   eMail: 'a.fuh@blah.de',
   isAdmin: false,
-  todos: [1,2],
+  todos: [5,6],
 };
 
 const user4: User = {
-  id: 5,
+  id: 4,
   firstName: 'Alex',
   lastName: 'Ba',
   userName: 'Alex',
@@ -48,7 +48,7 @@ const user4: User = {
   color: '#404040',
   eMail: 'a.fuh@blah.de',
   isAdmin: false,
-  todos: [1],
+  todos: [5],
 };
 
 const todo2: Todo = {
@@ -64,7 +64,7 @@ const todo2: Todo = {
 };
 
 const todo1: Todo = {
-  id: 2,
+  id: 5,
   name: 'Clean dishes',
   deadline: '11-02-2012',
   creator: 1,

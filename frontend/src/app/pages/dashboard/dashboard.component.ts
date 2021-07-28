@@ -37,44 +37,7 @@ export class DashboardComponent {
     private titleService: Title
   ) {
     this.titleService.setTitle('Dashboard');
-    this.todos = [
-      {
-        name: 'Clean dishes',
-        deadline: '11-02-2012',
-        creator: 1,
-        assignees: [
-          1,
-          2,
-          3,
-          4,
-        ],
-        isDone: false,
-      },
-      {
-        name: 'Clean kitchen',
-        deadline: '11-02-2012',
-        creator: 1,
-        assignees: [
-          1,
-          2,
-          3,
-          4,
-        ],
-        isDone: false,
-      },
-      {
-        name: 'Cook',
-        deadline: '11-02-2012',
-        creator: 1,
-        assignees: [
-          1,
-          2,
-          3,
-          4,
-        ],
-        isDone: false,
-      },
-    ];
+    this.todos = []; // todo: load todos
     this.isLoading = false;
   }
 

@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {ModalService} from '../../services/modal.service';
 import { UserService } from '../../services/user.service';
 import {User} from '../../models/user';
@@ -11,6 +11,7 @@ import {User} from '../../models/user';
 })
 export class DeleteUserModalComponent implements OnInit {
   @Input() user: User;
+  @Output() deletedUser: EventEmitter<User> = new EventEmitter<User>();
 
   constructor(
     private modalService: ModalService,
@@ -22,14 +23,15 @@ export class DeleteUserModalComponent implements OnInit {
   }
 
   public deleteUser(): void {
+    this.userService.deleteUser(this.user)
+      .subscribe((user: User) => {
+        this.deletedUser.emit(user);
+      });
     this.modalService.closeModal();
-    this.userService.deleteUser(this.user);
-    console.log('delete user');
   }
 
   public closeModal(): void {
     this.modalService.closeModal();
-    console.log('close modal');
   }
 
 }

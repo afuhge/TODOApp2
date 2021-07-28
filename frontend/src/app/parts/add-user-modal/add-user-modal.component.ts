@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {ModalService} from '../../services/modal.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
@@ -25,9 +25,10 @@ export class AddUserModalComponent implements OnInit {
     eMail: new FormControl('',  [Validators.email, Validators.required]),
     userName: new FormControl('', Validators.required),
     password: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    color: new FormControl('#fff'),
+    color: new FormControl('#000000'),
   });
   public formData: UserData = new UserData();
+  @Output() createdUser: EventEmitter<User> = new EventEmitter<User>();
   constructor(
     private modalService: ModalService,
     private userService: UserService,
@@ -42,12 +43,11 @@ export class AddUserModalComponent implements OnInit {
   }
 
   public addUser(): void {
-    console.log('Add user');
     const newUser: User = {...this.form.value};
-    this.userService.addUser(newUser);
-    this.userService.getUsers().subscribe((value) => {
-      console.log(value);
-    });
+    this.userService.addUser(newUser)
+      .subscribe((user: User) => {
+        this.createdUser.emit(user);
+      });
     this.modalService.closeModal();
   }
 

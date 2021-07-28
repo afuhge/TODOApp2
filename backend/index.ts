@@ -32,6 +32,29 @@ application.get('/users/:userId', (req: Request, res: Response) => {
   }
 })
 
+application.get('/users/:userId/todos', (req: Request, res: Response) => {
+  const userId = +req.params.userId;
+  const user = users.find((user:User) => user.id === userId);
+  if(!user) {
+    res.status(404);
+    res.send();
+  }else{
+    const userTodos: Todo[] = [];
+    user.todos.forEach((todoId) => {
+      const todo = todos.find((todo: Todo) => todo.id === todoId);
+      if(!todo) {
+        res.status(404);
+        res.send();
+      } else {
+        userTodos.push(todo);
+        console.log(userTodos);
+      }
+    })
+    res.contentType('application/json');
+    res.send(JSON.stringify(userTodos));
+  }
+});
+
 application.post('/users', (req: Request,res: Response) => {
   const user = req.body;
   user.id = id();
