@@ -13,13 +13,13 @@ const user1: User = {
   color: '#dddddd',
   eMail: 'a.fuh@blah.de',
   isAdmin: true,
-  todos: [5,6],
+  todos: [5,6,7,8],
 };
 const user2: User = {
   id: 2,
   firstName: 'Anni',
   lastName: 'Fu',
-  userName: 'annie',
+  userName: 'Annifu',
   password: '12345',
   color: '#d11001',
   eMail: 'a.fuh@blah.de',
@@ -31,7 +31,7 @@ const user3: User = {
   id: 3,
   firstName: 'Peter',
   lastName: 'Parker',
-  userName: 'annie',
+  userName: 'peterparker',
   password: '12345',
   color: '#06b6d4',
   eMail: 'a.fuh@blah.de',
@@ -77,9 +77,32 @@ const todo1: Todo = {
   isDone: false,
 };
 
+const todo3: Todo = {
+  id: 7,
+  name: 'Cook dinner',
+  deadline: '08-01-2021',
+  creator: 1,
+  assignees: [
+    1,
+  ],
+  isDone: false,
+};
+const todo4: Todo = {
+  id: 8,
+  name: 'Wash clothes',
+  deadline: '07-31-2021',
+  creator: 1,
+  assignees: [
+    1,
+  ],
+  isDone: false,
+};
+
 export const todos: Todo[] = [
   todo1,
-  todo2
+  todo2,
+  todo3,
+  todo4
 ];
 
 export const users: User[] = [

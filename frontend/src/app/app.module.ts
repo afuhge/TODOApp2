@@ -16,6 +16,7 @@ import {ModalWrapperModule} from './libs/modal-wrapper/modal-wrapper.module';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { UserService } from './services/user.service';
 import {HttpClientModule} from '@angular/common/http';
+import {LocalStorageService} from './services/local-storage.service';
 
 
 const routes: Routes = [
@@ -70,7 +71,7 @@ const routes: Routes = [
     HttpClientModule,
   ],
   bootstrap: [AppComponent],
-  providers: [ UserService ],
+  providers: [ UserService, LocalStorageService ],
 })
 export class AppModule {
 }

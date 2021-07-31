@@ -1,5 +1,14 @@
 import {Component} from '@angular/core';
-import {faCalendarAlt, faCheckSquare, faInfoCircle, faPlus, faUsers, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import {
+  faCalendarAlt,
+  faCheckSquare, faEllipsisV,
+  faInfoCircle,
+  faPencilAlt,
+  faPlus,
+  faTrash,
+  faUsers,
+  IconDefinition
+} from '@fortawesome/free-solid-svg-icons';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {faSquare} from '@fortawesome/free-regular-svg-icons';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -30,6 +39,9 @@ export class TodosComponent {
   public users: User[] = [];
   public users$: Observable<User[]>;
   public info: IconDefinition = faInfoCircle;
+  public editIcon: IconDefinition = faPencilAlt;
+  public deleteIcon: IconDefinition = faTrash;
+  public settings: IconDefinition = faEllipsisV;
 
   public form: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),

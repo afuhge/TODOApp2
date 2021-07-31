@@ -22,6 +22,7 @@ export class ModalWrapperComponent implements OnInit {
   @Input() secondaryText?: string;
   @Input() headerClasses?: string;
   @Input() classes?: string;
+  @Input() actionDisabled?: boolean;
   @Output() primaryAction: EventEmitter<any> = new EventEmitter<any>();
   @Output() secondaryAction?: EventEmitter<any> = new EventEmitter<any>();
 

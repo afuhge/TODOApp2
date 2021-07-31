@@ -67,7 +67,7 @@ application.post('/users', (req: Request,res: Response) => {
 application.put('/users/:userId', (req: Request, res: Response) => {
   const userId = +req.params.userId;
   const index = users.findIndex((user: User) => user.id === userId);
-  if (!index) {
+  if (index === -1) {
     res.status(404);
     res.send();
   } else {
@@ -81,7 +81,7 @@ application.put('/users/:userId', (req: Request, res: Response) => {
 application.delete('/users/:userId', (req: Request, res: Response) => {
   const userId = +req.params.userId;
   const index = users.findIndex((user: User) => user.id === userId);
-  if (!index) {
+  if (index === -1) {
     res.status(404);
     res.send();
   } else {
@@ -111,7 +111,7 @@ application.post('/todos', (req: Request, res: Response) => {
 application.put('/todos/:todoId', (req: Request, res: Response) => {
   const todoId = +req.params.todoId;
   const index = todos.findIndex((todo: Todo) => todo.id === todoId);
-  if (!index) {
+  if (index === -1) {
     res.status(404);
     res.send();
   } else {
@@ -126,7 +126,7 @@ application.put('/todos/:todoId', (req: Request, res: Response) => {
 application.delete('/todos/:todoId', (req: Request, res: Response) => {
   const todoId = +req.params.todoId;
   const index = todos.findIndex((todo: Todo) => todo.id === todoId);
-  if (!index) {
+  if (index === -1) {
     res.status(404);
     res.send();
   } else {

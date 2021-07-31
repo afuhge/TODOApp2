@@ -9,6 +9,7 @@ import {UserService} from '../../services/user.service';
 import {AddUserModalModule} from '../../parts/add-user-modal/add-user-modal.module';
 import {EditUserModalModule} from '../../parts/edit-user-modal/edit-user-modal.module';
 import {DeleteUserModalModule} from '../../parts/delete-user-modal/delete-user-modal.module';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import {DeleteUserModalModule} from '../../parts/delete-user-modal/delete-user-m
     AddUserModalModule,
     EditUserModalModule,
     DeleteUserModalModule,
+    ReactiveFormsModule,
   ],
   exports: [
     UsersComponent,

@@ -1,12 +1,16 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {Title} from '@angular/platform-browser';
-import {faCalendarAlt, faCheckSquare, faInfoCircle, faPlus, faUsers, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import {faBeer, faCalendarAlt, faCheckSquare, faInfoCircle, faPlus, faUsers, IconDefinition} from '@fortawesome/free-solid-svg-icons';
 import {faSquare} from '@fortawesome/free-regular-svg-icons';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
 import {TODO} from '../../models/todo';
 import {User} from '../../models/user';
+import {TodosService} from '../../services/todos.service';
+import {LocalStorageService} from '../../services/local-storage.service';
+import {Observable} from 'rxjs';
+import {formatDate} from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -21,24 +25,24 @@ export class DashboardComponent {
   public todo: IconDefinition = faCheckSquare;
   public plusIcon: IconDefinition = faPlus;
   public todos: TODO[] = [];
-  public isLoading: boolean = true;
+  public todos$: Observable<TODO[]>;
   public info: IconDefinition = faInfoCircle;
-
-  public form: FormGroup = new FormGroup({
-    name: new FormControl('', Validators.required),
-    date: new FormControl(''),
-    assignees: new FormControl([]),
-  });
-  public users: User[] = [];
-  public isHidden = true;
+  public beer: IconDefinition = faBeer;
+  public currentUser: User;
 
   constructor(
     private router: Router,
-    private titleService: Title
+    private titleService: Title,
+    private todoService: TodosService,
+    private localStorageService: LocalStorageService,
   ) {
     this.titleService.setTitle('Dashboard');
-    this.todos = []; // todo: load todos
-    this.isLoading = false;
+    this.currentUser = this.localStorageService.getCurrentUser();
+    this.todos$ = this.todoService.loadTodosOfUser(this.currentUser.id);
+    this.todos$.subscribe((el: TODO[]) => {
+      const today = formatDate(new Date(), 'MM-dd-YYYY', 'en-US');
+      this.todos = el.filter((a: TODO) => a.deadline ===  today);
+    });
   }
 
   public drop(event: CdkDragDrop<TODO[], any>): void {

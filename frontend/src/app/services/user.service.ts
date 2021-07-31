@@ -26,9 +26,12 @@ export class UserService {
   }
 
   public editUser(user: User): Observable<User> {
+    console.log('user service');
+    console.log(user.id);
     const url = `${this.usersUrl}/${user.id}`;
-
-    return this.http.put<User>(url, user, this.httpOptions);
+    const blah = this.http.put<User>(url, user, this.httpOptions);
+    blah.subscribe((test) => console.log(user.id));
+    return blah;
   }
 
   public deleteUser(user: User): Observable<User> {

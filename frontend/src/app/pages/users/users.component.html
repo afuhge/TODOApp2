@@ -1,6 +1,6 @@
 <app-header></app-header>
 
-<div class=" mt-40 flex items-center justify-center px-16">
+<div class=" mt-40 flex items-center justify-center px-16 z-20">
   <div class="relative w-full max-w-5xl">
 
     <div class="absolute top-8 -left-4 w-80 h-80 bg-cyan-400 filter blur-2xl mix-blend-multiply rounded-full">
@@ -15,28 +15,34 @@
         User Management
       </div>
 
-      <div class="flex space-x-2 mt-2 justify-between items-center">
+      <form [formGroup]="form" class="flex space-x-2 mt-2 justify-between items-center">
         <div>
-          <button (click)="addUser()"
-                  class="bg-cyan-400 hover:bg-cyan-500 border-cyan-400 hover:border-cyan-500 focus:outline-none rounded-md p-2 border-2 text-white">
+          <a (click)="addUser()"
+                  class="bg-cyan-400 hover:bg-cyan-500 cursor-pointer border-cyan-400 hover:border-cyan-500 focus:outline-none rounded-md p-2 border-2 text-white">
             <fa-icon [icon]="addIcon" class="text-white"></fa-icon>
             Add User
-          </button>
+          </a>
         </div>
-        <div>
-          <input class="border-b-2 border-gray-300 hover:border-cyan-500 focus:outline-none"
-                 placeholder="Search"
-                 type="text">
-          <button (click)="searchUser()" class="p-2 focus:outline-none">
+        <div class="flex space-x-2 items-center">
+          <div>
+            <button (click)="reset()"
+                    class="focus:outline-none text-gray-400 hover:text-cyan-600">
+              <fa-icon [icon]="resetIcon"></fa-icon>
+            </button>
+          </div>
+          <div>
+            <input class="border-b-2 border-gray-300 hover:border-cyan-500 focus:outline-none"
+                   placeholder="Search" formControlName="searchTerm"
+                   type="text">
             <fa-icon [icon]="searchIcon" class="text-gray-300"></fa-icon>
-          </button>
+          </div>
         </div>
-      </div>
+      </form>
 
       <!-- component -->
 
       <ng-container *ngIf="users$ | async; else loading">
-        <ng-container *ngIf="users.length; else noUsers">
+        <ng-container *ngIf="filteredUsers.length; else noUsers">
           <div class="rounded my-6">
             <table class="table-fixed">
               <thead class="border-b-2 pb-2 border-gray-200">
@@ -50,7 +56,7 @@
               </tr>
               </thead>
               <tbody class="text-gray-500 text-sm">
-              <tr *ngFor="let user of users; let i = index" [ngClass]="i % 2 == 0? 'bg-gray-50': 'bg-white'">
+              <tr *ngFor="let user of filteredUsers; let i = index" [ngClass]="i % 2 == 0? 'bg-gray-50': 'bg-white'">
                 <td class="py-2 px-6 text-center whitespace-nowrap">
                   <div class="flex items-center justify-center">
                     <span>{{user.firstName}}</span>

@@ -5,18 +5,20 @@ import {ModalWrapperModule} from '../../libs/modal-wrapper/modal-wrapper.module'
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormInputModule } from 'src/app/libs/form-input/form-input.module';
 import { UserService } from '../../services/user.service';
+import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
   declarations: [
     AddUserModalComponent,
   ],
-  imports: [
-    CommonModule,
-    ModalWrapperModule,
-    ReactiveFormsModule,
-    FormInputModule,
-  ],
+    imports: [
+        CommonModule,
+        ModalWrapperModule,
+        ReactiveFormsModule,
+        FormInputModule,
+        FontAwesomeModule,
+    ],
   exports: [
     AddUserModalComponent,
   ],

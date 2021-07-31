@@ -10,6 +10,8 @@ import {BehaviorSubject, Observable, of} from 'rxjs';
 export class TodosService {
 
   private todosUrl = 'http://localhost:3000/todos';  // URL to web api
+  private usersUrl = 'http://localhost:3000/users';  // URL to web api
+
   private httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
@@ -21,6 +23,11 @@ export class TodosService {
   public loadTodo(): Observable<TODO[]> {
     return this.http.get<TODO[]>(this.todosUrl);
 
+  }
+
+  public loadTodosOfUser(userId: number): Observable<TODO[]> {
+    const url = `${this.usersUrl}/${userId}/todos`;
+    return this.http.get<TODO[]>(url);
   }
 
   public addTodo(todo: TODO): Observable<TODO> {

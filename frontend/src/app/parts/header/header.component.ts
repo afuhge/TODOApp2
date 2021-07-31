@@ -2,6 +2,8 @@ import {Component} from '@angular/core';
 import {ApiUrlHelperService} from '../../services/api-url-helper.service';
 import {Router} from '@angular/router';
 import {faChevronDown, faSignOutAlt, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import {LocalStorageService} from '../../services/local-storage.service';
+import {User} from '../../models/user';
 
 @Component({
   selector: 'app-header',
@@ -9,29 +11,33 @@ import {faChevronDown, faSignOutAlt, IconDefinition} from '@fortawesome/free-sol
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent {
-  public dashboardURL: string = '';
-  public todoURL: string = '';
-  public userURL: string = '';
-  public landingURL: string = '';
+  public dashboardURL = '';
+  public todoURL = '';
+  public userURL = '';
+  public landingURL = '';
   public logout: IconDefinition = faSignOutAlt;
 public chevronDown: IconDefinition = faChevronDown;
-public hidden: boolean = true;
-
+public hidden = true;
+public currentUser: User;
   constructor(
     private router: Router,
+    private localStorageService: LocalStorageService,
   ) {
     this.dashboardURL = ApiUrlHelperService.getDashboardUrl('id');
     this.todoURL = ApiUrlHelperService.getTODOsUrl('id');
     this.userURL = ApiUrlHelperService.getUsersUrl('id');
     this.landingURL = ApiUrlHelperService.getLandingUrl('id');
+    this.currentUser = localStorageService.getCurrentUser();
   }
 
-  public goToLogin(): void {
+  public signOut(): void {
+    this.localStorageService.deleteUser();
     this.router.navigateByUrl(ApiUrlHelperService.getLoginUrl('id'));
   }
 
-  public intToRGB(af: string): string {
-    const current = this.hashCode(af);
+  public intToRGB(): string {
+    const fullName = `${this.currentUser.firstName} ${this.currentUser.lastName}`;
+    const current = this.hashCode(fullName);
     // tslint:disable-next-line:no-bitwise
     const c = (current & 0x00FFFFFF)
       .toString(16)

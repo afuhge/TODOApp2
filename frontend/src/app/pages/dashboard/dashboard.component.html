@@ -12,71 +12,40 @@
 
     <div class="container relative mx-auto bg-white shadow p-8 rounded-md">
       <div class="text-4xl text-rose-400 mb-10">
-       Today's ToDos for 'user xy'
+       Today's ToDos for <span class="font-semibold">{{ currentUser.firstName}} {{currentUser.lastName}}</span>
       </div>
 
       <!-- component -->
-      <ng-container *ngIf="!isLoading; else loading">
+      <ng-container *ngIf="todos$ | async; else loading">
         <ng-container *ngIf="todos.length; else noTodos">
-          <div class="border-b-2  mb-4 border-gray-300 p-2 font-semibold  grid grid-cols-12 items-center">
-            <div class=""></div>
-            <div class="col-span-5 flex space-x-2">
-              <div>
-                <fa-icon [icon]="todo" class="text-gray-400"></fa-icon>
-              </div>
-              <div>Name</div>
-            </div>
-            <div class="col-span-2 flex space-x-2">
-              <div>
-                <fa-icon [icon]="date" class="text-gray-400"></fa-icon>
-              </div>
-              <div>Date</div>
-            </div>
-            <div class="col-span-4 flex space-x-2">
-              <fa-icon [icon]="assignees" class="text-gray-400"></fa-icon>
-              <div>Assignees</div>
-            </div>
-          </div>
-
           <div class="space-y-2" cdkDropList [cdkDropListData]="todos" (cdkDropListDropped)="drop($event)">
-            <div class="border-2 border-gray-100 p-2 cursor-move  grid grid-cols-12 items-center rounded-xl"
+            <div class="border-2 border-gray-100 p-2 flex  space-x-6 cursor-move items-center rounded-xl"
                  *ngFor="let todo of todos" cdkDrag [class.opacity-40]="todo.isDone">
               <div class="bg-gray-50 rounded-xl" style="height:52px;" *cdkDragPlaceholder></div>
               <div (click)="markAsDone(todo)">
                 <fa-icon [icon]="todo.isDone? checked: check"
                          class="text-gray-500 hover:text-rose-400 cursor-pointer text-xl"></fa-icon>
               </div>
-              <div class="text-xl col-span-5 truncate">
+              <div class="text-xl truncate" [ngClass]="todo.isDone? 'line-through': null">
                 {{todo.name || '-/-' }}
-              </div>
-              <div class="col-span-2">
-                {{ (todo.deadline | date: 'mediumDate') || '-/-'}}
-              </div>
-              <div class="flex m-0.5 col-span-4 flex-wrap">
-                <ng-container *ngIf="todo.assignees.length; else noAssignees">
-                  <div class="p-0.5" *ngFor="let assignee of todo.assignees">
-                <!--<span class="py-px px-4 w-full rounded-xl text-white"
-                      [style.background-color]="assignee.color">{{assignee.name}}</span>-->
-                  </div>
-                </ng-container>
-                <ng-template #noAssignees>
-                  <span class="italic text-gray-400">No assignees</span>
-                </ng-template>
               </div>
             </div>
           </div>
         </ng-container>
         <ng-template #noTodos>
           <div class="mt-4">
-            <div class="px-6 py-4 rounded-lg border-2 border-cyan-500 border-l-8">
-              <div class="flex items-center space-x-4">
-                <div>
-                  <fa-icon [icon]="info" class="text-cyan-500 text-xl"></fa-icon>
+            <div class="px-6 py-4 rounded-lg border-4 border-gray-300 border-dotted">
+                <div class="flex flex-col justify-center items-center space-y-2">
+                  <div>
+                    <fa-icon [icon]="beer" class="text-3xl text-gray-400 mb-2"></fa-icon>
+                  </div>
+                  <div class="text-gray-400 font-semibold text-xl">
+                    Nothing to do for you today.
+                  </div>
+                  <div class="text-gray-400">
+                    Grab a beer and relax.
+                  </div>
                 </div>
-                <div class="text-gray-400">
-                  No Todos for user 'xy' available.
-                </div>
-              </div>
             </div>
           </div>
         </ng-template>
