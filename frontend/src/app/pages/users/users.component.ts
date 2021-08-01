@@ -1,15 +1,6 @@
 import {Component} from '@angular/core';
 
-import {
-  faHistory,
-  faInfoCircle,
-  faPencilAlt,
-  faSearch,
-  faTimesCircle,
-  faTrash,
-  faUserPlus,
-  IconDefinition
-} from '@fortawesome/free-solid-svg-icons';
+import {faInfoCircle, faPencilAlt, faSearch, faTimesCircle, faTrash, faUserPlus, IconDefinition} from '@fortawesome/free-solid-svg-icons';
 import {UserService} from '../../services/user.service';
 import {Title} from '@angular/platform-browser';
 import {NotifcationService} from '../../services/notifcation.service';
@@ -65,16 +56,18 @@ export class UsersComponent{
   editUser(user: User): void {
     const modal = this.modalService.showModal(EditUserModalComponent);
     modal.instance.user = user;
-    modal.instance.edittedUser.subscribe((edittedUser: User) => {
-      console.log('users');
-      console.log(edittedUser.id);
-      const index = this.users.findIndex((el: User) => el.id === edittedUser.id);
-      if (index > -1) {
-        this.users.splice(index, 1, edittedUser);
-        this.notifierService.success('Edit user successful!');
+    modal.instance.edittedUser.subscribe(
+      (edittedUser: User) => {
+          const index = this.users.findIndex((el: User) => el.id === edittedUser.id);
+          if (index > -1) {
+            this.users.splice(index, 1, edittedUser);
+            this.notifierService.success('Edit user successful!');
+          }
+        },
+      (err) => {
+        this.notifierService.error('Edit user failed!');
       }
-    });
-
+    );
   }
 
   deleteUser(user: User): void {

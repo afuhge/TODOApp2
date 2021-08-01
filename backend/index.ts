@@ -38,8 +38,9 @@ application.get('/users/:userId/todos', (req: Request, res: Response) => {
   if(!user) {
     res.status(404);
     res.send();
-  }else{
+  } else {
     const userTodos: Todo[] = [];
+    console.log(user);
     user.todos.forEach((todoId) => {
       const todo = todos.find((todo: Todo) => todo.id === todoId);
       if(!todo) {
@@ -47,7 +48,6 @@ application.get('/users/:userId/todos', (req: Request, res: Response) => {
         res.send();
       } else {
         userTodos.push(todo);
-        console.log(userTodos);
       }
     })
     res.contentType('application/json');

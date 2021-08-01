@@ -1,16 +1,34 @@
 <app-header></app-header>
 
-<div class=" mt-40 flex items-center justify-center px-16 z-20">
+<div class=" mt-24 flex items-center justify-center px-16 z-20">
   <div class="relative w-full max-w-5xl">
 
+    <div class="absolute left-2 top-2 right-2 bottom-2 filter blur-md"
+         style="background: linear-gradient(135deg, #FCD34D, #F87171)">
+    </div>
+
+<!--    <div class="absolute top-3 w-full h-10 bg-cyan-400 filter blur-xl  rounded-full">
+    </div>
+
+    <div class="absolute left-3 w-10 h-full bg-yellow-400 filter blur-xl  rounded-full">
+    </div>
+
+    <div class="absolute bottom-3 w-full h-10 bg-rose-400 filter blur-xl  rounded-full">
+    </div>
+
+    <div class="absolute right-3 w-10 h-full bg-yellow-400 filter blur-xl  rounded-full">
+    </div>-->
+
+    <!--
     <div class="absolute top-8 -left-4 w-80 h-80 bg-cyan-400 filter blur-2xl mix-blend-multiply rounded-full">
     </div>
     <div class="absolute top-8 -right-4 w-80 h-80 bg-yellow-400 filter blur-2xl mix-blend-multiply rounded-full">
     </div>
     <div class="absolute bottom-4 left-48 w-96 h-80 bg-rose-400 filter blur-2xl mix-blend-multiply rounded-full">
     </div>
-
-    <div class="container relative mx-auto bg-white shadow p-8 rounded-md">
+-->
+    <div class="container relative mx-auto bg-white p-8 rounded-md"
+         style="border: 1px solid #efb492;">
       <div class="text-4xl text-yellow-400 mb-10">
         User Management
       </div>
@@ -23,19 +41,14 @@
             Add User
           </a>
         </div>
-        <div class="flex space-x-2 items-center">
-          <div>
+        <div>
+            <input class="border-b-2 border-gray-300 hover:border-cyan-500 focus:outline-none"
+                   placeholder="Filter" formControlName="searchTerm"
+                   type="text">
             <button (click)="reset()"
                     class="focus:outline-none text-gray-400 hover:text-cyan-600">
               <fa-icon [icon]="resetIcon"></fa-icon>
             </button>
-          </div>
-          <div>
-            <input class="border-b-2 border-gray-300 hover:border-cyan-500 focus:outline-none"
-                   placeholder="Search" formControlName="searchTerm"
-                   type="text">
-            <fa-icon [icon]="searchIcon" class="text-gray-300"></fa-icon>
-          </div>
         </div>
       </form>
 
@@ -43,8 +56,8 @@
 
       <ng-container *ngIf="users$ | async; else loading">
         <ng-container *ngIf="filteredUsers.length; else noUsers">
-          <div class="rounded my-6">
-            <table class="table-fixed">
+          <div class="rounded mt-6">
+            <table class="table-fixed ">
               <thead class="border-b-2 pb-2 border-gray-200">
               <tr class="font-semibold text-gray-600">
                 <th class="py-3 px-6  w-2/12">First name</th>
