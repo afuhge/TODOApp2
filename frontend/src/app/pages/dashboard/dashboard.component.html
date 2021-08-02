@@ -1,17 +1,16 @@
 <app-header></app-header>
 
-<div class="mt-40 flex items-center justify-center px-16">
+
+<div class=" mt-24 flex items-center justify-center px-16 z-20">
   <div class="relative w-full max-w-5xl">
 
-    <div class="absolute top-8 -left-4 w-80 h-80 bg-cyan-400 filter blur-2xl mix-blend-multiply rounded-full">
-    </div>
-    <div class="absolute top-8 -right-4 w-80 h-80 bg-yellow-400 filter blur-2xl mix-blend-multiply rounded-full">
-    </div>
-    <div class="absolute bottom-4 left-48 w-96 h-80 bg-rose-400 filter blur-2xl mix-blend-multiply rounded-full">
+    <div class="absolute left-2 top-2 right-2 bottom-2 filter blur-md"
+         style="background: linear-gradient(135deg, #06B6D4, #10B981)">
     </div>
 
-    <div class="container relative mx-auto bg-white shadow p-8 rounded-md">
-      <div class="text-4xl text-rose-400 mb-10">
+    <div class="container relative mx-auto bg-white p-8 rounded-md"
+         style="border: 1px solid #72ceb4; min-height: 500px;">
+      <div class="text-4xl text-cyan-500 mb-10">
        Today's ToDos for <span class="font-semibold">{{ currentUser.firstName}} {{currentUser.lastName}}</span>
       </div>
 
@@ -33,11 +32,11 @@
           </div>
         </ng-container>
         <ng-template #noTodos>
-          <div class="mt-4">
-            <div class="px-6 py-4 rounded-lg border-4 border-gray-300 border-dotted">
-                <div class="flex flex-col justify-center items-center space-y-2">
-                  <div>
-                    <fa-icon [icon]="beer" class="text-3xl text-gray-400 mb-2"></fa-icon>
+          <div class="mt-8">
+            <div class="px-6 py-10 rounded-lg border-4 border-gray-300 border-dotted">
+                <div class="flex flex-col justify-center items-center space-y-4">
+                  <div class="mb-2">
+                    <fa-icon [icon]="beer" class="text-4xl text-gray-400"></fa-icon>
                   </div>
                   <div class="text-gray-400 font-semibold text-xl">
                     Nothing to do for you today.
@@ -51,7 +50,7 @@
         </ng-template>
       </ng-container>
       <ng-template #loading>
-        <div class="mt-4">
+        <div class="mt-8">
           <div *ngFor="let i of [1,2,3]" class="bg-gray-100 animate-pulse p-8 my-2 rounded-lg"></div>
         </div>
       </ng-template>

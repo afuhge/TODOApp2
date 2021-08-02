@@ -7,28 +7,8 @@
          style="background: linear-gradient(135deg, #FCD34D, #F87171)">
     </div>
 
-<!--    <div class="absolute top-3 w-full h-10 bg-cyan-400 filter blur-xl  rounded-full">
-    </div>
-
-    <div class="absolute left-3 w-10 h-full bg-yellow-400 filter blur-xl  rounded-full">
-    </div>
-
-    <div class="absolute bottom-3 w-full h-10 bg-rose-400 filter blur-xl  rounded-full">
-    </div>
-
-    <div class="absolute right-3 w-10 h-full bg-yellow-400 filter blur-xl  rounded-full">
-    </div>-->
-
-    <!--
-    <div class="absolute top-8 -left-4 w-80 h-80 bg-cyan-400 filter blur-2xl mix-blend-multiply rounded-full">
-    </div>
-    <div class="absolute top-8 -right-4 w-80 h-80 bg-yellow-400 filter blur-2xl mix-blend-multiply rounded-full">
-    </div>
-    <div class="absolute bottom-4 left-48 w-96 h-80 bg-rose-400 filter blur-2xl mix-blend-multiply rounded-full">
-    </div>
--->
     <div class="container relative mx-auto bg-white p-8 rounded-md"
-         style="border: 1px solid #efb492;">
+         style="border: 1px solid #efb492; min-height: 500px;">
       <div class="text-4xl text-yellow-400 mb-10">
         User Management
       </div>
@@ -36,8 +16,10 @@
       <form [formGroup]="form" class="flex space-x-2 mt-2 justify-between items-center">
         <div>
           <a (click)="addUser()"
-                  class="bg-cyan-400 hover:bg-cyan-500 cursor-pointer border-cyan-400 hover:border-cyan-500 focus:outline-none rounded-md p-2 border-2 text-white">
+                  class="has-tooltip bg-cyan-400 hover:bg-cyan-500 cursor-pointer border-cyan-400 hover:border-cyan-500 focus:outline-none rounded-md p-2 border-2 text-white">
             <fa-icon [icon]="addIcon" class="text-white"></fa-icon>
+            <span class='tooltip rounded shadow-lg p-1 bg-gray-50 text-black -mb-8'>Add User</span>
+
             Add User
           </a>
         </div>
@@ -115,7 +97,7 @@
           </div>
         </ng-container>
         <ng-template #noUsers>
-          <div class="mt-4">
+          <div class="mt-8">
             <div class="px-6 py-4 rounded-lg border-2 border-cyan-500 border-l-8">
               <div class="flex items-center space-x-4">
                 <div>
@@ -130,7 +112,7 @@
         </ng-template>
       </ng-container>
       <ng-template #loading>
-        <div class="mt-4">
+        <div class="mt-8">
           <div *ngFor="let i of [1,2,3]" class="bg-gray-100 animate-pulse p-8 my-2 rounded-lg"></div>
         </div>
       </ng-template>

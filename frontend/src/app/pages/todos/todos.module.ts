@@ -7,6 +7,8 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserService} from '../../services/user.service';
+import {DeleteTodoModalModule} from '../../parts/delete-todo-modal/delete-todo-modal.module';
+import {EditTodoModalModule} from '../../parts/edit-todo-modal/edit-todo-modal.module';
 
 
 @NgModule({
@@ -26,6 +28,8 @@ import {UserService} from '../../services/user.service';
     DragDropModule,
     FormsModule,
     ReactiveFormsModule,
+    DeleteTodoModalModule,
+    EditTodoModalModule,
   ],
   exports: [
     TodosComponent,

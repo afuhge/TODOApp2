@@ -73,7 +73,6 @@ export class AddUserModalComponent implements OnInit {
   }
 
   public closeModal(): void {
-    console.log('close modal');
     this.modalService.closeModal();
   }
 

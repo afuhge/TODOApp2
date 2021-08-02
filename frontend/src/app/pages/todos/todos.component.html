@@ -1,16 +1,14 @@
 <app-header></app-header>
 
-<div class="mt-40 flex items-center justify-center px-16">
+<div class=" mt-24 flex items-center justify-center px-16 z-20">
   <div class="relative w-full max-w-5xl">
 
-    <div class="absolute top-8 -left-4 w-80 h-80 bg-cyan-400 filter blur-2xl mix-blend-multiply rounded-full">
-    </div>
-    <div class="absolute top-8 -right-4 w-80 h-80 bg-yellow-400 filter blur-2xl mix-blend-multiply rounded-full">
-    </div>
-    <div class="absolute bottom-4 left-48 w-96 h-80 bg-rose-400 filter blur-2xl mix-blend-multiply rounded-full">
+    <div class="absolute left-2 top-2 right-2 bottom-2 filter blur-md"
+         style="background: linear-gradient(135deg, #F43F5E, #D946EF)">
     </div>
 
-    <div class="container relative mx-auto bg-white shadow p-8 rounded-md">
+    <div class="container relative mx-auto bg-white p-8 rounded-md"
+         style="border: 1px solid #ec9bbc;min-height: 500px;">
       <div class="text-4xl text-rose-400 mb-10">
         TODOs
       </div>
@@ -20,7 +18,7 @@
         <ng-container *ngIf="todos?.length; else noTodos">
           <div class="border-b-2  mb-4 border-gray-300 p-2 font-semibold  grid grid-cols-12 items-center">
             <div class=""></div>
-            <div class="col-span-5 flex space-x-2">
+            <div class="col-span-4 flex space-x-2">
               <div>
                 <fa-icon [icon]="todo" class="text-gray-400"></fa-icon>
               </div>
@@ -65,23 +63,25 @@
               </div>
               <div class="buttons space-x-2">
                 <div>
-                  <button>
+                  <button (click)="editTodo(todo)">
                     <fa-icon [icon]="editIcon" class="text-gray-400 hover:text-yellow-400 text-lg "></fa-icon>
                   </button>
                 </div>
                 <div>
+                  <button (click)="deleteTodo(todo)">
                   <fa-icon [icon]="deleteIcon" class="text-gray-400 hover:text-rose-500 text-lg"></fa-icon>
+                  </button>
                 </div>
               </div>
             </div>
-            <form [formGroup]="form" (ngSubmit)="onSubmit()"
+            <form [formGroup]="form" (ngSubmit)="addTodo()"
                   class="border-2 border-gray-100 p-2 grid grid-cols-12 items-center rounded-xl">
               <div>
                 <button type="submit" [disabled]="!form.valid">
                   <fa-icon [icon]="plusIcon" class="text-gray-500 cursor-pointer text-xl hover:text-rose-400"></fa-icon>
                 </button>
               </div>
-              <div class="text-xl col-span-5">
+              <div class="text-xl col-span-4">
                 <input type="text" placeholder="Enter todo name" formControlName="name" class="outline-none">
               </div>
               <div class="col-span-2">
@@ -102,7 +102,7 @@
           </div>
         </ng-container>
         <ng-template #noTodos>
-          <div class="mt-4">
+          <div class="mt-8">
             <div class="px-6 py-4 rounded-lg border-2 border-cyan-500 border-l-8">
               <div class="flex items-center space-x-4">
                 <div>
@@ -117,7 +117,7 @@
         </ng-template>
       </ng-container>
       <ng-template #loading>
-        <div class="mt-4">
+        <div class="mt-8">
           <div *ngFor="let i of [1,2,3]" class="bg-gray-100 animate-pulse p-8 my-2 rounded-lg"></div>
         </div>
       </ng-template>

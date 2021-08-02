@@ -1,0 +1,7 @@
+<app-modal-wrapper (primaryAction)="editTodo()" [header]="'Edit ToDo'" (secondaryAction)="closeModal()"
+                   [primaryText]="'Save ToDo'" [headerClasses]="'text-cyan-400'"
+                   [classes]="actionDisabled? 'bg-cyan-200 border-cyan-200':'bg-cyan-400 hover:bg-cyan-500 border-cyan-400 hover:border-cyan-500'">
+  <div>TODO</div>
+</app-modal-wrapper>
+
+

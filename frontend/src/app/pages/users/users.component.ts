@@ -79,7 +79,10 @@ export class UsersComponent{
       this.users.splice(index, 1);
       this.notifierService.success('Delete user successful!');
     }
-   });
+   },
+     (err) => {
+       this.notifierService.error('Delete user failed!');
+     });
   }
 
   public addUser(): void {
@@ -88,7 +91,10 @@ export class UsersComponent{
       this.users.push(user);
       this.notifierService.success('Add user successful!');
 
-    });
+    },
+      (err) => {
+        this.notifierService.error('Add user failed!');
+      });
   }
 
   public searchUser(): void {

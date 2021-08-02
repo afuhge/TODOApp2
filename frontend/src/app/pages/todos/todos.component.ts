@@ -19,6 +19,10 @@ import {TODO} from '../../models/todo';
 import {User} from '../../models/user';
 import {TodosService} from '../../services/todos.service';
 import {Observable} from 'rxjs';
+import {NotifcationService} from '../../services/notifcation.service';
+import {ModalService} from '../../services/modal.service';
+import {EditTodoModalComponent} from '../../parts/edit-todo-modal/edit-todo-modal.component';
+import {DeleteTodoModalComponent} from '../../parts/delete-todo-modal/delete-todo-modal.component';
 
 
 
@@ -53,7 +57,9 @@ export class TodosComponent {
   constructor(
     private userService: UserService,
     private todoService: TodosService,
-    private titleService: Title
+    private titleService: Title,
+    private notifierService: NotifcationService,
+    private modalService: ModalService,
   ) {
     this.titleService.setTitle('TODOs');
 
@@ -82,10 +88,46 @@ export class TodosComponent {
     todo.isDone = !todo.isDone;
   }
 
-  public onSubmit(): void {
-    console.log(this.form.get('assignees').value);
-    this.form.reset();
+
+  public editTodo(todo: TODO): void {
+    console.log('edit todo');
+    const modal = this.modalService.showModal(EditTodoModalComponent);
+    modal.instance.todo = todo;
+    modal.instance.edittedTodo.subscribe(
+      (edittedTodo: TODO) => {
+        const index = this.todos.findIndex((el: TODO) => el.id === edittedTodo.id);
+        if (index > -1) {
+          this.todos.splice(index, 1, edittedTodo);
+          this.notifierService.success('Edit todo successful!');
+        }
+      },
+      (err) => {
+        this.notifierService.error('Edit todo failed!');
+      }
+    );
+  }
+
+  public deleteTodo(todo: TODO): void {
+    console.log('delete todo');
+    const modal = this.modalService.showModal(DeleteTodoModalComponent);
+    modal.instance.todo = todo;
+    modal.instance.deletedTodo.subscribe(() => {
+        const index = this.todos.findIndex((el: TODO) => el.id === todo.id);
+        if (index > -1) {
+          this.todos.splice(index, 1);
+          this.notifierService.success('Delete todo successful!');
+        }
+      },
+      (err) => {
+        this.notifierService.error('Delete todo failed!');
+      });
+  }
+
+
+  public addTodo(): void {
     this.isHidden = true;
+   // notifications
+    console.log(' TODO: add todo');
   }
 
   private setAssignees(users: User[]): number[] {
