@@ -1,0 +1,55 @@
+<app-modal-wrapper (primaryAction)="addAssignee()" [header]="'Add Assignees'" (secondaryAction)="closeModal()"
+                   [primaryText]="'Add Assignees'" [headerClasses]="'text-cyan-400'"
+                   [classes]="'bg-cyan-400 hover:bg-cyan-500 border-cyan-400 hover:border-cyan-500'">
+
+
+  <form [formGroup]="form" class="flex mt-2 justify-end items-center pb-4">
+    <div>
+      <input class="border-b-2 border-gray-300 hover:border-cyan-500 focus:outline-none"
+             placeholder="Filter" formControlName="searchTerm"
+             type="text">
+      <button (click)="reset()"
+              class="focus:outline-none text-gray-400 hover:text-cyan-600 has-tooltip">
+        <fa-icon [icon]="resetIcon"></fa-icon>
+        <span class='tooltip '>Reset</span>
+      </button>
+    </div>
+  </form>
+
+  <!-- component -->
+
+  <ng-container *ngIf="users$ | async; else loading">
+    <div *ngIf="selectedUsers.length; else noUsers" class="space-y-1 overflow-y-auto" style="min-height: 350px; height:350px;">
+      <button (click)="toggleSelected(assignee)" *ngFor="let assignee of selectedUsers"
+              class="p-4 w-full flex justify-between items-center"
+              [ngClass]="assignee.isSelected? 'bg-cyan-400 text-white': 'bg-gray-200 text-gray-700'">
+        <div>{{assignee.user.firstName}} {{assignee.user.lastName}}</div>
+        <div>
+          <fa-icon [icon]="assignee.isSelected? check: circle" class="text-2xl"
+                   [ngClass]="assignee.isSelected? 'text-white' : ' text-gray-700'"></fa-icon>
+        </div>
+      </button>
+    </div>
+    <ng-template #noUsers>
+      <div class="mt-8">
+        <div class="px-6 py-4 rounded-lg border-2 border-cyan-500 border-l-8">
+          <div class="flex items-center space-x-4">
+            <div>
+              <fa-icon [icon]="info" class="text-cyan-500 text-xl"></fa-icon>
+            </div>
+            <div class="text-gray-400">
+              No users available.
+            </div>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+  </ng-container>
+  <ng-template #loading>
+    <div class="mt-8">
+      <div *ngFor="let i of [1,2,3]" class="bg-gray-100 animate-pulse p-8 my-2 rounded-lg"></div>
+    </div>
+  </ng-template>
+
+</app-modal-wrapper>
+

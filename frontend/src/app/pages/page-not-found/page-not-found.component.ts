@@ -1,5 +1,8 @@
 import {Component, HostListener} from '@angular/core';
 import {Title} from '@angular/platform-browser';
+import {Router} from '@angular/router';
+import {ApiUrlHelperService} from '../../services/api-url-helper.service';
+import {faHome, IconDefinition} from '@fortawesome/free-solid-svg-icons';
 
 interface DeviceInfo {
   browser: string;
@@ -18,9 +21,11 @@ interface DeviceInfo {
 })
 export class PageNotFoundComponent {
   public deviceInfo: DeviceInfo;
+  public home: IconDefinition = faHome;
 
   constructor(
-    private titleService: Title
+    private titleService: Title,
+    private router: Router,
   ) {
     this.titleService.setTitle('Page not found');
     const navigator = window.navigator;
@@ -38,5 +43,9 @@ export class PageNotFoundComponent {
         height: window.innerHeight
       }
     };
+  }
+
+  public goToLandingPage(): void {
+    this.router.navigateByUrl(ApiUrlHelperService.getLandingUrl());
   }
 }

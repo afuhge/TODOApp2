@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import {User} from '../../models/user';
 import {faExclamationCircle, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import {ColorHelperService} from '../../services/color-helper.service';
 
 
 export class UserData {
@@ -26,7 +27,6 @@ export class AddUserModalComponent implements OnInit {
     eMail: new FormControl('',  [Validators.email, Validators.required]),
     userName: new FormControl('', Validators.required),
     password: new FormControl('', [Validators.required, Validators.minLength(5)]),
-    color: new FormControl('#000000'),
   });
   public formData: UserData = new UserData();
   public error: IconDefinition = faExclamationCircle;
@@ -41,6 +41,7 @@ export class AddUserModalComponent implements OnInit {
   constructor(
     private modalService: ModalService,
     private userService: UserService,
+    private colorService: ColorHelperService,
   ) {
     this.form.valueChanges.subscribe((value) => {
       this.formData =  value as UserData;
@@ -64,6 +65,7 @@ export class AddUserModalComponent implements OnInit {
   public addUser(): void {
     if (!this.actionDisabled) {
       const newUser: User = {...this.form.value};
+      newUser.color = this.colorService.convertNameIntoColor(newUser);
       this.userService.addUser(newUser)
         .subscribe((user: User) => {
           this.createdUser.emit(user);

@@ -17,11 +17,12 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { UserService } from './services/user.service';
 import {HttpClientModule} from '@angular/common/http';
 import {LocalStorageService} from './services/local-storage.service';
+import {RegisterModule} from './pages/register/register.module';
 
 
 const routes: Routes = [
   {
-    path: ':id',
+    path: '',
     children: [
       {
         path: 'dashboard',
@@ -47,6 +48,11 @@ const routes: Routes = [
         path: 'login',
         loadChildren: () => import('./pages/login/login.module')
           .then((m: { LoginModule: LoginModule }) => m.LoginModule),
+      },
+      {
+        path: 'register',
+        loadChildren: () => import('./pages/register/register.module')
+          .then((m: { RegisterModule: RegisterModule }) => m.RegisterModule),
       },
     ]
   },

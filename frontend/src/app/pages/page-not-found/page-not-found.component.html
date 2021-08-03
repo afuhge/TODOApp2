@@ -45,6 +45,12 @@
             {{ deviceInfo.dimensions.width}}x{{deviceInfo.dimensions.height}}
           </div>
         </div>
+        <div class="pt-4 flex justify-center text-white">
+          <button (click)="goToLandingPage()" class="p-2 rounded-md bg-cyan-500 hover:bg-cyan-600">
+            <fa-icon [icon]="home" class="text-xl pr-2"></fa-icon>
+            Take me home
+          </button>
+        </div>
       </div>
     </div>
   </div>

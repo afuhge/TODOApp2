@@ -18,7 +18,7 @@
         </div>
       <span
         [class.invisible]="!firstNameInvalid"
-        class="text-red-500 text-xs">First name is invalid</span>
+        class="text-red-500 text-xs">First name is required</span>
 
       <div class="flex flex-col">
         <div>
@@ -36,7 +36,7 @@
       </div>
       <span
         [class.invisible]="!lastNameInvalid"
-        class="text-red-500 text-xs">Last name is invalid</span>
+        class="text-red-500 text-xs">Last name is required</span>
 
 
 
@@ -56,7 +56,7 @@
       </div>
       <span
         [class.invisible]="!mailInvalid"
-        class="text-red-500 text-xs">E-Mail is invalid</span>
+        class="text-red-500 text-xs">E-Mail has wrong format</span>
 
 
       <div class="flex flex-col">
@@ -75,7 +75,7 @@
       </div>
       <span
         [class.invisible]="!userNameInvalid"
-        class="text-red-500 text-xs">Username is invalid</span>
+        class="text-red-500 text-xs">Username is required</span>
 
       <div class="flex flex-col">
         <div>
@@ -93,19 +93,7 @@
       </div>
       <span
         [class.invisible]="!passwordInvalid"
-        class="text-red-500 text-xs">Password is invalid</span>
-
-
-      <div class="flex flex-col">
-        <div>
-          <label for="color" class="text-cyan-500">Color</label>
-        </div>
-        <div class="flex space-x-2">
-          <div class="flex-1">
-            <input type="color" class="w-1/2 border-none" name="" value="" placeholder=" " id="color" formControlName="color" >
-          </div>
-        </div>
-      </div>
+        class="text-red-500 text-xs">Password needs at least 5 chars</span>
     </form>
 
 </app-modal-wrapper>

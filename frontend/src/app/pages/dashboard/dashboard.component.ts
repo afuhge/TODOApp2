@@ -11,6 +11,7 @@ import {TodosService} from '../../services/todos.service';
 import {LocalStorageService} from '../../services/local-storage.service';
 import {Observable} from 'rxjs';
 import {formatDate} from '@angular/common';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,10 +35,12 @@ export class DashboardComponent {
     private router: Router,
     private titleService: Title,
     private todoService: TodosService,
-    private localStorageService: LocalStorageService,
+    private userService: UserService,
   ) {
     this.titleService.setTitle('Dashboard');
-    this.currentUser = this.localStorageService.getCurrentUser();
+    this.userService.getCurrentUser().subscribe((user: User) => {
+      this.currentUser = user;
+    });
     this.todos$ = this.todoService.loadTodosOfUser(this.currentUser.id);
     this.todos$.subscribe((el: TODO[]) => {
       const today = formatDate(new Date(), 'MM-dd-YYYY', 'en-US');

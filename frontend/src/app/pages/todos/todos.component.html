@@ -10,7 +10,7 @@
     <div class="container relative mx-auto bg-white p-8 rounded-md"
          style="border: 1px solid #ec9bbc;min-height: 500px;">
       <div class="text-4xl text-rose-400 mb-10">
-        TODOs
+        ToDos
       </div>
 
       <!-- component -->
@@ -40,9 +40,10 @@
             <div class=" todo border-2 border-gray-100 p-2 cursor-move  grid grid-cols-12 items-center rounded-xl"
                  *ngFor="let todo of todos" cdkDrag [class.opacity-40]="todo.isDone">
               <div class="bg-gray-50 rounded-xl" style="height:52px;" *cdkDragPlaceholder></div>
-              <div (click)="markAsDone(todo)">
+              <div (click)="markAsDone(todo)" class="has-tooltip">
                 <fa-icon [icon]="todo.isDone? checked: check"
-                         class="text-gray-500 hover:text-rose-400 cursor-pointer text-xl"></fa-icon>
+                         class=" text-gray-500 hover:text-rose-400 cursor-pointer text-xl"></fa-icon>
+                <span class='tooltip '>Mark as done</span>
               </div>
               <div class="text-xl col-span-4 truncate" [ngClass]="todo.isDone? 'line-through': null">
                 {{todo.name || '-/-' }}
@@ -63,13 +64,15 @@
               </div>
               <div class="buttons space-x-2">
                 <div>
-                  <button (click)="editTodo(todo)">
+                  <button (click)="editTodo(todo)" class="has-tooltip">
                     <fa-icon [icon]="editIcon" class="text-gray-400 hover:text-yellow-400 text-lg "></fa-icon>
+                    <span class='tooltip '>Edit ToDo</span>
                   </button>
                 </div>
                 <div>
-                  <button (click)="deleteTodo(todo)">
-                  <fa-icon [icon]="deleteIcon" class="text-gray-400 hover:text-rose-500 text-lg"></fa-icon>
+                  <button (click)="deleteTodo(todo)" class="has-tooltip">
+                    <fa-icon [icon]="deleteIcon" class="text-gray-400 hover:text-rose-500 text-lg"></fa-icon>
+                    <span class='tooltip '>Delete ToDo</span>
                   </button>
                 </div>
               </div>
@@ -77,8 +80,9 @@
             <form [formGroup]="form" (ngSubmit)="addTodo()"
                   class="border-2 border-gray-100 p-2 grid grid-cols-12 items-center rounded-xl">
               <div>
-                <button type="submit" [disabled]="!form.valid">
+                <button type="submit" [disabled]="!form.valid" class="has-tooltip">
                   <fa-icon [icon]="plusIcon" class="text-gray-500 cursor-pointer text-xl hover:text-rose-400"></fa-icon>
+                  <span class='tooltip '>Add ToDo</span>
                 </button>
               </div>
               <div class="text-xl col-span-4">
@@ -88,15 +92,11 @@
                 <input type="date" name="deadline" placeholder="Enter deadline" formControlName="date"
                        class="outline-none" style="width: 155px;">
               </div>
-              <div class="flex m-0.5 px-2 col-span-4 flex-wrap">
-                <button (click)="toggleDropDown($event)" [hidden]="!isHidden" class="p-2 border-2 rounded-md">Select
-                  assignees
+              <div class=" col-span-4">
+                <button (click)="addAssignees($event)" class="p-2">
+                  Add assignees
+                  <fa-icon [icon]="assignees" class="pl-4"></fa-icon>
                 </button>
-                <select class="form-multiselect block w-full mt-1" multiple [style.display]="isHidden? 'none' : 'block'"
-                        formControlName="assignees">
-                  <option *ngFor="let user of users" value="{{user.lastName}}"
-                          [ngValue]="user">{{user.firstName}} {{user.lastName}}</option>
-                </select>
               </div>
             </form>
           </div>

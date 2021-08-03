@@ -11,6 +11,7 @@ import {DeleteUserModalComponent} from '../../parts/delete-user-modal/delete-use
 import {User} from '../../models/user';
 import {Observable} from 'rxjs';
 import {FormControl, FormGroup} from '@angular/forms';
+import {LocalStorageService} from '../../services/local-storage.service';
 
 
 @Component({
@@ -37,6 +38,7 @@ export class UsersComponent{
     private titleService: Title,
     private notifierService: NotifcationService,
     private modalService: ModalService,
+    private localStorageService: LocalStorageService,
   ) {
    this.users$ = this.userService.loadUser();
    this.users$.subscribe((el: User[]) => {

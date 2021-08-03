@@ -11,9 +11,9 @@ body {
 
 
 .tooltip {
-  @apply invisible absolute;
+  @apply absolute rounded shadow-lg p-1 bg-white text-sm text-black mt-8 opacity-0;
 }
 
 .has-tooltip:hover .tooltip {
-  @apply visible z-50;
+  @apply z-50 transition delay-500 duration-500 ease-linear opacity-100;
 }

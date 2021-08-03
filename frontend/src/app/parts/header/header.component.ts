@@ -4,6 +4,9 @@ import {Router} from '@angular/router';
 import {faChevronDown, faSignOutAlt, IconDefinition} from '@fortawesome/free-solid-svg-icons';
 import {LocalStorageService} from '../../services/local-storage.service';
 import {User} from '../../models/user';
+import {UserService} from '../../services/user.service';
+import {Observable} from 'rxjs';
+import {ColorHelperService} from '../../services/color-helper.service';
 
 @Component({
   selector: 'app-header',
@@ -15,6 +18,8 @@ export class HeaderComponent {
   public todoURL = '';
   public userURL = '';
   public landingURL = '';
+  public loginURL = '';
+  public signUpURL = '';
   public logout: IconDefinition = faSignOutAlt;
 public chevronDown: IconDefinition = faChevronDown;
 public hidden = true;
@@ -22,35 +27,28 @@ public currentUser: User;
   constructor(
     private router: Router,
     private localStorageService: LocalStorageService,
+    private userService: UserService,
+    private colorService: ColorHelperService,
   ) {
-    this.dashboardURL = ApiUrlHelperService.getDashboardUrl('id');
-    this.todoURL = ApiUrlHelperService.getTODOsUrl('id');
-    this.userURL = ApiUrlHelperService.getUsersUrl('id');
-    this.landingURL = ApiUrlHelperService.getLandingUrl('id');
-    this.currentUser = localStorageService.getCurrentUser();
+    this.dashboardURL = ApiUrlHelperService.getDashboardUrl();
+    this.todoURL = ApiUrlHelperService.getTODOsUrl();
+    this.userURL = ApiUrlHelperService.getUsersUrl();
+    this.landingURL = ApiUrlHelperService.getLandingUrl();
+    this.loginURL = ApiUrlHelperService.getLoginUrl();
+    this.signUpURL = ApiUrlHelperService.getSignUpUrl();
+    this.userService.getCurrentUser().subscribe((user: User) => {
+      this.currentUser = user;
+    });
   }
 
   public signOut(): void {
     this.localStorageService.deleteUser();
-    this.router.navigateByUrl(ApiUrlHelperService.getLoginUrl('id'));
+    this.userService.currentUser.next(null);
+    this.router.navigateByUrl(ApiUrlHelperService.getLandingUrl());
   }
 
   public intToRGB(): string {
-    const fullName = `${this.currentUser.firstName} ${this.currentUser.lastName}`;
-    const current = this.hashCode(fullName);
-    // tslint:disable-next-line:no-bitwise
-    const c = (current & 0x00FFFFFF)
-      .toString(16)
-      .toUpperCase();
-    return '#00000'.substring(0, 6 - c.length + 1) + c;
-  }
-  private hashCode(str: string): number {
-    let hash = 0;
-    for (let i = 0; i < str.length; i++) {
-      // tslint:disable-next-line:no-bitwise
-      hash = str.charCodeAt(i) + ((hash << 5) - hash);
-    }
-    return hash;
+    return this.colorService.convertNameIntoColor(this.currentUser);
   }
 
   public toggleDropDown(): void {

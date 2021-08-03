@@ -18,6 +18,7 @@ export class LoginComponent {
     username: 'annie',
     password: '12345',
   };
+  // TODO
 
   public actionDisabled: boolean = true;
   public loginSuccessful: boolean = true;
@@ -35,7 +36,7 @@ export class LoginComponent {
     private userService: UserService,
     private localStorageService: LocalStorageService,
   ) {
-    console.log(this.form.status);
+
     this.titleService.setTitle('Login');
     this.form.statusChanges.subscribe((status => {
       this.actionDisabled = status === 'INVALID';
@@ -61,9 +62,11 @@ export class LoginComponent {
       const userName: string = this.form.get('username').value;
       const user = this.findUserByUsername(userName);
       this.localStorageService.setCurrentUser(user);
-      this.router.navigateByUrl(ApiUrlHelperService.getDashboardUrl('id'));
+      this.userService.currentUser.next(user);
+      this.router.navigateByUrl(ApiUrlHelperService.getDashboardUrl());
+    } else {
+      this.loginSuccessful = false;
     }
-    this.loginSuccessful = false;
   }
 
   private findUserByUsername(userName: string): User {

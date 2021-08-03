@@ -63,8 +63,6 @@ export class EditUserModalComponent implements OnInit {
         ...this.form.value};
       this.userService.editUser(edittedUser)
         .subscribe((user: User) => {
-          console.log('edit user');
-          console.log(user.id);
           this.edittedUser.emit(user);
         });
       this.modalService.closeModal();

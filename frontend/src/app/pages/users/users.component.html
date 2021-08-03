@@ -18,7 +18,6 @@
           <a (click)="addUser()"
                   class="has-tooltip bg-cyan-400 hover:bg-cyan-500 cursor-pointer border-cyan-400 hover:border-cyan-500 focus:outline-none rounded-md p-2 border-2 text-white">
             <fa-icon [icon]="addIcon" class="text-white"></fa-icon>
-            <span class='tooltip rounded shadow-lg p-1 bg-gray-50 text-black -mb-8'>Add User</span>
 
             Add User
           </a>
@@ -28,8 +27,9 @@
                    placeholder="Filter" formControlName="searchTerm"
                    type="text">
             <button (click)="reset()"
-                    class="focus:outline-none text-gray-400 hover:text-cyan-600">
+                    class="focus:outline-none text-gray-400 hover:text-cyan-600 has-tooltip">
               <fa-icon [icon]="resetIcon"></fa-icon>
+              <span class='tooltip '>Reset</span>
             </button>
         </div>
       </form>
@@ -80,13 +80,15 @@
                 </td>
                 <td class="py-2 px-6 text-center whitespace-nowrap">
                   <div class="flex items-center justify-end">
-                    <button (click)="editUser(user)" class="rounded-md py-px px-2">
+                    <button (click)="editUser(user)" class="rounded-md py-px px-2 has-tooltip">
                       <fa-icon [icon]="editIcon" class="text-gray-400 hover:text-yellow-400 text-lg"
                                fixedWidth></fa-icon>
+                      <span class='tooltip '>Edit User</span>
                     </button>
-                    <button (click)="deleteUser(user)" class="rounded-md p-2">
+                    <button (click)="deleteUser(user)" class="rounded-md p-2 has-tooltip">
                       <fa-icon [icon]="deleteIcon" class="text-gray-400 hover:text-rose-500 text-lg"
                                fixedWidth></fa-icon>
+                      <span class='tooltip '>Delete User</span>
                     </button>
 
                   </div>

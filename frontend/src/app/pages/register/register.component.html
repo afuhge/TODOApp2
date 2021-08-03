@@ -1,0 +1,124 @@
+<div class=" min-h-screen flex items-center justify-center px-16">
+  <div class="relative w-full max-w-lg">
+
+    <div class="absolute top-1/4 -left-4 w-80 h-3/4 bg-cyan-400 filter blur-2xl mix-blend-multiply rounded-full">
+    </div>
+    <div class="absolute top-1/4 -right-4 w-80 h-3/4 bg-yellow-400 filter blur-2xl mix-blend-multiply rounded-full">
+    </div>
+    <div class="absolute top-8 left-0 w-full h-80 bg-rose-400 filter blur-2xl mix-blend-multiply rounded-full">
+    </div>
+
+    <div class="container relative mx-auto bg-white shadow p-8 rounded-md">
+      <div class="text-4xl text-cyan-500 mb-10">
+        Register
+      </div>
+
+      <form [formGroup]="form" (ngSubmit)="signUp()" >
+        <div class="flex flex-col">
+          <div>
+            <label for="firstName" [ngClass]="firstNameInvalid? 'text-red-500' : 'text-cyan-500'">First name</label>
+          </div>
+          <div class="flex space-x-2">
+            <div class="flex-1">
+              <input type="text" [ngClass]="firstNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' " class="border-2 border-gray-200 px-2 py-px w-full rounded-md focus:outline-none'
+            " name="" value="" placeholder=" " id="firstName" formControlName="firstName" >
+            </div>
+            <div [class.invisible]="!firstNameInvalid">
+              <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
+            </div>
+          </div>
+        </div>
+        <span
+          [class.invisible]="!firstNameInvalid"
+          class="text-red-500 text-xs">First name is required</span>
+
+        <div class="flex flex-col">
+          <div>
+            <label for="lastName" [ngClass]="lastNameInvalid? 'text-red-500' : 'text-cyan-500'">Last name</label>
+          </div>
+          <div class="flex space-x-2">
+            <div class="flex-1">
+              <input type="text" [ngClass]="lastNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' " class="border-2 border-gray-200 px-2 py-px w-full rounded-md focus:outline-none'
+            " name="" value="" placeholder=" " id="lastName" formControlName="lastName" >
+            </div>
+            <div [class.invisible]="!lastNameInvalid">
+              <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
+            </div>
+          </div>
+        </div>
+        <span
+          [class.invisible]="!lastNameInvalid"
+          class="text-red-500 text-xs">Last name is required</span>
+
+
+
+        <div class="flex flex-col">
+          <div>
+            <label for="mail" [ngClass]="mailInvalid? 'text-red-500' : 'text-cyan-500'">E-Mail</label>
+          </div>
+          <div class="flex space-x-2">
+            <div class="flex-1">
+              <input type="text" [ngClass]="mailInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' " class="border-2 border-gray-200 px-2 py-px w-full rounded-md focus:outline-none'
+            " name="" value="" placeholder=" " id="mail" formControlName="eMail" >
+            </div>
+            <div [class.invisible]="!mailInvalid">
+              <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
+            </div>
+          </div>
+        </div>
+        <span
+          [class.invisible]="!mailInvalid"
+          class="text-red-500 text-xs">E-Mail has wrong format</span>
+
+
+        <div class="flex flex-col">
+          <div>
+            <label for="userName" [ngClass]="userNameInvalid? 'text-red-500' : 'text-cyan-500'">Username</label>
+          </div>
+          <div class="flex space-x-2">
+            <div class="flex-1">
+              <input type="text" [ngClass]="userNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' " class="border-2 border-gray-200 px-2 py-px w-full rounded-md focus:outline-none'
+            " name="" value="" placeholder=" " id="userName" formControlName="userName" >
+            </div>
+            <div [class.invisible]="!userNameInvalid">
+              <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
+            </div>
+          </div>
+        </div>
+        <span
+          [class.invisible]="!userNameInvalid"
+          class="text-red-500 text-xs">Username is required</span>
+
+        <div class="flex flex-col">
+          <div>
+            <label for="password" [ngClass]="passwordInvalid? 'text-red-500' : 'text-cyan-500'">Password</label>
+          </div>
+          <div class="flex space-x-2">
+            <div class="flex-1">
+              <input type="password" [ngClass]="passwordInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' " class="border-2 border-gray-200 px-2 py-px w-full rounded-md focus:outline-none'
+            " name="" value="" placeholder=" " id="password" formControlName="password" >
+            </div>
+            <div [class.invisible]="!passwordInvalid">
+              <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
+            </div>
+          </div>
+        </div>
+        <span
+          [class.invisible]="!passwordInvalid"
+          class="text-red-500 text-xs">Password needs at least 5 chars</span>
+
+        <div class="flex justify-end mt-4 text-cyan-500">
+          <div>
+            <button type="submit" [class.disabled]="actionDisabled" (click)="signUp()"
+                    class="rounded-md p-2 bg-cyan-500 hover:bg-cyan-600 text-white">Sign Up
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+
+

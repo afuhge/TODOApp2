@@ -21,19 +21,19 @@
           </div>
           <span
             [class.invisible]="!(this.form.get('username').invalid && (this.form.get('username').dirty || this.form.get('username').touched))"
-            class="text-red-500 text-xs">Username is invalid</span>
+            class="text-red-500 text-xs">Username is required</span>
           <div class="textbox">
             <input type="text" name="" placeholder=" " formControlName="password" value="">
             <label>Password</label>
           </div>
           <span
             [class.invisible]="!(this.form.get('password').invalid && (this.form.get('password').dirty || this.form.get('password').touched))"
-            class="text-red-500 text-xs">Password is invalid</span>
+            class="text-red-500 text-xs">Password needs at least 5 chars</span>
           <div class="flex justify-between mt-4 text-cyan-500">
             <div [class.invisible]="loginSuccessful" class="text.xs text-red-500">Wrong login data!</div>
             <div>
               <button type="submit" [class.disabled]="actionDisabled" (click)="signIn()"
-                      class="rounded-md p-2 bg-cyan-500 text-white">Sign in
+                      class="rounded-md p-2 bg-cyan-500 text-white hover:bg-cyan-600">Sign in
               </button>
             </div>
           </div>

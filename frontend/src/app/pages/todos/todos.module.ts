@@ -9,6 +9,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserService} from '../../services/user.service';
 import {DeleteTodoModalModule} from '../../parts/delete-todo-modal/delete-todo-modal.module';
 import {EditTodoModalModule} from '../../parts/edit-todo-modal/edit-todo-modal.module';
+import {AddAssigneesModalComponent} from '../../parts/add-assignees-modal/add-assignees-modal.component';
+import {AddAssigneesModalModule} from '../../parts/add-assignees-modal/add-assignees-modal.module';
+
 
 
 @NgModule({
@@ -30,6 +33,7 @@ import {EditTodoModalModule} from '../../parts/edit-todo-modal/edit-todo-modal.m
     ReactiveFormsModule,
     DeleteTodoModalModule,
     EditTodoModalModule,
+    AddAssigneesModalModule,
   ],
   exports: [
     TodosComponent,

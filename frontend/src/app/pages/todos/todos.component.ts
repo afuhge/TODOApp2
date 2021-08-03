@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
 import {
   faCalendarAlt,
-  faCheckSquare, faEllipsisV,
+  faCheckSquare,
+  faEllipsisV,
   faInfoCircle,
   faPencilAlt,
   faPlus,
@@ -23,7 +24,7 @@ import {NotifcationService} from '../../services/notifcation.service';
 import {ModalService} from '../../services/modal.service';
 import {EditTodoModalComponent} from '../../parts/edit-todo-modal/edit-todo-modal.component';
 import {DeleteTodoModalComponent} from '../../parts/delete-todo-modal/delete-todo-modal.component';
-
+import {AddAssigneesModalComponent} from '../../parts/add-assignees-modal/add-assignees-modal.component';
 
 
 @Component({
@@ -47,12 +48,15 @@ export class TodosComponent {
   public deleteIcon: IconDefinition = faTrash;
   public settings: IconDefinition = faEllipsisV;
 
+  public newTodo: TODO = new TODO();
+  public currentUser: User;
+
+
   public form: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     date: new FormControl(''),
     assignees: new FormControl([]),
   });
-  public isHidden = true;
 
   constructor(
     private userService: UserService,
@@ -61,7 +65,7 @@ export class TodosComponent {
     private notifierService: NotifcationService,
     private modalService: ModalService,
   ) {
-    this.titleService.setTitle('TODOs');
+    this.titleService.setTitle('ToDos');
 
     this.todos$ = this.todoService.loadTodo();
     this.todos$.subscribe((el: TODO[]) => {
@@ -72,13 +76,12 @@ export class TodosComponent {
     this.users$.subscribe((el: User[]) => {
       this.users = el;
     });
+
+    this.userService.currentUser.subscribe((user: User) => {
+      this.currentUser = user;
+    });
   }
 
-  public toggleDropDown($event: MouseEvent): void {
-    $event.preventDefault();
-    $event.stopPropagation();
-    this.isHidden = !this.isHidden;
-  }
 
   public drop(event: CdkDragDrop<TODO[], any>): void {
     moveItemInArray(this.todos, event.previousIndex, event.currentIndex);
@@ -125,18 +128,40 @@ export class TodosComponent {
 
 
   public addTodo(): void {
-    this.isHidden = true;
-   // notifications
-    console.log(' TODO: add todo');
+    this.newTodo.name = this.form.get('name').value;
+    this.newTodo.isDone = false;
+    this.newTodo.deadline = this.form.get('date').value;
+    this.newTodo.creator = this.currentUser.id;
+    console.log(this.newTodo);
+    this.todos.push(this.newTodo);
+    this.notifierService.success('Add ToDo successful!');
   }
 
-  private setAssignees(users: User[]): number[] {
-    const assignees: number[] = [];
-    users.forEach((user: User) => {
-      assignees.push(user.id);
+
+  public addAssignees($event: MouseEvent): void {
+    $event.stopPropagation();
+    $event.preventDefault();
+    const modal = this.modalService.showModal(AddAssigneesModalComponent);
+    modal.instance.assignees.subscribe((users: User[]) => {
+      console.log(users);
+      this.newTodo.assignees = users.map((user: User) => user.id);
+      console.log(this.newTodo.assignees);
     });
 
-    console.log(assignees);
-    return assignees;
+  }
+
+  // TODO:
+  private mapTodos(): void {
+    /*console.log(this.todos);
+    this.todos.forEach((todo: TODO) => {
+      console.log(todo.assignees);
+      const users = todo.assignees.map((assignee: number) => this.users.find((user: User) => user.id === assignee));
+      const newElem: any = {
+        users,
+      };
+
+    });
+    console.log(this.todos);
+     */
   }
 }
