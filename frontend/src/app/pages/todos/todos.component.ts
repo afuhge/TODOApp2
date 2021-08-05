@@ -58,6 +58,8 @@ export class TodosComponent {
     assignees: new FormControl([]),
   });
 
+  public selectedAssignees: User[] = [];
+
   constructor(
     private userService: UserService,
     private todoService: TodosService,
@@ -111,11 +113,11 @@ export class TodosComponent {
   }
 
   public deleteTodo(todo: TODO): void {
-    console.log('delete todo');
     const modal = this.modalService.showModal(DeleteTodoModalComponent);
     modal.instance.todo = todo;
     modal.instance.deletedTodo.subscribe(() => {
         const index = this.todos.findIndex((el: TODO) => el.id === todo.id);
+        console.log(index);
         if (index > -1) {
           this.todos.splice(index, 1);
           this.notifierService.success('Delete todo successful!');
@@ -132,9 +134,14 @@ export class TodosComponent {
     this.newTodo.isDone = false;
     this.newTodo.deadline = this.form.get('date').value;
     this.newTodo.creator = this.currentUser.id;
-    console.log(this.newTodo);
-    this.todos.push(this.newTodo);
-    this.notifierService.success('Add ToDo successful!');
+    this.todoService.addTodo(this.newTodo).subscribe((todo: TODO) => {
+      console.log(todo);
+      this.todos.push(todo);
+      this.notifierService.success('Add ToDo successful!');
+    }, (err) => {
+      this.notifierService.success('Add ToDo failed!');
+    });
+    this.form.reset();
   }
 
 
@@ -144,24 +151,14 @@ export class TodosComponent {
     const modal = this.modalService.showModal(AddAssigneesModalComponent);
     modal.instance.assignees.subscribe((users: User[]) => {
       console.log(users);
+      this.selectedAssignees = users;
       this.newTodo.assignees = users.map((user: User) => user.id);
       console.log(this.newTodo.assignees);
     });
 
   }
 
-  // TODO:
-  private mapTodos(): void {
-    /*console.log(this.todos);
-    this.todos.forEach((todo: TODO) => {
-      console.log(todo.assignees);
-      const users = todo.assignees.map((assignee: number) => this.users.find((user: User) => user.id === assignee));
-      const newElem: any = {
-        users,
-      };
-
-    });
-    console.log(this.todos);
-     */
+  public mapTodos(todo: TODO): User[] {
+    return todo.assignees.map((assignee: number) => this.users.find((user: User) => user.id === assignee));
   }
 }

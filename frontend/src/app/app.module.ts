@@ -54,6 +54,10 @@ const routes: Routes = [
         loadChildren: () => import('./pages/register/register.module')
           .then((m: { RegisterModule: RegisterModule }) => m.RegisterModule),
       },
+      {
+        path: '',
+        redirectTo: '/landing-page',
+      },
     ]
   },
   {

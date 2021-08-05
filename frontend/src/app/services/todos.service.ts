@@ -42,7 +42,7 @@ export class TodosService {
 
   public deleteTodo(todo: TODO): Observable<TODO> {
     const url = `${this.todosUrl}/${todo.id}`;
-
+console.log(url);
     return this.http.delete<TODO>(url, this.httpOptions);
   }
 }

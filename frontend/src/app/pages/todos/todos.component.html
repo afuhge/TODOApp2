@@ -1,128 +1,137 @@
 <app-header></app-header>
 
 <div class=" mt-24 flex items-center justify-center px-16 z-20">
-  <div class="relative w-full max-w-5xl">
+    <div class="relative w-full max-w-5xl">
 
-    <div class="absolute left-2 top-2 right-2 bottom-2 filter blur-md"
-         style="background: linear-gradient(135deg, #F43F5E, #D946EF)">
-    </div>
-
-    <div class="container relative mx-auto bg-white p-8 rounded-md"
-         style="border: 1px solid #ec9bbc;min-height: 500px;">
-      <div class="text-4xl text-rose-400 mb-10">
-        ToDos
-      </div>
-
-      <!-- component -->
-      <ng-container *ngIf="users$ | async; else loading">
-        <ng-container *ngIf="todos?.length; else noTodos">
-          <div class="border-b-2  mb-4 border-gray-300 p-2 font-semibold  grid grid-cols-12 items-center">
-            <div class=""></div>
-            <div class="col-span-4 flex space-x-2">
-              <div>
-                <fa-icon [icon]="todo" class="text-gray-400"></fa-icon>
-              </div>
-              <div>Name</div>
-            </div>
-            <div class="col-span-2 flex space-x-2">
-              <div>
-                <fa-icon [icon]="date" class="text-gray-400"></fa-icon>
-              </div>
-              <div>Date</div>
-            </div>
-            <div class="col-span-4 flex space-x-2">
-              <fa-icon [icon]="assignees" class="text-gray-400"></fa-icon>
-              <div>Assignees</div>
-            </div>
-          </div>
-
-          <div class="space-y-2" cdkDropList [cdkDropListData]="todos" (cdkDropListDropped)="drop($event)">
-            <div class=" todo border-2 border-gray-100 p-2 cursor-move  grid grid-cols-12 items-center rounded-xl"
-                 *ngFor="let todo of todos" cdkDrag [class.opacity-40]="todo.isDone">
-              <div class="bg-gray-50 rounded-xl" style="height:52px;" *cdkDragPlaceholder></div>
-              <div (click)="markAsDone(todo)" class="has-tooltip">
-                <fa-icon [icon]="todo.isDone? checked: check"
-                         class=" text-gray-500 hover:text-rose-400 cursor-pointer text-xl"></fa-icon>
-                <span class='tooltip '>Mark as done</span>
-              </div>
-              <div class="text-xl col-span-4 truncate" [ngClass]="todo.isDone? 'line-through': null">
-                {{todo.name || '-/-' }}
-              </div>
-              <div class="col-span-2">
-                {{ (todo.deadline | date: 'mediumDate') || '-/-'}}
-              </div>
-              <div class="flex m-0.5 col-span-4 flex-wrap">
-                <ng-container *ngIf="todo.assignees.length; else noAssignees">
-                  <div class="p-0.5" *ngFor="let assignee of todo.assignees">
-                    <!--<span class="py-px px-4 w-full rounded-xl text-white"
-                          [style.background-color]="assignee.color">{{assignee.name}}</span>-->
-                  </div>
-                </ng-container>
-                <ng-template #noAssignees>
-                  <span class="italic text-gray-400">No assignees</span>
-                </ng-template>
-              </div>
-              <div class="buttons space-x-2">
-                <div>
-                  <button (click)="editTodo(todo)" class="has-tooltip">
-                    <fa-icon [icon]="editIcon" class="text-gray-400 hover:text-yellow-400 text-lg "></fa-icon>
-                    <span class='tooltip '>Edit ToDo</span>
-                  </button>
-                </div>
-                <div>
-                  <button (click)="deleteTodo(todo)" class="has-tooltip">
-                    <fa-icon [icon]="deleteIcon" class="text-gray-400 hover:text-rose-500 text-lg"></fa-icon>
-                    <span class='tooltip '>Delete ToDo</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-            <form [formGroup]="form" (ngSubmit)="addTodo()"
-                  class="border-2 border-gray-100 p-2 grid grid-cols-12 items-center rounded-xl">
-              <div>
-                <button type="submit" [disabled]="!form.valid" class="has-tooltip">
-                  <fa-icon [icon]="plusIcon" class="text-gray-500 cursor-pointer text-xl hover:text-rose-400"></fa-icon>
-                  <span class='tooltip '>Add ToDo</span>
-                </button>
-              </div>
-              <div class="text-xl col-span-4">
-                <input type="text" placeholder="Enter todo name" formControlName="name" class="outline-none">
-              </div>
-              <div class="col-span-2">
-                <input type="date" name="deadline" placeholder="Enter deadline" formControlName="date"
-                       class="outline-none" style="width: 155px;">
-              </div>
-              <div class=" col-span-4">
-                <button (click)="addAssignees($event)" class="p-2">
-                  Add assignees
-                  <fa-icon [icon]="assignees" class="pl-4"></fa-icon>
-                </button>
-              </div>
-            </form>
-          </div>
-        </ng-container>
-        <ng-template #noTodos>
-          <div class="mt-8">
-            <div class="px-6 py-4 rounded-lg border-2 border-cyan-500 border-l-8">
-              <div class="flex items-center space-x-4">
-                <div>
-                  <fa-icon [icon]="info" class="text-cyan-500 text-xl"></fa-icon>
-                </div>
-                <div class="text-gray-400">
-                  No Todos available.
-                </div>
-              </div>
-            </div>
-          </div>
-        </ng-template>
-      </ng-container>
-      <ng-template #loading>
-        <div class="mt-8">
-          <div *ngFor="let i of [1,2,3]" class="bg-gray-100 animate-pulse p-8 my-2 rounded-lg"></div>
+        <div class="absolute left-2 top-2 right-2 bottom-2 filter blur-md"
+             style="background: linear-gradient(135deg, #F43F5E, #D946EF)">
         </div>
-      </ng-template>
+
+        <div class="container relative mx-auto bg-white p-8 rounded-md"
+             style="border: 1px solid #ec9bbc;min-height: 450px;">
+            <div class="text-4xl text-rose-400 mb-10">
+                ToDos
+            </div>
+
+            <!-- component -->
+            <ng-container *ngIf="users$ | async; else loading">
+                <ng-container *ngIf="todos?.length; else noTodos">
+                    <div class="border-b-2  mb-4 border-gray-300 p-2 font-semibold  grid grid-cols-12 items-center">
+                        <div class=""></div>
+                        <div class="col-span-4 flex space-x-2">
+                            <div>
+                                <fa-icon [icon]="todo" class="text-gray-400"></fa-icon>
+                            </div>
+                            <div>Name</div>
+                        </div>
+                        <div class="col-span-2 flex space-x-2">
+                            <div>
+                                <fa-icon [icon]="date" class="text-gray-400"></fa-icon>
+                            </div>
+                            <div>Date</div>
+                        </div>
+                        <div class="col-span-4 flex space-x-2">
+                            <fa-icon [icon]="assignees" class="text-gray-400"></fa-icon>
+                            <div>Assignees</div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2" cdkDropList [cdkDropListData]="todos" (cdkDropListDropped)="drop($event)">
+                        <div class=" todo border-2 border-gray-100 p-2 cursor-move  grid grid-cols-12 items-center rounded-xl"
+                             *ngFor="let todo of todos" cdkDrag [class.opacity-40]="todo.isDone">
+                            <div class="bg-gray-50 rounded-xl" style="height:52px;" *cdkDragPlaceholder></div>
+                            <div (click)="markAsDone(todo)" class="has-tooltip">
+                                <fa-icon [icon]="todo.isDone? checked: check"
+                                         class=" text-gray-500 hover:text-rose-400 cursor-pointer text-xl"></fa-icon>
+                                <span class='tooltip '>Mark as done</span>
+                            </div>
+                            <div class="text-xl col-span-4 truncate" [ngClass]="todo.isDone? 'line-through': null">
+                                {{todo.name || '-/-' }}
+                            </div>
+                            <div class="col-span-2">
+                                {{ (todo.deadline | date: 'mediumDate') || '-/-'}}
+                            </div>
+                            <div class="flex m-0.5 col-span-4 flex-wrap">
+                                <ng-container *ngIf="todo.assignees.length; else noAssignees">
+                                    <div class="p-0.5" *ngFor="let assignee of mapTodos(todo)">
+                                       <span class="py-px px-2 w-full rounded-xl text-white"
+                                             [style.background]="assignee.color">
+                                           {{assignee.firstName}}
+
+                                       </span>
+                                    </div>
+                                </ng-container>
+                                <ng-template #noAssignees>
+                                    <span class="italic text-gray-400">No assignees</span>
+                                </ng-template>
+                            </div>
+                            <div class="buttons space-x-2">
+                                <div>
+                                    <button (click)="editTodo(todo)" class="has-tooltip">
+                                        <fa-icon [icon]="editIcon"
+                                                 class="text-gray-400 hover:text-yellow-400 text-lg "></fa-icon>
+                                        <span class='tooltip '>Edit ToDo</span>
+                                    </button>
+                                </div>
+                                <div>
+                                    <button (click)="deleteTodo(todo)" class="has-tooltip">
+                                        <fa-icon [icon]="deleteIcon"
+                                                 class="text-gray-400 hover:text-rose-500 text-lg"></fa-icon>
+                                        <span class='tooltip '>Delete ToDo</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <form [formGroup]="form" (ngSubmit)="addTodo()"
+                              class="border-2 border-gray-100 p-2 grid grid-cols-12 items-center rounded-xl">
+                            <div>
+                                <button type="submit" [disabled]="!form.valid" class="has-tooltip">
+                                    <fa-icon [icon]="plusIcon"
+                                             class="text-gray-500 cursor-pointer text-xl hover:text-rose-400"></fa-icon>
+                                    <span class='tooltip '>Add ToDo</span>
+                                </button>
+                            </div>
+                            <div class="text-xl col-span-4">
+                                <input type="text" placeholder="Enter todo name" formControlName="name"
+                                       class="outline-none">
+                            </div>
+                            <div class="col-span-2">
+                                <input type="date" name="deadline" placeholder="Enter deadline" formControlName="date"
+                                       class="outline-none" style="width: 155px;">
+                            </div>
+                            <div class=" col-span-4">
+                                <button (click)="addAssignees($event)" class="p-2">
+                                    <span [ngClass]="selectedAssignees.length > 1? 'text-gray-700'
+                                            : 'text-gray-500'" class="hover:text-cyan-500">
+                                        Add {{selectedAssignees.length}} assignees</span>
+                                    <fa-icon [icon]="assignees" class="pl-2"></fa-icon>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </ng-container>
+                <ng-template #noTodos>
+                    <div class="mt-8">
+                        <div class="px-6 py-4 rounded-lg border-2 border-cyan-500 border-l-8">
+                            <div class="flex items-center space-x-4">
+                                <div>
+                                    <fa-icon [icon]="info" class="text-cyan-500 text-xl"></fa-icon>
+                                </div>
+                                <div class="text-gray-400">
+                                    No Todos available.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </ng-container>
+            <ng-template #loading>
+                <div class="mt-8">
+                    <div *ngFor="let i of [1,2,3]" class="bg-gray-100 animate-pulse p-8 my-2 rounded-lg"></div>
+                </div>
+            </ng-template>
+        </div>
     </div>
-  </div>
 </div>
 
 

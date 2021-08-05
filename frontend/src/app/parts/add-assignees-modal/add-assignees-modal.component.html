@@ -19,14 +19,14 @@
   <!-- component -->
 
   <ng-container *ngIf="users$ | async; else loading">
-    <div *ngIf="selectedUsers.length; else noUsers" class="space-y-1 overflow-y-auto" style="min-height: 350px; height:350px;">
+    <div *ngIf="selectedUsers.length; else noUsers" class="space-y-1 overflow-y-auto" style="min-height: 300px; height:300px;">
       <button (click)="toggleSelected(assignee)" *ngFor="let assignee of selectedUsers"
               class="p-4 w-full flex justify-between items-center"
-              [ngClass]="assignee.isSelected? 'bg-cyan-400 text-white': 'bg-gray-200 text-gray-700'">
+              [ngClass]="assignee.isSelected? 'bg-cyan-400 text-white': 'bg-gray-50 text-gray-700'">
         <div>{{assignee.user.firstName}} {{assignee.user.lastName}}</div>
         <div>
           <fa-icon [icon]="assignee.isSelected? check: circle" class="text-2xl"
-                   [ngClass]="assignee.isSelected? 'text-white' : ' text-gray-700'"></fa-icon>
+                   [ngClass]="assignee.isSelected? 'text-white' : ' text-gray-500'"></fa-icon>
         </div>
       </button>
     </div>

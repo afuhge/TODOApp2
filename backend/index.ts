@@ -136,6 +136,7 @@ application.delete('/todos/:todoId', (req: Request, res: Response) => {
   }
 });
 
+
 application.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`)
 })
