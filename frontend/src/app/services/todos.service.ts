@@ -40,9 +40,8 @@ export class TodosService {
     return this.http.put<TODO>(url, todo, this.httpOptions);
   }
 
-  public deleteTodo(todo: TODO): Observable<TODO> {
+  public deleteTodo(todo: TODO): Observable<any> {
     const url = `${this.todosUrl}/${todo.id}`;
-console.log(url);
     return this.http.delete<TODO>(url, this.httpOptions);
   }
 }

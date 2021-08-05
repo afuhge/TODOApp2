@@ -37,9 +37,6 @@ import {AddAssigneesModalModule} from '../../parts/add-assignees-modal/add-assig
   exports: [
     TodosComponent,
   ],
-  providers: [
-    UserService,
-  ],
 })
 export class TodosModule {
 }

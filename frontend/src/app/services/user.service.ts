@@ -39,7 +39,7 @@ export class UserService {
     return this.http.put<User>(url, user, this.httpOptions);
   }
 
-  public deleteUser(user: User): Observable<User> {
+  public deleteUser(user: User): Observable<any> {
     const url = `${this.usersUrl}/${user.id}`;
 
     return this.http.delete<User>(url, this.httpOptions);

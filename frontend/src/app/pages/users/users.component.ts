@@ -38,7 +38,6 @@ export class UsersComponent{
     private titleService: Title,
     private notifierService: NotifcationService,
     private modalService: ModalService,
-    private localStorageService: LocalStorageService,
   ) {
    this.users$ = this.userService.loadUser();
    this.users$.subscribe((el: User[]) => {

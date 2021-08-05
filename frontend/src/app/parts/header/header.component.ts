@@ -1,17 +1,16 @@
-import {Component} from '@angular/core';
-import {ApiUrlHelperService} from '../../services/api-url-helper.service';
-import {Router} from '@angular/router';
-import {faChevronDown, faSignOutAlt, IconDefinition} from '@fortawesome/free-solid-svg-icons';
-import {LocalStorageService} from '../../services/local-storage.service';
-import {User} from '../../models/user';
-import {UserService} from '../../services/user.service';
-import {Observable} from 'rxjs';
-import {ColorHelperService} from '../../services/color-helper.service';
+import { Component } from '@angular/core';
+import { ApiUrlHelperService } from '../../services/api-url-helper.service';
+import { Router } from '@angular/router';
+import { faChevronDown, faSignOutAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { LocalStorageService } from '../../services/local-storage.service';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user.service';
+import { ColorHelperService } from '../../services/color-helper.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
   public dashboardURL = '';
@@ -21,9 +20,10 @@ export class HeaderComponent {
   public loginURL = '';
   public signUpURL = '';
   public logout: IconDefinition = faSignOutAlt;
-public chevronDown: IconDefinition = faChevronDown;
-public hidden = true;
-public currentUser: User;
+  public chevronDown: IconDefinition = faChevronDown;
+  public hidden = true;
+  public currentUser: User;
+
   constructor(
     private router: Router,
     private localStorageService: LocalStorageService,
@@ -38,6 +38,7 @@ public currentUser: User;
     this.signUpURL = ApiUrlHelperService.getSignUpUrl();
     this.userService.getCurrentUser().subscribe((user: User) => {
       this.currentUser = user;
+      console.log(this.currentUser);
     });
   }
 
@@ -52,6 +53,6 @@ public currentUser: User;
   }
 
   public toggleDropDown(): void {
-    this.hidden = ! this.hidden;
+    this.hidden = !this.hidden;
   }
 }

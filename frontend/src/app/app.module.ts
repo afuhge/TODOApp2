@@ -18,6 +18,8 @@ import { UserService } from './services/user.service';
 import {HttpClientModule} from '@angular/common/http';
 import {LocalStorageService} from './services/local-storage.service';
 import {RegisterModule} from './pages/register/register.module';
+import { LoggedInGuard } from './guards/logged-in-guard';
+import { NotLoggedInGuard } from './guards/not-logged-in-guard';
 
 
 const routes: Routes = [
@@ -28,16 +30,19 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () => import('./pages/dashboard/dashboard.module')
           .then((m: { DashboardModule: DashboardModule }) => m.DashboardModule),
+        canActivate: [LoggedInGuard ]
       },
       {
         path: 'todos',
         loadChildren: () => import('./pages/todos/todos.module')
           .then((m: { TodosModule: TodosModule }) => m.TodosModule),
+        canActivate: [LoggedInGuard ]
       },
       {
         path: 'users',
         loadChildren: () => import('./pages/users/users.module')
           .then((m: { UsersModule: UsersModule }) => m.UsersModule),
+        canActivate: [LoggedInGuard ]
       },
       {
         path: 'landing-page',
@@ -48,11 +53,13 @@ const routes: Routes = [
         path: 'login',
         loadChildren: () => import('./pages/login/login.module')
           .then((m: { LoginModule: LoginModule }) => m.LoginModule),
+        canActivate: [NotLoggedInGuard ]
       },
       {
         path: 'register',
         loadChildren: () => import('./pages/register/register.module')
           .then((m: { RegisterModule: RegisterModule }) => m.RegisterModule),
+        canActivate: [NotLoggedInGuard ]
       },
       {
         path: '',
@@ -81,7 +88,7 @@ const routes: Routes = [
     HttpClientModule,
   ],
   bootstrap: [AppComponent],
-  providers: [ UserService, LocalStorageService ],
+  providers: [UserService, LocalStorageService, LoggedInGuard, NotLoggedInGuard ],
 })
 export class AppModule {
 }

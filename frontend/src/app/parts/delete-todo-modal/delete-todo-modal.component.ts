@@ -24,9 +24,8 @@ export class DeleteTodoModalComponent {
 
   public deleteTodo(): void {
     this.todoService.deleteTodo(this.todo)
-      .subscribe((todo: TODO) => {
-        console.log(todo.id);
-        this.deletedTodo.emit(todo);
+      .subscribe(() => {
+        this.deletedTodo.emit(this.todo);
       });
     this.modalService.closeModal();
   }

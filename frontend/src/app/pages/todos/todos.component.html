@@ -37,7 +37,7 @@
                     </div>
 
                     <div class="space-y-2" cdkDropList [cdkDropListData]="todos" (cdkDropListDropped)="drop($event)">
-                        <div class=" todo border-2 border-gray-100 p-2 cursor-move  grid grid-cols-12 items-center rounded-xl"
+                        <div class="py-2 px-4 todo border-2 border-gray-100 cursor-move  grid grid-cols-12 items-center rounded-xl"
                              *ngFor="let todo of todos" cdkDrag [class.opacity-40]="todo.isDone">
                             <div class="bg-gray-50 rounded-xl" style="height:52px;" *cdkDragPlaceholder></div>
                             <div (click)="markAsDone(todo)" class="has-tooltip">
@@ -46,7 +46,7 @@
                                 <span class='tooltip '>Mark as done</span>
                             </div>
                             <div class="text-xl col-span-4 truncate" [ngClass]="todo.isDone? 'line-through': null">
-                                {{todo.name || '-/-' }}
+                                {{todo.name || '-/-' }} {{todo.id}}
                             </div>
                             <div class="col-span-2">
                                 {{ (todo.deadline | date: 'mediumDate') || '-/-'}}
@@ -83,7 +83,7 @@
                             </div>
                         </div>
                         <form [formGroup]="form" (ngSubmit)="addTodo()"
-                              class="border-2 border-gray-100 p-2 grid grid-cols-12 items-center rounded-xl">
+                              class="py-2 px-4 border-2 border-gray-100 grid grid-cols-12 items-center rounded-xl">
                             <div>
                                 <button type="submit" [disabled]="!form.valid" class="has-tooltip">
                                     <fa-icon [icon]="plusIcon"

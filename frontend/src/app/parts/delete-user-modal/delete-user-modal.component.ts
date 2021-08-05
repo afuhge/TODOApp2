@@ -24,8 +24,8 @@ export class DeleteUserModalComponent implements OnInit {
 
   public deleteUser(): void {
     this.userService.deleteUser(this.user)
-      .subscribe((user: User) => {
-        this.deletedUser.emit(user);
+      .subscribe(() => {
+        this.deletedUser.emit(this.user);
       });
     this.modalService.closeModal();
   }

@@ -1,7 +1,7 @@
 import { User } from './model/user';
 import { Todo } from './model/todo';
 
-let idGen = 5;
+let idGen = 8;
 export const id = () => ++idGen;
 
 const user1: User = {

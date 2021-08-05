@@ -15,5 +15,5 @@ body {
 }
 
 .has-tooltip:hover .tooltip {
-  @apply z-50 transition delay-500 duration-500 ease-linear opacity-100;
+  @apply z-50 transition delay-200 duration-300 ease-linear opacity-100;
 }
