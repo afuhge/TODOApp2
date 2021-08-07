@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {BehaviorSubject, Observable, of} from 'rxjs';
 import {User} from '../models/user';
 import {LocalStorageService} from './local-storage.service';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class UserService {
@@ -32,6 +33,10 @@ export class UserService {
 
   public addUser(user: User): Observable<User> {
     return this.http.post<User>(this.usersUrl, user, this.httpOptions);
+      /*.pipe(
+      map((res: any) => {
+        return User.fromJSON(res);
+      })*/
   }
 
   public editUser(user: User): Observable<User> {

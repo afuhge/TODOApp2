@@ -13,9 +13,22 @@
                 ToDos
             </div>
 
+            <form [formGroup]="searchForm" class="flex mt-2 justify-end items-center">
+                <div>
+                    <input class="border-b-2 border-gray-300 hover:border-cyan-500 focus:outline-none"
+                           placeholder="Filter" formControlName="searchTerm"
+                           type="text">
+                    <button (click)="reset()"
+                            class="focus:outline-none text-gray-400 hover:text-cyan-600 has-tooltip">
+                        <fa-icon [icon]="resetIcon"></fa-icon>
+                        <span class='tooltip '>Reset</span>
+                    </button>
+                </div>
+            </form>
+
             <!-- component -->
             <ng-container *ngIf="users$ | async; else loading">
-                <ng-container *ngIf="todos?.length; else noTodos">
+                <ng-container *ngIf="filteredTodos?.length; else noTodos">
                     <div class="border-b-2  mb-4 border-gray-300 p-2 font-semibold  grid grid-cols-12 items-center">
                         <div class=""></div>
                         <div class="col-span-4 flex space-x-2">
@@ -36,22 +49,26 @@
                         </div>
                     </div>
 
-                    <div class="space-y-2" cdkDropList [cdkDropListData]="todos" (cdkDropListDropped)="drop($event)">
-                        <div class="py-2 px-4 todo border-2 border-gray-100 cursor-move  grid grid-cols-12 items-center rounded-xl"
-                             *ngFor="let todo of todos" cdkDrag [class.opacity-40]="todo.isDone">
+                    <div class="space-y-2" cdkDropList [cdkDropListData]="filteredTodos"
+                         (cdkDropListDropped)="drop($event)">
+                        <form [formGroup]="todoForm" (ngSubmit)="editTodo(todo)"
+                              class="py-2 px-4 todo border-2 border-gray-100 cursor-move  grid grid-cols-12 items-center rounded-xl"
+                              *ngFor="let todo of filteredTodos" cdkDrag [class.opacity-40]="todo.isDone">
                             <div class="bg-gray-50 rounded-xl" style="height:52px;" *cdkDragPlaceholder></div>
                             <div (click)="markAsDone(todo)" class="has-tooltip">
                                 <fa-icon [icon]="todo.isDone? checked: check"
                                          class=" text-gray-500 hover:text-rose-400 cursor-pointer text-xl"></fa-icon>
                                 <span class='tooltip '>Mark as done</span>
                             </div>
-                            <div class="text-xl col-span-4 truncate" [ngClass]="todo.isDone? 'line-through': null">
-                                {{todo.name || '-/-' }} {{todo.id}}
+                            <div class="text-xl col-span-4 truncate">
+                                <input type="text" placeholder="" formControlName="name"
+                                       class="outline-none">
                             </div>
                             <div class="col-span-2">
-                                {{ (todo.deadline | date: 'mediumDate') || '-/-'}}
+                                <input type="date" name="deadline" placeholder="Enter deadline" formControlName="date"
+                                       class="outline-none">
                             </div>
-                            <div class="flex m-0.5 col-span-4 flex-wrap">
+                            <div class="flex m-0.5 col-span-4 flex-wrap" (click)="addAssignees($event, todo.assignees)">
                                 <ng-container *ngIf="todo.assignees.length; else noAssignees">
                                     <div class="p-0.5" *ngFor="let assignee of mapTodos(todo)">
                                        <span class="py-px px-2 w-full rounded-xl text-white"
@@ -65,23 +82,17 @@
                                     <span class="italic text-gray-400">No assignees</span>
                                 </ng-template>
                             </div>
-                            <div class="buttons space-x-2">
+                            <div class="buttons">
                                 <div>
-                                    <button (click)="editTodo(todo)" class="has-tooltip">
-                                        <fa-icon [icon]="editIcon"
-                                                 class="text-gray-400 hover:text-yellow-400 text-lg "></fa-icon>
-                                        <span class='tooltip '>Edit ToDo</span>
-                                    </button>
-                                </div>
-                                <div>
-                                    <button (click)="deleteTodo(todo)" class="has-tooltip">
+                                    <a (click)="deleteTodo(todo)" class="has-tooltip">
                                         <fa-icon [icon]="deleteIcon"
                                                  class="text-gray-400 hover:text-rose-500 text-lg"></fa-icon>
                                         <span class='tooltip '>Delete ToDo</span>
-                                    </button>
+                                    </a>
                                 </div>
                             </div>
-                        </div>
+                        </form>
+
                         <form [formGroup]="form" (ngSubmit)="addTodo()"
                               class="py-2 px-4 border-2 border-gray-100 grid grid-cols-12 items-center rounded-xl">
                             <div>
@@ -95,12 +106,14 @@
                                 <input type="text" placeholder="Enter todo name" formControlName="name"
                                        class="outline-none">
                             </div>
-                            <div class="col-span-2">
-                                <input type="date" name="deadline" placeholder="Enter deadline" formControlName="date"
-                                       class="outline-none" style="width: 155px;">
+                            <div class="col-span-2 flex items-center space-x-2">
+                                <input [owlDateTime]="fromdatepicker" placeholder="tt.mm.jjjj" class="outline-none " style="width:88px;">
+                                <owl-date-time #fromdatepicker [pickerType]="calendar"></owl-date-time>
+                                <fa-icon [icon]="calendar" [owlDateTimeTrigger]="fromdatepicker">
+                                </fa-icon>
                             </div>
                             <div class=" col-span-4">
-                                <button (click)="addAssignees($event)" class="p-2">
+                                <button (click)="addAssignees($event, [])" class="p-2">
                                     <span [ngClass]="selectedAssignees.length > 1? 'text-gray-700'
                                             : 'text-gray-500'" class="hover:text-cyan-500">
                                         Add {{selectedAssignees.length}} assignees</span>

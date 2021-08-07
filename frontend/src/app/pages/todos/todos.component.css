@@ -1,9 +1,11 @@
 .cdk-drag-preview {
+  user-select: none;
   background: white;
   box-shadow: 2px 4px 10px 0px rgba(0, 0, 0, 0.2);
 }
 
 .example-custom-placeholder {
+  user-select: none;
   background: #ccc;
   border: dotted 3px #999;
   min-height: 60px;
@@ -22,4 +24,8 @@
 .todo:hover  .buttons {
   display: flex;
   justify-content: flex-end;
+}
+
+input[type="date"] {
+  width: 130px;
 }

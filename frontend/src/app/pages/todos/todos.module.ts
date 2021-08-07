@@ -6,10 +6,10 @@ import {HeaderModule} from '../../parts/header/header.module';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {DragDropModule} from '@angular/cdk/drag-drop';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {UserService} from '../../services/user.service';
 import {DeleteTodoModalModule} from '../../parts/delete-todo-modal/delete-todo-modal.module';
-import {EditTodoModalModule} from '../../parts/edit-todo-modal/edit-todo-modal.module';
 import {AddAssigneesModalModule} from '../../parts/add-assignees-modal/add-assignees-modal.module';
+import { OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
+import { TodoItemModule } from '../../parts/todo-item/todo-item.module';
 
 
 
@@ -31,8 +31,9 @@ import {AddAssigneesModalModule} from '../../parts/add-assignees-modal/add-assig
     FormsModule,
     ReactiveFormsModule,
     DeleteTodoModalModule,
-    EditTodoModalModule,
     AddAssigneesModalModule,
+    OwlDateTimeModule,
+    TodoItemModule,
   ],
   exports: [
     TodosComponent,

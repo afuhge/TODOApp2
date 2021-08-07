@@ -1,4 +1,6 @@
-<div class=" min-h-screen flex items-center justify-center px-16">
+<app-header></app-header>
+
+<div class="h-full flex items-center justify-center">
   <div class="relative w-full max-w-lg">
 
     <div class="absolute top-8 -left-4 w-80 h-80 bg-cyan-400 filter blur-2xl mix-blend-multiply rounded-full">
@@ -8,9 +10,9 @@
     <div class="absolute bottom-16 left-28 w-80 h-80 bg-rose-400 filter blur-2xl mix-blend-multiply rounded-full">
     </div>
 
-    <div class="container relative mx-auto bg-white shadow p-8 rounded-md">
+    <div class="relative mx-auto bg-white shadow p-8 rounded-md">
       <div class="text-4xl text-cyan-500 mb-10">
-        Login
+        Sign in
       </div>
 
       <form [formGroup]="form" (ngSubmit)="signIn()">

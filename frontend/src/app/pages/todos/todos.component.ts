@@ -1,31 +1,21 @@
-import {Component} from '@angular/core';
+import { Component } from '@angular/core';
 import {
-  faCalendarAlt,
-  faCheckSquare,
-  faEllipsisV,
-  faInfoCircle,
-  faPencilAlt,
-  faPlus,
-  faTrash,
-  faUsers,
-  IconDefinition
+  faCalendar, faCalendarAlt, faCheckSquare, faEllipsisV, faInfoCircle, faPencilAlt, faPlus, faTimesCircle, faTrash, faUsers, IconDefinition,
 } from '@fortawesome/free-solid-svg-icons';
-import {CdkDragDrop, moveItemInArray} from '@angular/cdk/drag-drop';
-import {faSquare} from '@fortawesome/free-regular-svg-icons';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../../services/user.service';
+import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { faSquare } from '@fortawesome/free-regular-svg-icons';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../services/user.service';
 
-import {Title} from '@angular/platform-browser';
-import {TODO} from '../../models/todo';
-import {User} from '../../models/user';
-import {TodosService} from '../../services/todos.service';
-import {Observable} from 'rxjs';
-import {NotifcationService} from '../../services/notifcation.service';
-import {ModalService} from '../../services/modal.service';
-import {EditTodoModalComponent} from '../../parts/edit-todo-modal/edit-todo-modal.component';
-import {DeleteTodoModalComponent} from '../../parts/delete-todo-modal/delete-todo-modal.component';
-import {AddAssigneesModalComponent} from '../../parts/add-assignees-modal/add-assignees-modal.component';
-
+import { Title } from '@angular/platform-browser';
+import { TODO } from '../../models/todo';
+import { User } from '../../models/user';
+import { TodosService } from '../../services/todos.service';
+import { Observable } from 'rxjs';
+import { NotifcationService } from '../../services/notifcation.service';
+import { ModalService } from '../../services/modal.service';
+import { DeleteTodoModalComponent } from '../../parts/delete-todo-modal/delete-todo-modal.component';
+import { AddAssigneesModalComponent } from '../../parts/add-assignees-modal/add-assignees-modal.component';
 
 @Component({
   selector: 'app-todos',
@@ -40,6 +30,7 @@ export class TodosComponent {
   public todo: IconDefinition = faCheckSquare;
   public plusIcon: IconDefinition = faPlus;
   public todos: TODO[] = [];
+  public filteredTodos: TODO[] = [];
   public todos$: Observable<TODO[]>;
   public users: User[] = [];
   public users$: Observable<User[]>;
@@ -47,12 +38,24 @@ export class TodosComponent {
   public editIcon: IconDefinition = faPencilAlt;
   public deleteIcon: IconDefinition = faTrash;
   public settings: IconDefinition = faEllipsisV;
+  public  calendar: IconDefinition = faCalendar;
 
   public newTodo: TODO = new TODO();
   public currentUser: User;
 
+  public resetIcon: IconDefinition = faTimesCircle;
+
+  public searchForm: FormGroup = new FormGroup({
+    searchTerm: new FormControl(''),
+  });
 
   public form: FormGroup = new FormGroup({
+    name: new FormControl('', Validators.required),
+    date: new FormControl(''),
+    assignees: new FormControl([]),
+  });
+
+  public todoForm: FormGroup = new FormGroup({
     name: new FormControl('', Validators.required),
     date: new FormControl(''),
     assignees: new FormControl([]),
@@ -72,6 +75,7 @@ export class TodosComponent {
     this.todos$ = this.todoService.loadTodo();
     this.todos$.subscribe((el: TODO[]) => {
       this.todos = el;
+      this.filteredTodos = this.todos;
     });
 
     this.users$ = this.userService.loadUser();
@@ -82,8 +86,11 @@ export class TodosComponent {
     this.userService.currentUser.subscribe((user: User) => {
       this.currentUser = user;
     });
-  }
 
+    this.searchForm.valueChanges.subscribe((value) => {
+      this.filterTodos();
+    });
+  }
 
   public drop(event: CdkDragDrop<TODO[], any>): void {
     moveItemInArray(this.todos, event.previousIndex, event.currentIndex);
@@ -91,43 +98,30 @@ export class TodosComponent {
 
   public markAsDone(todo: TODO): void {
     todo.isDone = !todo.isDone;
-  }
-
-
-  public editTodo(todo: TODO): void {
-    console.log('edit todo');
-    const modal = this.modalService.showModal(EditTodoModalComponent);
-    modal.instance.todo = todo;
-    modal.instance.edittedTodo.subscribe(
-      (edittedTodo: TODO) => {
-        const index = this.todos.findIndex((el: TODO) => el.id === edittedTodo.id);
-        if (index > -1) {
-          this.todos.splice(index, 1, edittedTodo);
-          this.notifierService.success('Edit todo successful!');
-        }
-      },
-      (err) => {
-        this.notifierService.error('Edit todo failed!');
+    this.todoService.editTodo(todo).subscribe((edittedTodo: TODO) => {
+      const index = this.todos.findIndex((el: TODO) => el.id === edittedTodo.id);
+      if (index > -1) {
+        this.todos.splice(index, 1, edittedTodo);
       }
-    );
+    }, (err) => {
+      this.notifierService.error('Mark todo failed!');
+    });
   }
 
   public deleteTodo(todo: TODO): void {
     const modal = this.modalService.showModal(DeleteTodoModalComponent);
     modal.instance.todo = todo;
     modal.instance.deletedTodo.subscribe(() => {
-        const index = this.todos.findIndex((el: TODO) => el.id === todo.id);
-        console.log(index);
-        if (index > -1) {
-          this.todos.splice(index, 1);
-          this.notifierService.success('Delete todo successful!');
-        }
-      },
-      (err) => {
-        this.notifierService.error('Delete todo failed!');
-      });
+      const index = this.todos.findIndex((el: TODO) => el.id === todo.id);
+      console.log(index);
+      if (index > -1) {
+        this.todos.splice(index, 1);
+        this.notifierService.success('Delete todo successful!');
+      }
+    }, (err) => {
+      this.notifierService.error('Delete todo failed!');
+    });
   }
-
 
   public addTodo(): void {
     this.newTodo.name = this.form.get('name').value;
@@ -144,11 +138,11 @@ export class TodosComponent {
     this.form.reset();
   }
 
-
-  public addAssignees($event: MouseEvent): void {
+  public addAssignees($event: MouseEvent, assignees: number[]): void {
     $event.stopPropagation();
     $event.preventDefault();
     const modal = this.modalService.showModal(AddAssigneesModalComponent);
+    modal.instance.selectedAssignees = assignees;
     modal.instance.assignees.subscribe((users: User[]) => {
       console.log(users);
       this.selectedAssignees = users;
@@ -160,5 +154,28 @@ export class TodosComponent {
 
   public mapTodos(todo: TODO): User[] {
     return todo.assignees.map((assignee: number) => this.users.find((user: User) => user.id === assignee));
+  }
+
+  public reset(): void {
+    this.searchForm.reset();
+    this.resetFilteredTodos();
+  }
+
+  private resetFilteredTodos(): void {
+    this.filteredTodos = this.todos;
+  }
+
+  private filterTodos(): void {
+    this.resetFilteredTodos();
+    const searchTerm = this.searchForm.get('searchTerm').value?.trim();
+    if (searchTerm !== '') {
+      this.filteredTodos = this.filteredTodos.filter((todo: TODO) => {
+        return todo.name.includes(searchTerm);
+      });
+    }
+  }
+
+  public editTodo(todo: TODO): void {
+
   }
 }

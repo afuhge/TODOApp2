@@ -4,6 +4,7 @@ import {LoginComponent} from './login.component';
 import {RouterModule} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {LocalStorageService} from '../../services/local-storage.service';
+import { HeaderModule } from '../../parts/header/header.module';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import {LocalStorageService} from '../../services/local-storage.service';
       },
     ]),
     ReactiveFormsModule,
+    HeaderModule,
   ],
   exports: [
     LoginComponent,

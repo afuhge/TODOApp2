@@ -1,0 +1,39 @@
+<form [formGroup]="todoForm">
+   <!-- <div (click)="markAsDone(todo)" class="has-tooltip">
+        <fa-icon [icon]="todo.isDone? checked: check"
+                 class=" text-gray-500 hover:text-rose-400 cursor-pointer text-xl"></fa-icon>
+        <span class='tooltip '>Mark as done</span>
+    </div>
+    <div class="text-xl col-span-4 truncate">
+        <input type="text" placeholder="" formControlName="name"
+               class="outline-none">
+    </div>
+    <div class="col-span-2">
+        <input type="date" name="deadline" placeholder="Enter deadline" formControlName="date"
+               class="outline-none">
+    </div>
+    <div class="flex m-0.5 col-span-4 flex-wrap" (click)="addAssignees($event, todo.assignees)">
+        <ng-container *ngIf="todo.assignees.length; else noAssignees">
+            <div class="p-0.5" *ngFor="let assignee of mapTodos(todo)">
+                                       <span class="py-px px-2 w-full rounded-xl text-white"
+                                             [style.background]="assignee.color">
+                                           {{assignee.firstName}}
+
+                                       </span>
+            </div>
+        </ng-container>
+        <ng-template #noAssignees>
+            <span class="italic text-gray-400">No assignees</span>
+        </ng-template>
+    </div>
+    <div class="buttons">
+        <div>
+            <a (click)="deleteTodo(todo)" class="has-tooltip">
+                <fa-icon [icon]="deleteIcon"
+                         class="text-gray-400 hover:text-rose-500 text-lg"></fa-icon>
+                <span class='tooltip '>Delete ToDo</span>
+            </a>
+        </div>
+    </div>
+    -->
+</form>

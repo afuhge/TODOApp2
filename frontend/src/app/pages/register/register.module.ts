@@ -4,6 +4,7 @@ import { RegisterComponent } from './register.component';
 import {RouterModule} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
+import { HeaderModule } from '../../parts/header/header.module';
 
 
 
@@ -21,6 +22,7 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
     ]),
     ReactiveFormsModule,
     FontAwesomeModule,
+    HeaderModule,
   ],
   exports: [
     RegisterComponent,
