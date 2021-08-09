@@ -1,30 +1,33 @@
-<form [formGroup]="todoForm">
-   <!-- <div (click)="markAsDone(todo)" class="has-tooltip">
-        <fa-icon [icon]="todo.isDone? checked: check"
+<form [formGroup]="todoForm" [class.opacity-40]="todo?.isDone" style="min-height: 52px;"
+      class="py-2 px-4 todo border-2 border-gray-100 cursor-move  grid grid-cols-12 items-center rounded-xl">
+    <div (click)="markAsDone(todo)" class="has-tooltip">
+        <fa-icon [icon]="todo?.isDone? checked: check"
                  class=" text-gray-500 hover:text-rose-400 cursor-pointer text-xl"></fa-icon>
         <span class='tooltip '>Mark as done</span>
     </div>
     <div class="text-xl col-span-4 truncate">
-        <input type="text" placeholder="" formControlName="name"
-               class="outline-none">
+        <input type="text" placeholder="" formControlName="name" (blur)="saveName()"
+               class="outline-none" [ngClass]="todo?.isDone? 'line-through' : null">
     </div>
-    <div class="col-span-2">
-        <input type="date" name="deadline" placeholder="Enter deadline" formControlName="date"
-               class="outline-none">
+    <div class="col-span-2 flex items-center space-x-2 date">
+        <input [owlDateTime]="fromdatepicker" formControlName="date" (dateTimeInput)="saveDate($event)" placeholder="dd.mm.yyyy" class="outline-none " style="width:96px; pointer-events: none">
+        <owl-date-time #fromdatepicker [pickerType]="'calendar'" pickerMode="popup"></owl-date-time>
+        <fa-icon [icon]="calendar" class="datepicker" [owlDateTimeTrigger]="fromdatepicker">
+        </fa-icon>
     </div>
     <div class="flex m-0.5 col-span-4 flex-wrap" (click)="addAssignees($event, todo.assignees)">
-        <ng-container *ngIf="todo.assignees.length; else noAssignees">
-            <div class="p-0.5" *ngFor="let assignee of mapTodos(todo)">
-                                       <span class="py-px px-2 w-full rounded-xl text-white"
-                                             [style.background]="assignee.color">
-                                           {{assignee.firstName}}
+       <ng-container *ngIf="todo?.assignees.length; else noAssignees">
+          <div class="p-0.5" *ngFor="let assignee of mapTodos(todo)">
+                                     <span class="py-px px-2 w-full rounded-xl text-white"
+                                           [style.background]="assignee?.color">
+                                         {{assignee?.firstName}}
 
-                                       </span>
-            </div>
-        </ng-container>
-        <ng-template #noAssignees>
-            <span class="italic text-gray-400">No assignees</span>
-        </ng-template>
+                                     </span>
+          </div>
+       </ng-container>
+       <ng-template #noAssignees>
+          <span class="italic text-gray-400">No assignees</span>
+       </ng-template>
     </div>
     <div class="buttons">
         <div>
@@ -35,5 +38,4 @@
             </a>
         </div>
     </div>
-    -->
 </form>

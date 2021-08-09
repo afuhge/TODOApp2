@@ -5,6 +5,10 @@ import {faExclamationCircle, IconDefinition} from '@fortawesome/free-solid-svg-i
 import {Title} from '@angular/platform-browser';
 import {Router} from '@angular/router';
 import {ApiUrlHelperService} from '../../services/api-url-helper.service';
+import { User } from '../../models/user';
+import { UserService } from '../../services/user.service';
+import { ColorHelperService } from '../../services/color-helper.service';
+import { LocalStorageService } from '../../services/local-storage.service';
 
 @Component({
   selector: 'app-register',
@@ -34,6 +38,9 @@ export class RegisterComponent  {
   constructor(
     private titleService: Title,
     private router: Router,
+    private userService: UserService,
+    private colorService: ColorHelperService,
+    private localStorageService: LocalStorageService,
   ) {
     this.titleService.setTitle('Register');
 
@@ -54,6 +61,19 @@ export class RegisterComponent  {
 
 
   public signUp(): void {
-      this.router.navigateByUrl(ApiUrlHelperService.getDashboardUrl());
+    if (!this.actionDisabled) {
+      const newUser: User = {
+        ...this.form.value,
+        todos: [],
+        isAdmin: false,
+      };
+      newUser.color = this.colorService.convertNameIntoColor(newUser);
+      console.log('hi');
+      this.userService.addUser(newUser).subscribe((user: User) => {
+        this.localStorageService.setCurrentUser(user);
+        this.userService.currentUser.next(user);
+        this.router.navigateByUrl(ApiUrlHelperService.getDashboardUrl());
+      });
+    }
   }
 }

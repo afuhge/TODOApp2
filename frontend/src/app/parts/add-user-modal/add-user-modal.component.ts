@@ -36,6 +36,7 @@ export class AddUserModalComponent implements OnInit {
   public mailInvalid: boolean = false;
   public passwordInvalid: boolean = false;
   public actionDisabled: boolean;
+  public isDirty: boolean = true;
 
   @Output() createdUser: EventEmitter<User> = new EventEmitter<User>();
   constructor(

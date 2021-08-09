@@ -54,7 +54,7 @@ const user4: User = {
 const todo2: Todo = {
   id: 6,
   name: 'Clean dishes',
-  deadline: '11-02-2012',
+  deadline: '2021-08-30T22:00:00.000Z',
   creator: 3,
   assignees: [
     1,
@@ -66,7 +66,7 @@ const todo2: Todo = {
 const todo1: Todo = {
   id: 5,
   name: 'Clean dishes',
-  deadline: '11-02-2012',
+  deadline: '2021-08-08T22:00:00.000Z',
   creator: 1,
   assignees: [
     1,
@@ -80,7 +80,7 @@ const todo1: Todo = {
 const todo3: Todo = {
   id: 7,
   name: 'Cook dinner',
-  deadline: '08-01-2021',
+  deadline: '2021-08-09T22:00:00.000Z',
   creator: 1,
   assignees: [
     1,
@@ -90,7 +90,7 @@ const todo3: Todo = {
 const todo4: Todo = {
   id: 8,
   name: 'Wash clothes',
-  deadline: '07-31-2021',
+  deadline: '2021-08-10T22:00:00.000Z',
   creator: 1,
   assignees: [
     1,

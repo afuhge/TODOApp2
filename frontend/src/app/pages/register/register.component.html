@@ -22,7 +22,7 @@
           </div>
           <div class="flex space-x-2">
             <div class="flex-1">
-              <input type="text" [ngClass]="firstNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' " class="border-2 border-gray-200 px-2 py-px w-full rounded-md focus:outline-none'
+              <input type="text" [ngClass]="firstNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' " class="border-b-2 border-gray-200 px-2 py-px w-full  focus:outline-none'
             " name="" value="" placeholder=" " id="firstName" formControlName="firstName" >
             </div>
             <div [class.invisible]="!firstNameInvalid">
@@ -40,7 +40,7 @@
           </div>
           <div class="flex space-x-2">
             <div class="flex-1">
-              <input type="text" [ngClass]="lastNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' " class="border-2 border-gray-200 px-2 py-px w-full rounded-md focus:outline-none'
+              <input type="text" [ngClass]="lastNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' " class="border-b-2 border-gray-200 px-2 py-px w-full  focus:outline-none'
             " name="" value="" placeholder=" " id="lastName" formControlName="lastName" >
             </div>
             <div [class.invisible]="!lastNameInvalid">
@@ -60,7 +60,7 @@
           </div>
           <div class="flex space-x-2">
             <div class="flex-1">
-              <input type="text" [ngClass]="mailInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' " class="border-2 border-gray-200 px-2 py-px w-full rounded-md focus:outline-none'
+              <input type="text" [ngClass]="mailInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' " class="border-b-2 border-gray-200 px-2 py-px w-full  focus:outline-none'
             " name="" value="" placeholder=" " id="mail" formControlName="eMail" >
             </div>
             <div [class.invisible]="!mailInvalid">
@@ -79,7 +79,7 @@
           </div>
           <div class="flex space-x-2">
             <div class="flex-1">
-              <input type="text" [ngClass]="userNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' " class="border-2 border-gray-200 px-2 py-px w-full rounded-md focus:outline-none'
+              <input type="text" [ngClass]="userNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' " class="border-b-2 border-gray-200 px-2 py-px w-full  focus:outline-none'
             " name="" value="" placeholder=" " id="userName" formControlName="userName" >
             </div>
             <div [class.invisible]="!userNameInvalid">
@@ -97,7 +97,7 @@
           </div>
           <div class="flex space-x-2">
             <div class="flex-1">
-              <input type="password" [ngClass]="passwordInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' " class="border-2 border-gray-200 px-2 py-px w-full rounded-md focus:outline-none'
+              <input type="password" [ngClass]="passwordInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' " class="border-b-2 border-gray-200 px-2 py-px w-full  focus:outline-none'
             " name="" value="" placeholder=" " id="password" formControlName="password" >
             </div>
             <div [class.invisible]="!passwordInvalid">
@@ -111,8 +111,8 @@
 
         <div class="flex justify-end mt-4 text-cyan-500">
           <div>
-            <button type="submit" [class.disabled]="actionDisabled" (click)="signUp()"
-                    class="rounded-md p-2 bg-cyan-500 hover:bg-cyan-600 text-white">Sign Up
+            <button type="submit" [ngClass]="actionDisabled? 'bg-cyan-200 border-cyan-200' : 'bg-cyan-500 hover:bg-cyan-600'"
+                    class="rounded-md p-2 text-white">Sign Up
             </button>
           </div>
         </div>

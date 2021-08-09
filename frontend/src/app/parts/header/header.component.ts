@@ -38,7 +38,6 @@ export class HeaderComponent {
     this.signUpURL = ApiUrlHelperService.getSignUpUrl();
     this.userService.getCurrentUser().subscribe((user: User) => {
       this.currentUser = user;
-      console.log(this.currentUser);
     });
   }
 

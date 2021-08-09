@@ -20,7 +20,9 @@ import {LocalStorageService} from './services/local-storage.service';
 import {RegisterModule} from './pages/register/register.module';
 import { LoggedInGuard } from './guards/logged-in-guard';
 import { NotLoggedInGuard } from './guards/not-logged-in-guard';
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
+import { OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
+import { ModalFormGuard } from './guards/modal-form-guard';
+import { AddUserModalComponent } from './parts/add-user-modal/add-user-modal.component';
 
 
 const routes: Routes = [
@@ -75,6 +77,7 @@ const routes: Routes = [
   },
 ];
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -91,7 +94,9 @@ const routes: Routes = [
     OwlNativeDateTimeModule,
   ],
   bootstrap: [AppComponent],
-  providers: [UserService, LocalStorageService, LoggedInGuard, NotLoggedInGuard ],
+  providers: [UserService, LocalStorageService, LoggedInGuard, NotLoggedInGuard,
+    {provide: OWL_DATE_TIME_LOCALE, useValue: 'de'},
+  ],
 })
 export class AppModule {
 }

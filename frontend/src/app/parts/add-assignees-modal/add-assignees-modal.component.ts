@@ -3,10 +3,10 @@ import { ModalService } from '../../services/modal.service';
 import { UserService } from '../../services/user.service';
 
 import { User } from '../../models/user';
-import { Observable } from 'rxjs';
 import { faCheckCircle, faInfoCircle, faTimesCircle, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { FormControl, FormGroup } from '@angular/forms';
 import { faCircle } from '@fortawesome/free-regular-svg-icons';
+import { Observable } from 'rxjs';
 
 class Assignee {
   public isSelected: boolean;
@@ -20,8 +20,8 @@ class Assignee {
 })
 export class AddAssigneesModalComponent {
   public users$: Observable<User[]> = new Observable<User[]>(null);
-  public users: User[] = [];
-  public filteredUsers: User[] = [];
+  public allUsers: User[] = [];
+  public filteredUsers: Assignee[] = [];
   public info: IconDefinition = faInfoCircle;
   public resetIcon: IconDefinition = faTimesCircle;
   public selectedUsers: Assignee[] = [];
@@ -39,10 +39,9 @@ export class AddAssigneesModalComponent {
   constructor(private modalService: ModalService, private userService: UserService) {
     this.users$ = this.userService.loadUser();
     this.users$.subscribe((users: User[]) => {
-      this.users = users;
-      // todo: eigentlich selectedUsers filtern
-      this.filteredUsers = users;
+      this.allUsers = users;
       this.selectedUsers = this.mapUsers();
+      this.filteredUsers = this.selectedUsers;
     });
 
     this.form.valueChanges.subscribe((value) => {
@@ -51,7 +50,7 @@ export class AddAssigneesModalComponent {
   }
 
   public mapUsers(): Assignee[] {
-    return this.users.map((user: User) => {
+    return this.allUsers?.map((user: User) => {
       const assignee: Assignee = new Assignee();
       if (this.selectedAssignees.length) {
         assignee.isSelected = this.selectedAssignees.findIndex((userId) => userId === user.id) > -1;
@@ -77,7 +76,7 @@ export class AddAssigneesModalComponent {
   }
 
   public resetFilteredUsers(): void {
-    this.filteredUsers = this.users;
+    this.filteredUsers = this.selectedUsers;
   }
 
   closeModal(): void {
@@ -86,6 +85,12 @@ export class AddAssigneesModalComponent {
 
   private searchUser(): void {
     this.resetFilteredUsers();
+    const searchTerm = this.form.get('searchTerm').value?.trim();
+    if (searchTerm !== '') {
+      this.filteredUsers = this.filteredUsers.filter((user: Assignee) => {
+        return user.user.firstName.includes(searchTerm) || user.user.lastName.includes(searchTerm);
+      });
+    }
   }
 
   public toggleSelected(user: Assignee): void {

@@ -19,8 +19,8 @@
   <!-- component -->
 
   <ng-container *ngIf="users$ | async; else loading">
-    <div *ngIf="selectedUsers.length; else noUsers" class="space-y-1 overflow-y-auto" style="min-height: 300px; height:300px;">
-      <button (click)="toggleSelected(assignee)" *ngFor="let assignee of selectedUsers"
+    <div *ngIf="filteredUsers.length; else noUsers" class="space-y-1 overflow-y-auto" style="min-height: 300px; height:300px;">
+      <button (click)="toggleSelected(assignee)" *ngFor="let assignee of filteredUsers"
               class="p-4 w-full flex justify-between items-center"
               [ngClass]="assignee.isSelected? 'bg-cyan-400 text-white': 'bg-gray-50 text-gray-700'">
         <div>{{assignee.user.firstName}} {{assignee.user.lastName}}</div>

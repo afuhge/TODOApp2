@@ -10,6 +10,7 @@ import {TodosService} from '../../services/todos.service';
 import {Observable} from 'rxjs';
 import {formatDate} from '@angular/common';
 import {UserService} from '../../services/user.service';
+import { NotifcationService } from '../../services/notifcation.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -34,6 +35,7 @@ export class DashboardComponent {
     private titleService: Title,
     private todoService: TodosService,
     private userService: UserService,
+    private notifierService: NotifcationService,
   ) {
     this.titleService.setTitle('Dashboard');
     this.userService.getCurrentUser().subscribe((user: User) => {
@@ -41,8 +43,8 @@ export class DashboardComponent {
     });
     this.todos$ = this.todoService.loadTodosOfUser(this.currentUser.id);
     this.todos$.subscribe((el: TODO[]) => {
-      const today = formatDate(new Date(), 'MM-dd-YYYY', 'en-US');
-      this.todos = el.filter((a: TODO) => a.deadline ===  today);
+      const today = formatDate(new Date(), 'mediumDate', 'en-US');
+      this.todos = el.filter((a: TODO) => formatDate(a.deadline, 'mediumDate', 'en-US') ===  today);
     });
   }
 
@@ -50,7 +52,16 @@ export class DashboardComponent {
     moveItemInArray(this.todos, event.previousIndex, event.currentIndex);
   }
 
-  public markAsDone(todo: TODO): void {
-    todo.isDone = !todo.isDone;
+  public markAsDone(currentTodo: TODO): void {
+    currentTodo.isDone = !currentTodo.isDone;
+    this.todoService.editTodo(currentTodo).subscribe((todo: TODO) => {
+      const index = this.todos.findIndex((el: TODO) => el.id === todo.id);
+      if (index > -1) {
+        this.todos.splice(index, 1, todo);
+        this.notifierService.success('Edit todo successful!');
+      }
+    }, (err) => {
+      this.notifierService.error('Edit todo failed!');
+    });
   }
 }

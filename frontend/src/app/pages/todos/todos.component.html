@@ -51,47 +51,10 @@
 
                     <div class="space-y-2" cdkDropList [cdkDropListData]="filteredTodos"
                          (cdkDropListDropped)="drop($event)">
-                        <form [formGroup]="todoForm" (ngSubmit)="editTodo(todo)"
-                              class="py-2 px-4 todo border-2 border-gray-100 cursor-move  grid grid-cols-12 items-center rounded-xl"
-                              *ngFor="let todo of filteredTodos" cdkDrag [class.opacity-40]="todo.isDone">
+                        <div *ngFor="let todo of filteredTodos" cdkDrag class="space-y-2 rounded-xl">
                             <div class="bg-gray-50 rounded-xl" style="height:52px;" *cdkDragPlaceholder></div>
-                            <div (click)="markAsDone(todo)" class="has-tooltip">
-                                <fa-icon [icon]="todo.isDone? checked: check"
-                                         class=" text-gray-500 hover:text-rose-400 cursor-pointer text-xl"></fa-icon>
-                                <span class='tooltip '>Mark as done</span>
-                            </div>
-                            <div class="text-xl col-span-4 truncate">
-                                <input type="text" placeholder="" formControlName="name"
-                                       class="outline-none">
-                            </div>
-                            <div class="col-span-2">
-                                <input type="date" name="deadline" placeholder="Enter deadline" formControlName="date"
-                                       class="outline-none">
-                            </div>
-                            <div class="flex m-0.5 col-span-4 flex-wrap" (click)="addAssignees($event, todo.assignees)">
-                                <ng-container *ngIf="todo.assignees.length; else noAssignees">
-                                    <div class="p-0.5" *ngFor="let assignee of mapTodos(todo)">
-                                       <span class="py-px px-2 w-full rounded-xl text-white"
-                                             [style.background]="assignee.color">
-                                           {{assignee.firstName}}
-
-                                       </span>
-                                    </div>
-                                </ng-container>
-                                <ng-template #noAssignees>
-                                    <span class="italic text-gray-400">No assignees</span>
-                                </ng-template>
-                            </div>
-                            <div class="buttons">
-                                <div>
-                                    <a (click)="deleteTodo(todo)" class="has-tooltip">
-                                        <fa-icon [icon]="deleteIcon"
-                                                 class="text-gray-400 hover:text-rose-500 text-lg"></fa-icon>
-                                        <span class='tooltip '>Delete ToDo</span>
-                                    </a>
-                                </div>
-                            </div>
-                        </form>
+                            <app-todo-item [todo]="todo" [todos]="filteredTodos" [users]="users" class="block relative"></app-todo-item>
+                        </div>
 
                         <form [formGroup]="form" (ngSubmit)="addTodo()"
                               class="py-2 px-4 border-2 border-gray-100 grid grid-cols-12 items-center rounded-xl">
@@ -107,16 +70,16 @@
                                        class="outline-none">
                             </div>
                             <div class="col-span-2 flex items-center space-x-2">
-                                <input [owlDateTime]="fromdatepicker" placeholder="tt.mm.jjjj" class="outline-none " style="width:88px;">
-                                <owl-date-time #fromdatepicker [pickerType]="calendar"></owl-date-time>
+                                <input [owlDateTime]="fromdatepicker"  placeholder="dd.mm.yyyy" class="outline-none " formControlName="date" style="width:96px; pointer-events: none;">
+                                <owl-date-time #fromdatepicker [pickerType]="'calendar'" backdropClass="popup" pickerMode="inline"></owl-date-time>
                                 <fa-icon [icon]="calendar" [owlDateTimeTrigger]="fromdatepicker">
                                 </fa-icon>
                             </div>
                             <div class=" col-span-4">
-                                <button (click)="addAssignees($event, [])" class="p-2">
+                                <button (click)="addAssignees($event,  this.newTodo.assignees)" class="px-2">
                                     <span [ngClass]="selectedAssignees.length > 1? 'text-gray-700'
                                             : 'text-gray-500'" class="hover:text-cyan-500">
-                                        Add {{selectedAssignees.length}} assignees</span>
+                                        Add {{this.newTodo.assignees.length}} assignees</span>
                                     <fa-icon [icon]="assignees" class="pl-2"></fa-icon>
                                 </button>
                             </div>
