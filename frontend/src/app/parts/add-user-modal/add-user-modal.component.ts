@@ -5,6 +5,7 @@ import { UserService } from '../../services/user.service';
 import {User} from '../../models/user';
 import { faExclamationCircle, faEye, faEyeSlash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import {ColorHelperService} from '../../services/color-helper.service';
+import { ApiUrlHelperService } from '../../services/api-url-helper.service';
 
 
 export class UserData {
@@ -80,7 +81,13 @@ export class AddUserModalComponent implements OnInit {
   }
 
   public closeModal(): void {
-    this.modalService.closeModal();
+    if (this.form.dirty) {
+      if (confirm('Are you sure you want to leave without saving?')) {
+        this.modalService.closeModal();
+      }
+    }else {
+      this.modalService.closeModal();
+    }
   }
 
   public togglePassword(): void {

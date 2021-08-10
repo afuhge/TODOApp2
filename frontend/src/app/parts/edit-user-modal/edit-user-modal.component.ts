@@ -74,7 +74,13 @@ export class EditUserModalComponent implements OnInit {
   }
 
   public closeModal(): void {
-    this.modalService.closeModal();
+    if (this.form.dirty) {
+      if (confirm('Are you sure you want to leave without saving?')) {
+        this.modalService.closeModal();
+      }
+    }else {
+      this.modalService.closeModal();
+    }
   }
 
   public togglePassword(): void {

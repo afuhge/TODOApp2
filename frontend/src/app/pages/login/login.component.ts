@@ -51,6 +51,9 @@ export class LoginComponent {
     this.users$.subscribe((el: User[]) => {
       this.users = el;
     });
+
+    this.form.valueChanges.subscribe((value) => {
+    });
   }
 
   private checkInputs(): boolean {
@@ -79,7 +82,13 @@ export class LoginComponent {
   }
 
   public goToSignUp(): void {
-    this.router.navigateByUrl(ApiUrlHelperService.getSignUpUrl());
+    if (this.form.dirty) {
+      if (confirm('Are you sure you want to leave this site?')) {
+        this.router.navigateByUrl(ApiUrlHelperService.getSignUpUrl());
+      }
+    }else {
+      this.router.navigateByUrl(ApiUrlHelperService.getSignUpUrl());
+    }
   }
 
   public togglePassword(): void {

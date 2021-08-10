@@ -28,6 +28,7 @@ export class AddAssigneesModalComponent {
 
   public circle: IconDefinition = faCircle;
   public check: IconDefinition = faCheckCircle;
+  public changed: boolean = false;
 
   @Output() assignees: EventEmitter<User[]> = new EventEmitter<User[]>();
   @Input() selectedAssignees: number[];
@@ -80,7 +81,13 @@ export class AddAssigneesModalComponent {
   }
 
   closeModal(): void {
-    this.modalService.closeModal();
+    if (this.changed) {
+      if (confirm('Are you sure you want to leave without saving?')) {
+        this.modalService.closeModal();
+      }
+    } else {
+      this.modalService.closeModal();
+    }
   }
 
   private searchUser(): void {
@@ -95,5 +102,7 @@ export class AddAssigneesModalComponent {
 
   public toggleSelected(user: Assignee): void {
     user.isSelected = !user.isSelected;
+    this.changed = !this.changed;
   }
+
 }

@@ -110,7 +110,13 @@ export class RegisterComponent {
   }
 
   public goToSignIn(): void {
-    this.router.navigateByUrl(ApiUrlHelperService.getLoginUrl());
+    if (this.form.dirty) {
+      if (confirm('Are you sure you want to leave this site?')) {
+        this.router.navigateByUrl(ApiUrlHelperService.getLoginUrl());
+      }
+    }else {
+      this.router.navigateByUrl(ApiUrlHelperService.getLoginUrl());
+    }
   }
 
   public togglePassword(): void {
