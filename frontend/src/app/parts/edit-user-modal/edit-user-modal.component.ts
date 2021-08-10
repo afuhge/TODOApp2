@@ -1,10 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import {ModalService} from '../../services/modal.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserData } from '../add-user-modal/add-user-modal.component';
 import { UserService } from '../../services/user.service';
 import {User} from '../../models/user';
-import {faExclamationCircle, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import { faExclamationCircle, faEye, faEyeSlash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -14,6 +14,10 @@ import {faExclamationCircle, IconDefinition} from '@fortawesome/free-solid-svg-i
 })
 export class EditUserModalComponent implements OnInit {
   @Input() user: User;
+  @ViewChild('password') password: ElementRef;
+  public show = false;
+  public eyeOpen: IconDefinition = faEye;
+  public eyeClose: IconDefinition = faEyeSlash;
   public firstNameInvalid: boolean = false;
   public lastNameInvalid: boolean = false;
   public userNameInvalid: boolean = false;
@@ -71,6 +75,11 @@ export class EditUserModalComponent implements OnInit {
 
   public closeModal(): void {
     this.modalService.closeModal();
+  }
+
+  public togglePassword(): void {
+    this.show = ! this.show;
+    this.password.nativeElement.type =  this.password.nativeElement.type === 'text' ? 'password' : 'text';
   }
 
 }

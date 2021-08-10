@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import {Router} from '@angular/router';
 import {ApiUrlHelperService} from '../../services/api-url-helper.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -7,6 +7,7 @@ import {User} from '../../models/user';
 import {UserService} from '../../services/user.service';
 import {Observable} from 'rxjs';
 import {LocalStorageService} from '../../services/local-storage.service';
+import { faEye, faEyeSlash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-login',
@@ -20,10 +21,14 @@ export class LoginComponent {
   };
   // TODO
 
-  public actionDisabled: boolean = true;
-  public loginSuccessful: boolean = true;
+  @ViewChild('password') password: ElementRef;
+  public actionDisabled = true;
+  public loginSuccessful = true;
   public users: User[] = [];
   public users$: Observable<User[]>;
+  public show = false;
+  public eyeOpen: IconDefinition = faEye;
+  public eyeClose: IconDefinition = faEyeSlash;
 
   public form: FormGroup = new FormGroup({
     username: new FormControl('', Validators.required),
@@ -71,5 +76,14 @@ export class LoginComponent {
 
   private findUserByUsername(userName: string): User {
     return this.users.find((user: User) => user.userName === userName);
+  }
+
+  public goToSignUp(): void {
+    this.router.navigateByUrl(ApiUrlHelperService.getSignUpUrl());
+  }
+
+  public togglePassword(): void {
+    this.show = ! this.show;
+    this.password.nativeElement.type =  this.password.nativeElement.type === 'text' ? 'password' : 'text';
   }
 }

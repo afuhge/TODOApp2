@@ -34,6 +34,12 @@
   transition: .3s ease-out;
 }
 
+.textbox span {
+  position: absolute;
+  right:5px;
+  top:40%;
+}
+
 .textbox input:focus ~ label,
 .textbox input:not(:placeholder-shown) ~ label {
   top: -3px !important;

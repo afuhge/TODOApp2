@@ -21,8 +21,7 @@ import {RegisterModule} from './pages/register/register.module';
 import { LoggedInGuard } from './guards/logged-in-guard';
 import { NotLoggedInGuard } from './guards/not-logged-in-guard';
 import { OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
-import { ModalFormGuard } from './guards/modal-form-guard';
-import { AddUserModalComponent } from './parts/add-user-modal/add-user-modal.component';
+
 
 
 const routes: Routes = [

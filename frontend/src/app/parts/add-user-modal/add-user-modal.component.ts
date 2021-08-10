@@ -1,9 +1,9 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import { Component, ElementRef, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
 import {ModalService} from '../../services/modal.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../services/user.service';
 import {User} from '../../models/user';
-import {faExclamationCircle, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import { faExclamationCircle, faEye, faEyeSlash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import {ColorHelperService} from '../../services/color-helper.service';
 
 
@@ -28,6 +28,10 @@ export class AddUserModalComponent implements OnInit {
     userName: new FormControl('', Validators.required),
     password: new FormControl('', [Validators.required, Validators.minLength(5)]),
   });
+  @ViewChild('password') password: ElementRef;
+  public show = false;
+  public eyeOpen: IconDefinition = faEye;
+  public eyeClose: IconDefinition = faEyeSlash;
   public formData: UserData = new UserData();
   public error: IconDefinition = faExclamationCircle;
   public firstNameInvalid: boolean = false;
@@ -79,4 +83,8 @@ export class AddUserModalComponent implements OnInit {
     this.modalService.closeModal();
   }
 
+  public togglePassword(): void {
+    this.show = ! this.show;
+    this.password.nativeElement.type =  this.password.nativeElement.type === 'text' ? 'password' : 'text';
+  }
 }

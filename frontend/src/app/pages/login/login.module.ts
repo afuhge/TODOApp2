@@ -5,6 +5,7 @@ import {RouterModule} from '@angular/router';
 import {ReactiveFormsModule} from '@angular/forms';
 import {LocalStorageService} from '../../services/local-storage.service';
 import { HeaderModule } from '../../parts/header/header.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { HeaderModule } from '../../parts/header/header.module';
     ]),
     ReactiveFormsModule,
     HeaderModule,
+    FontAwesomeModule,
   ],
   exports: [
     LoginComponent,
