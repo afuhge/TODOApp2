@@ -114,8 +114,10 @@
 
         <div class="space-y-4 mt-4">
           <div>
-            <button type="submit" [disabled]="actionDisabled" [ngClass]="actionDisabled? 'bg-cyan-200 border-cyan-200' : 'bg-cyan-500 hover:bg-cyan-600'"
-                    class="rounded-md p-2 text-white w-full">Sign Up
+            <button type="submit" [disabled]="actionDisabled"
+                    [ngClass]="actionDisabled? 'opacity-30' : ' hover:bg-cyan-600'"
+                    (click)="signUp()"
+                    class="rounded-md p-2 text-white w-full bg-cyan-500">Sign up
             </button>
           </div>
           <div class="flex space-x-2 justify-center text-xs">
