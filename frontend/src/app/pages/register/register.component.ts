@@ -99,7 +99,6 @@ export class RegisterComponent {
         isAdmin: false,
       };
       newUser.color = this.colorService.convertNameIntoColor(newUser);
-      console.log('hi');
       this.userService.addUser(newUser).subscribe((user: User) => {
         this.localStorageService.setCurrentUser(user);
         this.userService.currentUser.next(user);
