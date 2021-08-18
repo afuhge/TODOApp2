@@ -93,7 +93,6 @@ export class RegisterComponent {
   }
 
   public signUp(): void {
-    if (!this.actionDisabled) {
       const newUser: User = {
         ...this.form.value,
         todos: [],
@@ -106,7 +105,6 @@ export class RegisterComponent {
         this.userService.currentUser.next(user);
         this.router.navigateByUrl(ApiUrlHelperService.getDashboardUrl());
       });
-    }
   }
 
   public goToSignIn(): void {

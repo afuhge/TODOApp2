@@ -64,15 +64,11 @@ const routes: Routes = [
         canActivate: [NotLoggedInGuard ]
       },
       {
-        path: '',
-        redirectTo: '/landing-page',
+        path: '**',
+        loadChildren: () => import('./pages/page-not-found/page-not-found.module')
+          .then((m: { PageNotFoundModule: PageNotFoundModule }) => m.PageNotFoundModule),
       },
     ]
-  },
-  {
-    path: '**',
-    loadChildren: () => import('./pages/page-not-found/page-not-found.module')
-      .then((m: { PageNotFoundModule: PageNotFoundModule }) => m.PageNotFoundModule),
   },
 ];
 

@@ -3,8 +3,6 @@ import {CommonModule} from '@angular/common';
 import {AddUserModalComponent} from './add-user-modal.component';
 import {ModalWrapperModule} from '../../libs/modal-wrapper/modal-wrapper.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { FormInputModule } from 'src/app/libs/form-input/form-input.module';
-import { UserService } from '../../services/user.service';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 
@@ -16,7 +14,6 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
         CommonModule,
         ModalWrapperModule,
         ReactiveFormsModule,
-        FormInputModule,
         FontAwesomeModule,
     ],
   exports: [

@@ -5,11 +5,12 @@
   <form [formGroup]="form" (keyup.enter)="editUser()">
     <div class="flex flex-col">
       <div>
-        <label for="firstName" [ngClass]="firstNameInvalid? 'text-red-500' : 'text-cyan-500'">First name</label>
+        <label for="firstName" [ngClass]="firstNameInvalid? 'text-red-500' : 'text-cyan-500'">First name
+          <span class="has-tooltip">*<span class="tooltip">required</span></span></label>
       </div>
       <div class="flex space-x-2">
         <div class="flex-1">
-          <input type="text" [ngClass]="firstNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' " 
+          <input type="text" [ngClass]="firstNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' "
                  class="border-b-2 border-gray-200 px-2 py-px w-full  focus:outline-none'
             " name="" value="" placeholder="John" id="firstName" formControlName="firstName" >
         </div>
@@ -24,7 +25,8 @@
 
     <div class="flex flex-col">
       <div>
-        <label for="lastName" [ngClass]="lastNameInvalid? 'text-red-500' : 'text-cyan-500'">Last name</label>
+        <label for="lastName" [ngClass]="lastNameInvalid? 'text-red-500' : 'text-cyan-500'">Last name
+          <span class="has-tooltip">*<span class="tooltip">required</span></span></label>
       </div>
       <div class="flex space-x-2">
         <div class="flex-1">
@@ -44,7 +46,8 @@
 
     <div class="flex flex-col">
       <div>
-        <label for="mail" [ngClass]="mailInvalid? 'text-red-500' : 'text-cyan-500'">E-Mail</label>
+        <label for="mail" [ngClass]="mailInvalid? 'text-red-500' : 'text-cyan-500'">E-Mail
+          <span class="has-tooltip">*<span class="tooltip">required</span></span></label>
       </div>
       <div class="flex space-x-2">
         <div class="flex-1">
@@ -63,7 +66,8 @@
 
     <div class="flex flex-col">
       <div>
-        <label for="userName" [ngClass]="userNameInvalid? 'text-red-500' : 'text-cyan-500'">Username</label>
+        <label for="userName" [ngClass]="userNameInvalid? 'text-red-500' : 'text-cyan-500'">Username
+          <span class="has-tooltip">*<span class="tooltip">required</span></span></label>
       </div>
       <div class="flex space-x-2">
         <div class="flex-1">
@@ -81,7 +85,8 @@
 
     <div class="flex flex-col">
       <div>
-        <label for="password" [ngClass]="passwordInvalid? 'text-red-500' : 'text-cyan-500'">Password</label>
+        <label for="password" [ngClass]="passwordInvalid? 'text-red-500' : 'text-cyan-500'">Password
+          <span class="has-tooltip">*<span class="tooltip">required</span></span></label>
       </div>
       <div class="flex space-x-2">
         <div class="flex-1">

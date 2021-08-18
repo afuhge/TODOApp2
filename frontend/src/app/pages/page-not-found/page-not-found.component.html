@@ -1,60 +1,31 @@
-<div class=" min-h-screen flex items-center justify-center px-16">
-  <div class="relative w-full max-w-2xl">
+<app-header></app-header>
 
-    <div class="absolute top-8 -left-4 w-80 h-80 bg-cyan-400 filter blur-2xl mix-blend-multiply rounded-full">
-    </div>
-    <div class="absolute top-8 -right-4 w-80 h-80 bg-yellow-400 filter blur-2xl mix-blend-multiply rounded-full">
-    </div>
-    <div class="absolute bottom-8 left-28 w-80 h-80 bg-rose-400 filter blur-2xl mix-blend-multiply rounded-full">
-    </div>
 
-    <div class="container relative mx-auto bg-white shadow p-8 rounded-md">
-      <div class="text-4xl text-cyan-500 mb-10">
-        Wrong URL Parameters
-      </div>
-      <div class="space-y-2 divide-y">
-        <div>
-          <div class="font-semibold text-gray-600">
-            URL
-          </div>
-          <div>
-            {{ deviceInfo.href }}
-          </div>
-        </div>
-        <div>
-          <div class="font-semibold text-gray-600">
-            Browser
-          </div>
-          <div>
-            {{ deviceInfo.browser }}
-          </div>
-        </div>
-        <div>
-          <div class="font-semibold text-gray-600">
-            Browser-Language
-          </div>
-          <div>
-            {{ deviceInfo.language}}
-          </div>
-        </div>
-        <div>
-          <div class="font-semibold text-gray-600">
-            Dimensions
-          </div>
-          <div>
-            {{ deviceInfo.dimensions.width}}x{{deviceInfo.dimensions.height}}
-          </div>
-        </div>
-        <div class="pt-4 flex justify-center text-white">
-          <button (click)="goToLandingPage()" class="p-2 rounded-md bg-cyan-500 hover:bg-cyan-600">
-            <fa-icon [icon]="home" class="text-xl pr-2"></fa-icon>
-            Take me home
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
+<div class="absolute -translate-y-10 transform translate-x-1/2">
+  <span class="font-semibold text-transparent bg-clip-text bg-gradient-to-b from-cyan-500 opacity-30" style="font-size: 30rem;">4</span>
+  <span class="font-semibold text-transparent bg-clip-text bg-gradient-to-b from-yellow-500 opacity-30" style="font-size: 30rem;">0</span>
+  <span class=" font-semibold text-transparent bg-clip-text bg-gradient-to-b from-rose-500 opacity-30" style="font-size: 30rem;">4</span>
 </div>
+
+ <div class="flex justify-center items-center relative" style="margin-top:25rem;">
+
+   <div class="space-y-6">
+     <div class="font-semibold text-7xl text-cyan-500 pb-8">
+       Oops! nothing here!
+     </div>
+     <div class="text-prose">
+       We are sorry, the page you are asking for does not exist.
+     </div>
+     <div class="flex  text-white">
+       <button (click)="goToLandingPage()" class="p-2 rounded-md bg-cyan-500 hover:bg-cyan-600">
+         <fa-icon [icon]="home" class="text-xl pr-2"></fa-icon>
+         Take me home
+       </button>
+     </div>
+   </div>
+ </div>
+  <div>
+  </div>
 
 
 
