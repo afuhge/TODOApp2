@@ -1,7 +1,7 @@
 import { User } from './model/user';
 import { Todo } from './model/todo';
 
-let idGen = 8;
+let idGen = 10;
 export const id = () => ++idGen;
 
 const user1: User = {
@@ -13,7 +13,7 @@ const user1: User = {
   color: '#dddddd',
   eMail: 'a.fuh@blah.de',
   isAdmin: true,
-  todos: [5,6,7,8],
+  todos: [5,6,7,8,9,10],
 };
 const user2: User = {
   id: 2,
@@ -24,7 +24,7 @@ const user2: User = {
   color: '#d11001',
   eMail: 'a.fuh@blah.de',
   isAdmin: false,
-  todos: [5],
+  todos: [5,10],
 };
 
 const user3: User = {
@@ -36,7 +36,7 @@ const user3: User = {
   color: '#06b6d4',
   eMail: 'a.fuh@blah.de',
   isAdmin: false,
-  todos: [5,6],
+  todos: [5,6,9],
 };
 
 const user4: User = {
@@ -48,13 +48,13 @@ const user4: User = {
   color: '#404040',
   eMail: 'a.fuh@blah.de',
   isAdmin: false,
-  todos: [5],
+  todos: [5,10],
 };
 
 const todo2: Todo = {
   id: 6,
   name: 'Clean dishes',
-  deadline: '2021-08-30T22:00:00.000Z',
+  deadline: '2021-08-27T22:00:00.000Z',
   creator: 3,
   assignees: [
     1,
@@ -66,7 +66,7 @@ const todo2: Todo = {
 const todo1: Todo = {
   id: 5,
   name: 'Clean dishes',
-  deadline: '2021-08-08T22:00:00.000Z',
+  deadline: '2021-08-24T22:00:00.000Z',
   creator: 1,
   assignees: [
     1,
@@ -80,7 +80,7 @@ const todo1: Todo = {
 const todo3: Todo = {
   id: 7,
   name: 'Cook dinner',
-  deadline: '2021-08-09T22:00:00.000Z',
+  deadline: '2021-08-25T22:00:00.000Z',
   creator: 1,
   assignees: [
     1,
@@ -90,10 +90,38 @@ const todo3: Todo = {
 const todo4: Todo = {
   id: 8,
   name: 'Wash clothes',
-  deadline: '2021-08-10T22:00:00.000Z',
+  deadline: '2021-08-26T22:00:00.000Z',
   creator: 1,
   assignees: [
     1,
+  ],
+  isDone: false,
+};
+
+const todo5: Todo = {
+  id: 9,
+  name: 'Clean dishes',
+  deadline: '2021-08-29T22:00:00.000Z',
+  creator: 1,
+  assignees: [
+    1,
+    2,
+    3,
+    4,
+  ],
+  isDone: false,
+};
+
+const todo6: Todo = {
+  id: 10,
+  name: 'Clean dishes',
+  deadline: '2021-08-28T22:00:00.000Z',
+  creator: 1,
+  assignees: [
+    1,
+    2,
+    3,
+    4,
   ],
   isDone: false,
 };
@@ -102,7 +130,9 @@ export const todos: Todo[] = [
   todo1,
   todo2,
   todo3,
-  todo4
+  todo4,
+  todo5,
+  todo6,
 ];
 
 export const users: User[] = [
