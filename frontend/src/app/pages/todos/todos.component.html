@@ -1,25 +1,25 @@
 <app-header></app-header>
 
-<div class=" mt-24 flex items-center justify-center px-16 z-20">
-  <div class="relative w-full max-w-5xl">
+<div class="widget-container px-16 ">
+  <div class="widget">
 
-    <div class="absolute left-2 top-2 right-2 bottom-2 filter blur-md"
+    <div class="widget-blur"
          style="background: linear-gradient(135deg, #F43F5E, #D946EF)">
     </div>
 
-    <div class="container relative mx-auto bg-white p-8 rounded-md"
+    <div class="widget-content"
          style="border: 1px solid #ec9bbc;min-height: 450px;">
-      <div class="text-4xl text-rose-400 mb-10">
+      <div class="widget-headline text-rose-400">
         ToDos
       </div>
 
       <form [formGroup]="searchForm" class="flex mt-2 justify-end items-center" *ngIf="todos$ | async">
         <div>
-          <input class="border-b-2 border-gray-300 hover:border-cyan-500 focus:outline-none"
+          <input class="search-input"
                  placeholder="Filter" formControlName="searchTerm"
                  type="text">
           <button (click)="reset()"
-                  class="focus:outline-none text-gray-400 hover:text-cyan-600 has-tooltip">
+                  class="reset-button has-tooltip">
             <fa-icon [icon]="resetIcon"></fa-icon>
             <span class='tooltip '>Reset</span>
           </button>
@@ -91,7 +91,7 @@
         <ng-template #noTodos>
           <ng-container *ngIf="isFiltered; else nothing">
             <div class="mt-8">
-              <div class="px-6 py-10 rounded-lg border-4 border-gray-300 border-dotted">
+              <div class="placeholder-outline">
                 <div class="flex flex-col justify-center items-center space-y-4">
                   <div class="mb-2">
                     <fa-icon [icon]="search" class="text-4xl text-gray-400"></fa-icon>
@@ -108,7 +108,7 @@
           </ng-container>
           <ng-template #nothing>
             <div class="mt-8">
-              <div class="px-6 py-10 rounded-lg border-4 border-gray-300 border-dotted">
+              <div class="placeholder-outline">
                 <div class="flex flex-col justify-center items-center space-y-4">
                   <div class="mb-2">
                     <fa-icon [icon]="boxOpen" class="text-4xl text-gray-400"></fa-icon>
@@ -127,7 +127,7 @@
       </ng-container>
       <ng-template #loading>
         <div class="mt-8">
-          <div *ngFor="let i of [1,2,3]" class="bg-gray-100 animate-pulse p-8 my-2 rounded-lg"></div>
+          <div *ngFor="let i of [1,2,3]" class="loading-indicator"></div>
         </div>
       </ng-template>
     </div>

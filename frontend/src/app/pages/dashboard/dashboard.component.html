@@ -1,16 +1,16 @@
 <app-header></app-header>
 
 
-<div class=" mt-24 flex items-center justify-center  z-20">
-  <div class="relative w-full max-w-5xl">
+<div class="widget-container">
+  <div class="widget">
 
-    <div class="absolute left-2 top-2 right-2 bottom-2 filter blur-md"
+    <div class="widget-blur"
          style="background: linear-gradient(135deg, #06B6D4, #10B981)">
     </div>
 
-    <div class="container relative mx-auto bg-white p-8 rounded-md"
+    <div class="widget-content"
          style="border: 1px solid #72ceb4; min-height: 450px;">
-      <div class="text-4xl text-cyan-500 mb-10">
+      <div class=" text-cyan-500 widget-headline">
         Today's ToDos for <span class="font-semibold">{{ currentUser?.firstName}} {{currentUser?.lastName}}</span>
       </div>
 
@@ -33,7 +33,7 @@
         </ng-container>
         <ng-template #noTodos>
           <div class="mt-8">
-            <div class="px-6 py-10 rounded-lg border-4 border-gray-300 border-dotted">
+            <div class="placeholder-outline">
               <div class="flex flex-col justify-center items-center space-y-4">
                 <div class="mb-2">
                   <fa-icon [icon]="beer" class="text-4xl text-gray-400"></fa-icon>
@@ -51,7 +51,7 @@
       </ng-container>
       <ng-template #loading>
         <div class="mt-8">
-          <div *ngFor="let i of [1,2,3]" class="bg-gray-100 animate-pulse p-8 my-2 rounded-lg"></div>
+          <div *ngFor="let i of [1,2,3]" class="loading-indicator"></div>
         </div>
       </ng-template>
     </div>

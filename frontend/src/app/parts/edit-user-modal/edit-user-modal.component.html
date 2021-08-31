@@ -1,6 +1,6 @@
 <app-modal-wrapper (primaryAction)="editUser()" [header]="'Edit User'" (secondaryAction)="closeModal()"
                    [primaryText]="'Save User'" [headerClasses]="'text-cyan-400'"
-                   [classes]="actionDisabled? 'bg-cyan-200 border-cyan-200':'bg-cyan-400 hover:bg-cyan-500 border-cyan-400 hover:border-cyan-500'">
+                   [classes]="actionDisabled? 'bg-cyan-200 border-cyan-200':'modal-primary-button'">
   <form [formGroup]="form" (keyup.enter)="editUser()">
     <div class="flex flex-col">
       <div>

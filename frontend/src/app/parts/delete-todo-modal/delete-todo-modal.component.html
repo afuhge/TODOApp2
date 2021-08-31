@@ -1,6 +1,6 @@
 <app-modal-wrapper (primaryAction)="deleteTodo()" [header]="'Delete ToDo'" (secondaryAction)="closeModal()"
                    [primaryText]="'Delete ToDo'" [headerClasses]="'text-rose-500'"
-                   [classes]="'bg-rose-500 hover:bg-rose-600 border-rose-500 hover:border-rose-600'">
+                   [classes]="'modal-delete-button'">
   <div>
     Do you really want to delete todo '{{todo.name}}'?
   </div>

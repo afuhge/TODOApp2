@@ -3,7 +3,7 @@ import {ModalService} from '../../services/modal.service';
 import {UserService} from '../../services/user.service';
 
 import {User} from '../../models/user';
-import {faCheckCircle, faInfoCircle, faTimesCircle, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import {faCheckCircle, faInfoCircle, faSearch, faTimesCircle, faUserSlash, IconDefinition} from '@fortawesome/free-solid-svg-icons';
 import {FormControl, FormGroup} from '@angular/forms';
 import {faCircle} from '@fortawesome/free-regular-svg-icons';
 import {Observable} from 'rxjs';
@@ -26,11 +26,14 @@ export class AddAssigneesModalComponent {
   public filteredUsers: Assignee[] = [];
   public info: IconDefinition = faInfoCircle;
   public resetIcon: IconDefinition = faTimesCircle;
+  public userSlash: IconDefinition = faUserSlash;
+  public search: IconDefinition = faSearch;
   public selectedUsers: Assignee[] = [];
 
   public circle: IconDefinition = faCircle;
   public check: IconDefinition = faCheckCircle;
   public changed: boolean = false;
+  public isFiltered = false;
 
   @Output() assignees: EventEmitter<User[]> = new EventEmitter<User[]>();
   @Input() selectedAssignees: number[];
@@ -53,6 +56,12 @@ export class AddAssigneesModalComponent {
       .pipe(untilDestroyed(this))
       .subscribe((value) => {
         this.searchUser();
+      });
+
+    this.form.get('searchTerm').valueChanges
+      .pipe(untilDestroyed(this))
+      .subscribe((value) => {
+        this.isFiltered = value !== '';
       });
   }
 
@@ -79,6 +88,7 @@ export class AddAssigneesModalComponent {
 
   public reset(): void {
     this.form.reset();
+    this.isFiltered = false;
     this.resetFilteredUsers();
   }
 

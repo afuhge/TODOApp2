@@ -10,10 +10,10 @@
       <div class="flex justify-end space-x-2 mt-2 px-4 py-4">
         <div *ngIf="secondaryAction">
           <button (click)="secondaryAction.emit()"
-                  class="focus:outline-none rounded-md p-2 bg-white hover:bg-gray-200 border-2 border-gray-100">{{secondaryText || 'Cancel' }}</button>
+                  class="button bg-white hover:bg-gray-200 border-2 border-gray-100">{{secondaryText || 'Cancel' }}</button>
         </div>
         <div>
-          <button (click)="primaryAction.emit()" class="focus:outline-none rounded-md p-2 border-2 text-white"
+          <button (click)="primaryAction.emit()" class="button text-white"
                   [ngClass]="classes?classes:'bg-cyan-500 hover:bg-cyan-600 border-cyan-500 hover:border-cyan-600 '">{{primaryText || 'Save' }}</button>
         </div>
       </div>

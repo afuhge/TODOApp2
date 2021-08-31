@@ -19,6 +19,72 @@ body {
   @apply z-50 transition delay-200 duration-300 ease-linear opacity-100;
 }
 
+.primary-button {
+  @apply font-medium text-white rounded-md border-2 border-cyan-500 bg-cyan-500 hover:bg-cyan-600 hover:border-cyan-600 cursor-pointer p-2;
+}
+.button {
+  @apply focus:outline-none rounded-md p-2 border-2;
+}
+
+.widget-container {
+  @apply  mt-24 flex items-center justify-center  z-20;
+}
+
+.widget {
+  @apply relative w-full max-w-5xl;
+}
+.widget-blur {
+  @apply  absolute left-2 top-2 right-2 bottom-2 filter blur-md;
+}
+
+.widget-content {
+  @apply container relative mx-auto bg-white p-8 rounded-md;
+}
+
+.widget-headline {
+  @apply text-4xl mb-10;
+}
+
+.placeholder-outline {
+  @apply px-6 py-10 rounded-lg border-4 border-gray-300 border-dotted;
+}
+
+.table-d {
+  @apply py-2 px-6 text-center whitespace-nowrap;
+}
+
+.table-layout {
+  @apply flex items-center justify-center;
+}
+
+.loading-indicator {
+  @apply bg-gray-100 animate-pulse p-8 my-2 rounded-lg
+}
+
+.blurred-circle {
+  @apply absolute filter blur-2xl mix-blend-multiply rounded-full;
+}
+
+.search-input {
+  @apply border-b-2 border-gray-300 hover:border-cyan-500 focus:outline-none;
+}
+
+.reset-button {
+  @apply focus:outline-none text-gray-400 hover:text-cyan-600;
+}
+
+.modal-primary-button {
+  @apply bg-cyan-400 hover:bg-cyan-500 border-cyan-400 hover:border-cyan-500;
+}
+
+.modal-delete-button {
+  @apply bg-rose-500 hover:bg-rose-600 border-rose-500 hover:border-rose-600;
+}
+
+.link {
+  @apply font-medium text-gray-500 cursor-pointer;
+}
+
 .cdk-global-scrollblock {
   overflow-y: inherit !important;
 }

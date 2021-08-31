@@ -1,15 +1,16 @@
 <app-modal-wrapper (primaryAction)="addAssignee()" [header]="'Add Assignees'" (secondaryAction)="closeModal()"
                    [primaryText]="'Add Assignees'" [headerClasses]="'text-cyan-400'"
-                   [classes]="'bg-cyan-400 hover:bg-cyan-500 border-cyan-400 hover:border-cyan-500'">
+
+                   [classes]="'modal-primary-button'">
 
 
   <form [formGroup]="form" class="flex mt-2 justify-end items-center pb-4">
-    <div>
-      <input class="border-b-2 border-gray-300 hover:border-cyan-500 focus:outline-none"
+    <div *ngIf="users$ | async;">
+      <input class="search-input"
              placeholder="Filter" formControlName="searchTerm"
              type="text">
       <button (click)="reset()"
-              class="focus:outline-none text-gray-400 hover:text-cyan-600 has-tooltip">
+              class="reset-button has-tooltip">
         <fa-icon [icon]="resetIcon"></fa-icon>
         <span class='tooltip '>Reset</span>
       </button>
@@ -32,23 +33,45 @@
       </button>
     </div>
     <ng-template #noUsers>
-      <div class="mt-8">
-        <div class="px-6 py-4 rounded-lg border-2 border-cyan-500 border-l-8">
-          <div class="flex items-center space-x-4">
-            <div>
-              <fa-icon [icon]="info" class="text-cyan-500 text-xl"></fa-icon>
-            </div>
-            <div class="text-gray-400">
-              No users available.
+      <ng-container *ngIf="isFiltered; else nothing">
+        <div class="mt-8">
+          <div class="placeholder-outline">
+            <div class="flex flex-col justify-center items-center space-y-4">
+              <div class="mb-2">
+                <fa-icon [icon]="search" class="text-4xl text-gray-400"></fa-icon>
+              </div>
+              <div class="text-gray-400 font-semibold text-xl">
+                Sorry, there are no results for '{{ this.form.get('searchTerm').value }}'.
+              </div>
+              <div class="text-gray-400">
+                Please retry the search with another search term.
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </ng-container>
+      <ng-template #nothing>
+        <div class="mt-8">
+          <div class="placeholder-outline">
+            <div class="flex flex-col justify-center items-center space-y-4">
+              <div class="mb-2">
+                <fa-icon [icon]="userSlash" class="text-4xl text-gray-400"></fa-icon>
+              </div>
+              <div class="text-gray-400 font-semibold text-xl">
+                Sorry, no users available.
+              </div>
+              <div class="text-gray-400">
+                You can add a user, if you want.
+              </div>
+            </div>
+          </div>
+        </div>
+      </ng-template>
     </ng-template>
   </ng-container>
   <ng-template #loading>
     <div class="mt-8">
-      <div *ngFor="let i of [1,2,3]" class="bg-gray-100 animate-pulse p-8 my-2 rounded-lg"></div>
+      <div *ngFor="let i of [1,2,3]" class="loading-indicator"></div>
     </div>
   </ng-template>
 
