@@ -1,22 +1,22 @@
 
-
 .buttons {
-    display: none;
+  display: none;
 }
+
 .datepicker {
-    display: none;
+  display: none;
 }
 
-.todo:hover  .buttons {
-    display: flex;
-    justify-content: flex-end;
+.todo:hover .buttons {
+  display: flex;
+  justify-content: flex-end;
 }
 
-.date:hover  .datepicker {
-    display: flex;
-    justify-content: flex-end;
+.date:hover .datepicker {
+  display: flex;
+  justify-content: flex-end;
 }
 
 input[type="date"] {
-    width: 130px;
+  width: 130px;
 }

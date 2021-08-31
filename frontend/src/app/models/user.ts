@@ -11,9 +11,17 @@ export class User {
   public todos: number[] = [];
 
   static fromJSON(data: any): User {
-    const u = new  User();
+    const u = new User();
     u.id = data.id;
-    // TODO
+    u.eMail = data.eMail;
+    u.userName = data.userName;
+    u.color = data.color;
+    u.todos = data.todos;
+    u.firstName = data.firstName;
+    u.lastName = data.lastName;
+    u.isAdmin = data.isAdmin;
+    u.password = data.password;
+
     return u;
   }
 }

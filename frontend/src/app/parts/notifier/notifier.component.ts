@@ -3,7 +3,9 @@ import {faTimes, IconDefinition} from '@fortawesome/free-solid-svg-icons';
 import {NotifcationService, Notification} from '../../services/notifcation.service';
 import {faCheckCircle, faTimesCircle} from '@fortawesome/free-regular-svg-icons';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-notifier',
   templateUrl: './notifier.component.html',
@@ -30,15 +32,17 @@ export class NotifierComponent {
     private notificationService: NotifcationService,
   ) {
 
-    this.notificationService.notification$.subscribe((notification: Notification) => {
-      if (!notification) {
-        return;
-      }
-      this.notifications.push(notification);
-      setTimeout(() => {
-        this.notifications = this.notifications.filter(x => x !== notification);
-      }, 3000);
-    });
+    this.notificationService.notification$
+      .pipe(untilDestroyed(this))
+      .subscribe((notification: Notification) => {
+        if (!notification) {
+          return;
+        }
+        this.notifications.push(notification);
+        setTimeout(() => {
+          this.notifications = this.notifications.filter(x => x !== notification);
+        }, 3000);
+      });
   }
 
 

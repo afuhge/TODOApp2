@@ -1,7 +1,6 @@
-import express from 'express';
-import { Response, Request } from 'express';
-import { User } from './src/model/user';
-import { id, todos, users } from './src/data';
+import express, {Request, Response} from 'express';
+import {User} from './src/model/user';
+import {id, todos, users} from './src/data';
 import {Todo} from './src/model/todo';
 
 var cors = require('cors');
@@ -12,30 +11,30 @@ application.use(express.urlencoded({
   extended: true
 }));
 
-const port = 3000
+const port = 3000;
 
 // users
 application.get('/users', (req: Request, res: Response) => {
-  res.contentType('application/json')
-  res.send(JSON.stringify(users))
-})
+  res.contentType('application/json');
+  res.send(JSON.stringify(users));
+});
 
 application.get('/users/:userId', (req: Request, res: Response) => {
   const userId = +req.params.userId;
-  const user = users.find((user:User) => user.id === userId);
-  if(!user) {
+  const user = users.find((user: User) => user.id === userId);
+  if (!user) {
     res.status(404);
     res.send();
-  }else{
+  } else {
     res.contentType('application/json');
     res.send(JSON.stringify(user));
   }
-})
+});
 
 application.get('/users/:userId/todos', (req: Request, res: Response) => {
   const userId = +req.params.userId;
-  const user = users.find((user:User) => user.id === userId);
-  if(!user) {
+  const user = users.find((user: User) => user.id === userId);
+  if (!user) {
     res.status(404);
     res.send();
   } else {
@@ -43,26 +42,26 @@ application.get('/users/:userId/todos', (req: Request, res: Response) => {
     console.log(user);
     user.todos.forEach((todoId) => {
       const todo = todos.find((todo: Todo) => todo.id === todoId);
-      if(!todo) {
+      if (!todo) {
         res.status(404);
         res.send();
       } else {
         userTodos.push(todo);
       }
-    })
+    });
     res.contentType('application/json');
     res.send(JSON.stringify(userTodos));
   }
 });
 
-application.post('/users', (req: Request,res: Response) => {
+application.post('/users', (req: Request, res: Response) => {
   const user = req.body;
   user.id = id();
   users.push(user);
   res.status(201);
   res.contentType('application/json');
   res.send(JSON.stringify(user));
-})
+});
 
 application.put('/users/:userId', (req: Request, res: Response) => {
   const userId = +req.params.userId;
@@ -95,9 +94,9 @@ application.delete('/users/:userId', (req: Request, res: Response) => {
 // todos
 
 application.get('/todos', (req: Request, res: Response) => {
-  res.contentType('application/json')
+  res.contentType('application/json');
   res.send(JSON.stringify(todos));
-})
+});
 
 application.post('/todos', (req: Request, res: Response) => {
   const todo = req.body;
@@ -138,5 +137,5 @@ application.delete('/todos/:todoId', (req: Request, res: Response) => {
 
 
 application.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+  console.log(`Example app listening at http://localhost:${port}`);
+});

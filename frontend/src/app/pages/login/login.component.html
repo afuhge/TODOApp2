@@ -1,19 +1,19 @@
 <app-header></app-header>
 
 <div class="h-full flex items-center justify-center">
-    <div class="relative w-full max-w-lg">
+  <div class="relative w-full max-w-lg">
 
-        <div class="absolute top-8 -left-4 w-80 h-80 bg-cyan-400 filter blur-2xl mix-blend-multiply rounded-full">
-        </div>
-        <div class="absolute top-8 -right-4 w-80 h-80 bg-yellow-400 filter blur-2xl mix-blend-multiply rounded-full">
-        </div>
-        <div class="absolute bottom-3 left-28 w-80 h-80 bg-rose-400 filter blur-2xl mix-blend-multiply rounded-full">
-        </div>
+    <div class="absolute top-8 -left-4 w-80 h-80 bg-cyan-400 filter blur-2xl mix-blend-multiply rounded-full">
+    </div>
+    <div class="absolute top-8 -right-4 w-80 h-80 bg-yellow-400 filter blur-2xl mix-blend-multiply rounded-full">
+    </div>
+    <div class="absolute bottom-3 left-28 w-80 h-80 bg-rose-400 filter blur-2xl mix-blend-multiply rounded-full">
+    </div>
 
-        <div class="relative mx-auto bg-white shadow p-8 rounded-md">
-            <div class="text-4xl text-cyan-500 mb-10">
-                Sign in
-            </div>
+    <div class="relative mx-auto bg-white shadow p-8 rounded-md">
+      <div class="text-4xl text-cyan-500 mb-10">
+        Sign in
+      </div>
 
       <form [formGroup]="form" (ngSubmit)="signIn()">
         <div class="space-y-5">
@@ -27,37 +27,37 @@
           <div class="textbox">
             <input type="password" #password name="" placeholder=" " formControlName="password" value="">
             <label>Password</label>
-              <span><fa-icon [icon]="show? eyeOpen: eyeClose" (click)="togglePassword()" class="text-gray-300"></fa-icon></span>
+            <span><fa-icon [icon]="show? eyeOpen: eyeClose" (click)="togglePassword()" class="text-gray-300"></fa-icon></span>
           </div>
           <span
             [class.invisible]="!(this.form.get('password').invalid && (this.form.get('password').dirty || this.form.get('password').touched))"
             class="text-red-500 text-xs">Password needs at least 5 chars</span>
-            <div class="space-y-4">
-                <div [class.invisible]="loginSuccessful" class="text-red-500 text-center">Wrong login data!
-                </div>
-                <div>
-                    <button type="submit" [disabled]="actionDisabled"
-                            [ngClass]="actionDisabled? 'opacity-30' : ' hover:bg-cyan-600'"
-                            (click)="signIn()"
-                            class="rounded-md p-2 text-white w-full bg-cyan-500">Sign in
-                    </button>
-                </div>
-                <div class="flex space-x-2 justify-center text-xs">
-                    <div>
-                        Don't have an account?
-                    </div>
-                    <div>
-                        <a class="text-cyan-500 hover:text-cyan-600 cursor-pointer" (click)="goToSignUp()">Sign
-                            up now</a>
-                    </div>
-                </div>
+          <div class="space-y-4">
+            <div [class.invisible]="loginSuccessful" class="text-red-500 text-center">Wrong login data!
             </div>
+            <div>
+              <button type="submit" [disabled]="actionDisabled"
+                      [ngClass]="actionDisabled? 'opacity-30' : ' hover:bg-cyan-600'"
+                      (click)="signIn()"
+                      class="rounded-md p-2 text-white w-full bg-cyan-500">Sign in
+              </button>
+            </div>
+            <div class="flex space-x-2 justify-center text-xs">
+              <div>
+                Don't have an account?
+              </div>
+              <div>
+                <a class="text-cyan-500 hover:text-cyan-600 cursor-pointer" (click)="goToSignUp()">Sign
+                  up now</a>
+              </div>
+            </div>
+          </div>
         </div>
       </form>
 
 
-        </div>
     </div>
+  </div>
 </div>
 
 

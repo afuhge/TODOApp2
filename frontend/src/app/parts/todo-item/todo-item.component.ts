@@ -1,23 +1,24 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { TODO } from '../../models/todo';
-import { faCheckSquare, faTrash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { faCalendar, faSquare } from '@fortawesome/free-regular-svg-icons';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DeleteTodoModalComponent } from '../delete-todo-modal/delete-todo-modal.component';
-import { UserService } from '../../services/user.service';
-import { TodosService } from '../../services/todos.service';
-import { Title } from '@angular/platform-browser';
-import { NotifcationService } from '../../services/notifcation.service';
-import { ModalService } from '../../services/modal.service';
-import { User } from '../../models/user';
-import { Observable } from 'rxjs';
-import { AddAssigneesModalComponent } from '../add-assignees-modal/add-assignees-modal.component';
+import {Component, Input, OnInit} from '@angular/core';
+import {TODO} from '../../models/todo';
+import {faCheckSquare, faTrash, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import {faCalendar, faSquare} from '@fortawesome/free-regular-svg-icons';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {DeleteTodoModalComponent} from '../delete-todo-modal/delete-todo-modal.component';
+import {UserService} from '../../services/user.service';
+import {TodosService} from '../../services/todos.service';
+import {Title} from '@angular/platform-browser';
+import {NotifcationService} from '../../services/notifcation.service';
+import {ModalService} from '../../services/modal.service';
+import {User} from '../../models/user';
+import {AddAssigneesModalComponent} from '../add-assignees-modal/add-assignees-modal.component';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 
 class FormData {
   name: string;
   date: string;
 }
 
+@UntilDestroy()
 @Component({
   selector: 'app-todo-item',
   templateUrl: './todo-item.component.html',
@@ -49,15 +50,17 @@ export class TodoItemComponent implements OnInit {
   public deleteTodo(todo: TODO): void {
     const modal = this.modalService.showModal(DeleteTodoModalComponent);
     modal.instance.todo = todo;
-    modal.instance.deletedTodo.subscribe(() => {
-      const index = this.todos.findIndex((el: TODO) => el.id === todo.id);
-      if (index > -1) {
-        this.todos.splice(index, 1);
-        this.notifierService.success('Delete todo successful!');
-      }
-    }, (err) => {
-      this.notifierService.error('Delete todo failed!');
-    });
+    modal.instance.deletedTodo
+      .pipe(untilDestroyed(this))
+      .subscribe(() => {
+        const index = this.todos.findIndex((el: TODO) => el.id === todo.id);
+        if (index > -1) {
+          this.todos.splice(index, 1);
+          this.notifierService.success('Delete todo successful!');
+        }
+      }, (err) => {
+        this.notifierService.error('Delete todo failed!');
+      });
   }
 
   constructor(
@@ -70,6 +73,7 @@ export class TodoItemComponent implements OnInit {
     this.filteredTodos = this.todos;
 
     this.todoForm.valueChanges
+      .pipe(untilDestroyed(this))
       .subscribe((value) => {
         const data: FormData = value as FormData;
         this.formData = data;
@@ -86,10 +90,12 @@ export class TodoItemComponent implements OnInit {
     $event.preventDefault();
     const modal = this.modalService.showModal(AddAssigneesModalComponent);
     modal.instance.selectedAssignees = assignees;
-    modal.instance.assignees.subscribe((users: User[]) => {
-      this.todo.assignees = users.map((user: User) => user.id);
-      this.save(this.todo);
-    });
+    modal.instance.assignees
+      .pipe(untilDestroyed(this))
+      .subscribe((users: User[]) => {
+        this.todo.assignees = users.map((user: User) => user.id);
+        this.save(this.todo);
+      });
 
   }
 
@@ -102,15 +108,17 @@ export class TodoItemComponent implements OnInit {
   }
 
   private save(edittedTodo: TODO): void {
-    this.todoService.editTodo(edittedTodo).subscribe((todo: TODO) => {
-      const index = this.todos.findIndex((el: TODO) => el.id === todo.id);
-      if (index > -1) {
-        this.todos.splice(index, 1, todo);
-        this.notifierService.success('Edit todo successful!');
-      }
-    }, (err) => {
-      this.notifierService.error('Edit todo failed!');
-    });
+    this.todoService.editTodo(edittedTodo)
+      .pipe(untilDestroyed(this))
+      .subscribe((todo: TODO) => {
+        const index = this.todos.findIndex((el: TODO) => el.id === todo.id);
+        if (index > -1) {
+          this.todos.splice(index, 1, todo);
+          this.notifierService.success('Edit todo successful!');
+        }
+      }, (err) => {
+        this.notifierService.error('Edit todo failed!');
+      });
   }
 
   public saveDate($event: any): void {

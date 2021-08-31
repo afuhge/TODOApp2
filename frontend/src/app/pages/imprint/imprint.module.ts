@@ -1,31 +1,27 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {LoginComponent} from './login.component';
+import {ImprintComponent} from './imprint.component';
 import {RouterModule} from '@angular/router';
-import {ReactiveFormsModule} from '@angular/forms';
 import {HeaderModule} from '../../parts/header/header.module';
-import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
   declarations: [
-    LoginComponent
+    ImprintComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild([
       {
         path: '',
-        component: LoginComponent,
-      },
+        component: ImprintComponent,
+      }
     ]),
-    ReactiveFormsModule,
-    HeaderModule,
-    FontAwesomeModule,
+    HeaderModule
   ],
   exports: [
-    LoginComponent,
+    ImprintComponent,
   ],
 })
-export class LoginModule {
+export class ImprintModule {
 }

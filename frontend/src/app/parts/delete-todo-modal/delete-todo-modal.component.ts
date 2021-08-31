@@ -1,9 +1,10 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {TODO} from '../../models/todo';
 import {ModalService} from '../../services/modal.service';
-import { User } from '../../models/user';
-import { TodosService } from '../../services/todos.service';
+import {TodosService} from '../../services/todos.service';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-delete-todo-modal',
   templateUrl: './delete-todo-modal.component.html',
@@ -16,7 +17,8 @@ export class DeleteTodoModalComponent {
   constructor(
     private modalService: ModalService,
     private todoService: TodosService,
-  ) { }
+  ) {
+  }
 
   public closeModal(): void {
     this.modalService.closeModal();
@@ -24,6 +26,7 @@ export class DeleteTodoModalComponent {
 
   public deleteTodo(): void {
     this.todoService.deleteTodo(this.todo)
+      .pipe(untilDestroyed(this))
       .subscribe(() => {
         this.deletedTodo.emit(this.todo);
       });

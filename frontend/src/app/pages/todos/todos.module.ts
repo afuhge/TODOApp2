@@ -8,9 +8,8 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {DeleteTodoModalModule} from '../../parts/delete-todo-modal/delete-todo-modal.module';
 import {AddAssigneesModalModule} from '../../parts/add-assignees-modal/add-assignees-modal.module';
-import { OwlDateTimeModule } from '@danielmoncada/angular-datetime-picker';
-import { TodoItemModule } from '../../parts/todo-item/todo-item.module';
-
+import {OwlDateTimeModule} from '@danielmoncada/angular-datetime-picker';
+import {TodoItemModule} from '../../parts/todo-item/todo-item.module';
 
 
 @NgModule({

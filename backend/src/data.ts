@@ -1,5 +1,5 @@
-import { User } from './model/user';
-import { Todo } from './model/todo';
+import {User} from './model/user';
+import {Todo} from './model/todo';
 
 let idGen = 10;
 export const id = () => ++idGen;
@@ -13,7 +13,7 @@ const user1: User = {
   color: '#dddddd',
   eMail: 'a.fuh@blah.de',
   isAdmin: true,
-  todos: [5,6,7,8,9,10],
+  todos: [5, 6, 7, 8, 9, 10],
 };
 const user2: User = {
   id: 2,
@@ -24,7 +24,7 @@ const user2: User = {
   color: '#d11001',
   eMail: 'a.fuh@blah.de',
   isAdmin: false,
-  todos: [5,10],
+  todos: [5, 10],
 };
 
 const user3: User = {
@@ -36,7 +36,7 @@ const user3: User = {
   color: '#06b6d4',
   eMail: 'a.fuh@blah.de',
   isAdmin: false,
-  todos: [5,6,9],
+  todos: [5, 6, 9],
 };
 
 const user4: User = {
@@ -48,12 +48,12 @@ const user4: User = {
   color: '#404040',
   eMail: 'a.fuh@blah.de',
   isAdmin: false,
-  todos: [5,10],
+  todos: [5, 10],
 };
 
 const todo2: Todo = {
   id: 6,
-  name: 'Clean dishes',
+  name: '2) Clean dishes',
   deadline: '2021-08-27T22:00:00.000Z',
   creator: 3,
   assignees: [
@@ -61,11 +61,12 @@ const todo2: Todo = {
     3,
   ],
   isDone: false,
+  order: 1,
 };
 
 const todo1: Todo = {
   id: 5,
-  name: 'Clean dishes',
+  name: '1) Clean dishes',
   deadline: '2021-08-24T22:00:00.000Z',
   creator: 1,
   assignees: [
@@ -75,32 +76,35 @@ const todo1: Todo = {
     4,
   ],
   isDone: false,
+  order: 0,
 };
 
 const todo3: Todo = {
   id: 7,
-  name: 'Cook dinner',
+  name: '3) Cook dinner',
   deadline: '2021-08-25T22:00:00.000Z',
   creator: 1,
   assignees: [
     1,
   ],
   isDone: false,
+  order: 2,
 };
 const todo4: Todo = {
   id: 8,
-  name: 'Wash clothes',
+  name: '4) Wash clothes',
   deadline: '2021-08-26T22:00:00.000Z',
   creator: 1,
   assignees: [
     1,
   ],
   isDone: false,
+  order: 3,
 };
 
 const todo5: Todo = {
   id: 9,
-  name: 'Clean dishes',
+  name: '5) Clean dishes',
   deadline: '2021-08-29T22:00:00.000Z',
   creator: 1,
   assignees: [
@@ -110,11 +114,12 @@ const todo5: Todo = {
     4,
   ],
   isDone: false,
+  order: 4,
 };
 
 const todo6: Todo = {
   id: 10,
-  name: 'Clean dishes',
+  name: '6) Clean dishes',
   deadline: '2021-08-28T22:00:00.000Z',
   creator: 1,
   assignees: [
@@ -124,6 +129,7 @@ const todo6: Todo = {
     4,
   ],
   isDone: false,
+  order: 5,
 };
 
 export const todos: Todo[] = [

@@ -21,7 +21,7 @@
   display: none;
 }
 
-.todo:hover  .buttons {
+.todo:hover .buttons {
   display: flex;
   justify-content: flex-end;
 }

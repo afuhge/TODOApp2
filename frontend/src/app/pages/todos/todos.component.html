@@ -1,113 +1,137 @@
 <app-header></app-header>
 
 <div class=" mt-24 flex items-center justify-center px-16 z-20">
-    <div class="relative w-full max-w-5xl">
+  <div class="relative w-full max-w-5xl">
 
-        <div class="absolute left-2 top-2 right-2 bottom-2 filter blur-md"
-             style="background: linear-gradient(135deg, #F43F5E, #D946EF)">
+    <div class="absolute left-2 top-2 right-2 bottom-2 filter blur-md"
+         style="background: linear-gradient(135deg, #F43F5E, #D946EF)">
+    </div>
+
+    <div class="container relative mx-auto bg-white p-8 rounded-md"
+         style="border: 1px solid #ec9bbc;min-height: 450px;">
+      <div class="text-4xl text-rose-400 mb-10">
+        ToDos
+      </div>
+
+      <form [formGroup]="searchForm" class="flex mt-2 justify-end items-center" *ngIf="todos$ | async">
+        <div>
+          <input class="border-b-2 border-gray-300 hover:border-cyan-500 focus:outline-none"
+                 placeholder="Filter" formControlName="searchTerm"
+                 type="text">
+          <button (click)="reset()"
+                  class="focus:outline-none text-gray-400 hover:text-cyan-600 has-tooltip">
+            <fa-icon [icon]="resetIcon"></fa-icon>
+            <span class='tooltip '>Reset</span>
+          </button>
         </div>
+      </form>
 
-        <div class="container relative mx-auto bg-white p-8 rounded-md"
-             style="border: 1px solid #ec9bbc;min-height: 450px;">
-            <div class="text-4xl text-rose-400 mb-10">
-                ToDos
+      <!-- component -->
+      <ng-container *ngIf="todos$ | async; else loading">
+        <ng-container *ngIf="filteredTodos?.length; else noTodos">
+          <div class="border-b-2  mb-4 border-gray-300 p-2 font-semibold  grid grid-cols-12 items-center">
+            <div class=""></div>
+            <div class="col-span-4 flex space-x-2">
+              <div>
+                <fa-icon [icon]="todo" class="text-gray-400"></fa-icon>
+              </div>
+              <div>Name</div>
             </div>
+            <div class="col-span-2 flex space-x-2">
+              <div>
+                <fa-icon [icon]="date" class="text-gray-400"></fa-icon>
+              </div>
+              <div>Date</div>
+            </div>
+            <div class="col-span-4 flex space-x-2">
+              <fa-icon [icon]="assignees" class="text-gray-400"></fa-icon>
+              <div>Assignees</div>
+            </div>
+          </div>
 
-            <form [formGroup]="searchForm" class="flex mt-2 justify-end items-center">
-                <div>
-                    <input class="border-b-2 border-gray-300 hover:border-cyan-500 focus:outline-none"
-                           placeholder="Filter" formControlName="searchTerm"
-                           type="text">
-                    <button (click)="reset()"
-                            class="focus:outline-none text-gray-400 hover:text-cyan-600 has-tooltip">
-                        <fa-icon [icon]="resetIcon"></fa-icon>
-                        <span class='tooltip '>Reset</span>
-                    </button>
-                </div>
-            </form>
-
-            <!-- component -->
-            <ng-container *ngIf="users$ | async; else loading">
-                <ng-container *ngIf="filteredTodos?.length; else noTodos">
-                    <div class="border-b-2  mb-4 border-gray-300 p-2 font-semibold  grid grid-cols-12 items-center">
-                        <div class=""></div>
-                        <div class="col-span-4 flex space-x-2">
-                            <div>
-                                <fa-icon [icon]="todo" class="text-gray-400"></fa-icon>
-                            </div>
-                            <div>Name</div>
-                        </div>
-                        <div class="col-span-2 flex space-x-2">
-                            <div>
-                                <fa-icon [icon]="date" class="text-gray-400"></fa-icon>
-                            </div>
-                            <div>Date</div>
-                        </div>
-                        <div class="col-span-4 flex space-x-2">
-                            <fa-icon [icon]="assignees" class="text-gray-400"></fa-icon>
-                            <div>Assignees</div>
-                        </div>
-                    </div>
-
-                    <div class="space-y-2" cdkDropList [cdkDropListData]="filteredTodos"
-                         (cdkDropListDropped)="drop($event)">
-                        <div *ngFor="let todo of filteredTodos" cdkDrag class="space-y-2 rounded-xl">
-                            <div class="bg-gray-50 rounded-xl" style="height:52px;" *cdkDragPlaceholder></div>
-                            <app-todo-item [todo]="todo" [todos]="filteredTodos" [users]="users" class="block relative"></app-todo-item>
-                        </div>
-
-                        <form [formGroup]="form" (ngSubmit)="addTodo()"
-                              class="py-2 px-4 border-2 border-gray-100 grid grid-cols-12 items-center rounded-xl">
-                            <div>
-                                <button type="submit" [disabled]="!form.valid" class="has-tooltip">
-                                    <fa-icon [icon]="plusIcon"
-                                             class="text-gray-500 cursor-pointer text-xl hover:text-rose-400"></fa-icon>
-                                    <span class='tooltip '>Add ToDo</span>
-                                </button>
-                            </div>
-                            <div class="text-xl col-span-4">
-                                <input type="text" placeholder="Enter todo name" formControlName="name"
-                                       class="outline-none">
-                            </div>
-                            <div class="col-span-2 flex items-center space-x-2">
-                                <input [owlDateTime]="fromdatepicker"  placeholder="dd.mm.yyyy" class="outline-none " formControlName="date" style="width:96px; pointer-events: none;">
-                                <owl-date-time #fromdatepicker [pickerType]="'calendar'" backdropClass="popup" pickerMode="inline"></owl-date-time>
-                                <fa-icon [icon]="calendar" [owlDateTimeTrigger]="fromdatepicker">
-                                </fa-icon>
-                            </div>
-                            <div class=" col-span-4">
-                                <button (click)="addAssignees($event,  this.newTodo.assignees)" class="px-2">
+          <div class="space-y-2" cdkDropList [cdkDropListData]="filteredTodos"
+               (cdkDropListDropped)="drop($event)">
+            <div *ngFor="let todo of filteredTodos" cdkDrag class="space-y-2 rounded-xl">
+              <div class="bg-gray-50 rounded-xl" style="height:52px;" *cdkDragPlaceholder></div>
+              <app-todo-item [todo]="todo" [todos]="filteredTodos" [users]="users"
+                             class="block relative"></app-todo-item>
+            </div>
+          </div>
+        </ng-container>
+        <form [formGroup]="form" (ngSubmit)="addTodo()" *ngIf="!isFiltered"
+              class="py-2 px-4 border-2 border-gray-100 grid grid-cols-12 items-center rounded-xl mt-4">
+          <div>
+            <button type="submit" [disabled]="!form.valid" class="has-tooltip">
+              <fa-icon [icon]="plusIcon"
+                       class="text-gray-500 cursor-pointer text-xl hover:text-rose-400"></fa-icon>
+              <span class='tooltip '>Add ToDo</span>
+            </button>
+          </div>
+          <div class="text-xl col-span-4">
+            <input type="text" placeholder="Enter todo name" formControlName="name"
+                   class="outline-none">
+          </div>
+          <div class="col-span-2 flex items-center space-x-2">
+            <input [owlDateTime]="fromdatepicker" placeholder="dd.mm.yyyy" class="outline-none " formControlName="date"
+                   style="width:96px; pointer-events: none;">
+            <owl-date-time #fromdatepicker [pickerType]="'calendar'" backdropClass="popup"
+                           pickerMode="inline"></owl-date-time>
+            <fa-icon [icon]="calendar" [owlDateTimeTrigger]="fromdatepicker">
+            </fa-icon>
+          </div>
+          <div class=" col-span-4">
+            <button (click)="addAssignees($event,  this.newTodo.assignees)" class="px-2">
                                     <span [ngClass]="selectedAssignees.length > 1? 'text-gray-700'
                                             : 'text-gray-500'" class="hover:text-cyan-500">
-                                        Add {{this.newTodo.assignees.length}} assignees</span>
-                                    <fa-icon [icon]="assignees" class="pl-2"></fa-icon>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                </ng-container>
-                <ng-template #noTodos>
-                    <div class="mt-8">
-                        <div class="px-6 py-4 rounded-lg border-2 border-cyan-500 border-l-8">
-                            <div class="flex items-center space-x-4">
-                                <div>
-                                    <fa-icon [icon]="info" class="text-cyan-500 text-xl"></fa-icon>
-                                </div>
-                                <div class="text-gray-400">
-                                    No Todos available.
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </ng-template>
-            </ng-container>
-            <ng-template #loading>
-                <div class="mt-8">
-                    <div *ngFor="let i of [1,2,3]" class="bg-gray-100 animate-pulse p-8 my-2 rounded-lg"></div>
+                                        {{this.newTodo.assignees.length}} assignees</span>
+              <fa-icon [icon]="assignees" class="pl-2"></fa-icon>
+            </button>
+          </div>
+        </form>
+        <ng-template #noTodos>
+          <ng-container *ngIf="isFiltered; else nothing">
+            <div class="mt-8">
+              <div class="px-6 py-10 rounded-lg border-4 border-gray-300 border-dotted">
+                <div class="flex flex-col justify-center items-center space-y-4">
+                  <div class="mb-2">
+                    <fa-icon [icon]="search" class="text-4xl text-gray-400"></fa-icon>
+                  </div>
+                  <div class="text-gray-400 font-semibold text-xl">
+                    Sorry, there are no results for '{{ this.searchForm.get('searchTerm').value }}'.
+                  </div>
+                  <div class="text-gray-400">
+                    Please retry the search with another search term.
+                  </div>
                 </div>
-            </ng-template>
+              </div>
+            </div>
+          </ng-container>
+          <ng-template #nothing>
+            <div class="mt-8">
+              <div class="px-6 py-10 rounded-lg border-4 border-gray-300 border-dotted">
+                <div class="flex flex-col justify-center items-center space-y-4">
+                  <div class="mb-2">
+                    <fa-icon [icon]="boxOpen" class="text-4xl text-gray-400"></fa-icon>
+                  </div>
+                  <div class="text-gray-400 font-semibold text-xl">
+                    Sorry, no todos available.
+                  </div>
+                  <div class="text-gray-400">
+                    You can add a todo, if you want.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
+        </ng-template>
+      </ng-container>
+      <ng-template #loading>
+        <div class="mt-8">
+          <div *ngFor="let i of [1,2,3]" class="bg-gray-100 animate-pulse p-8 my-2 rounded-lg"></div>
         </div>
+      </ng-template>
     </div>
+  </div>
 </div>
 
 

@@ -13,15 +13,15 @@ import {DragDropModule} from '@angular/cdk/drag-drop';
 import {LandingPageModule} from './pages/landing-page/landing-page.module';
 import {NotifierModule} from './parts/notifier/notifier.module';
 import {ModalWrapperModule} from './libs/modal-wrapper/modal-wrapper.module';
-import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import { UserService } from './services/user.service';
+import {UserService} from './services/user.service';
 import {HttpClientModule} from '@angular/common/http';
 import {LocalStorageService} from './services/local-storage.service';
 import {RegisterModule} from './pages/register/register.module';
-import { LoggedInGuard } from './guards/logged-in-guard';
-import { NotLoggedInGuard } from './guards/not-logged-in-guard';
-import { OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule } from '@danielmoncada/angular-datetime-picker';
-
+import {LoggedInGuard} from './guards/logged-in-guard';
+import {NotLoggedInGuard} from './guards/not-logged-in-guard';
+import {OWL_DATE_TIME_LOCALE, OwlDateTimeModule, OwlNativeDateTimeModule} from '@danielmoncada/angular-datetime-picker';
+import {PrivacyModule} from './pages/privacy/privacy.module';
+import {ImprintModule} from './pages/imprint/imprint.module';
 
 
 const routes: Routes = [
@@ -32,19 +32,19 @@ const routes: Routes = [
         path: 'dashboard',
         loadChildren: () => import('./pages/dashboard/dashboard.module')
           .then((m: { DashboardModule: DashboardModule }) => m.DashboardModule),
-        canActivate: [LoggedInGuard ]
+        canActivate: [LoggedInGuard]
       },
       {
         path: 'todos',
         loadChildren: () => import('./pages/todos/todos.module')
           .then((m: { TodosModule: TodosModule }) => m.TodosModule),
-        canActivate: [LoggedInGuard ]
+        canActivate: [LoggedInGuard]
       },
       {
         path: 'users',
         loadChildren: () => import('./pages/users/users.module')
           .then((m: { UsersModule: UsersModule }) => m.UsersModule),
-        canActivate: [LoggedInGuard ]
+        canActivate: [LoggedInGuard]
       },
       {
         path: 'landing-page',
@@ -55,13 +55,23 @@ const routes: Routes = [
         path: 'login',
         loadChildren: () => import('./pages/login/login.module')
           .then((m: { LoginModule: LoginModule }) => m.LoginModule),
-        canActivate: [NotLoggedInGuard ]
+        canActivate: [NotLoggedInGuard]
       },
       {
         path: 'register',
         loadChildren: () => import('./pages/register/register.module')
           .then((m: { RegisterModule: RegisterModule }) => m.RegisterModule),
-        canActivate: [NotLoggedInGuard ]
+        canActivate: [NotLoggedInGuard]
+      },
+      {
+        path: 'privacy',
+        loadChildren: () => import('./pages/privacy/privacy.module')
+          .then((m: { PrivacyModule: PrivacyModule }) => m.PrivacyModule),
+      },
+      {
+        path: 'imprint',
+        loadChildren: () => import('./pages/imprint/imprint.module')
+          .then((m: { ImprintModule: ImprintModule }) => m.ImprintModule),
       },
       {
         path: '**',

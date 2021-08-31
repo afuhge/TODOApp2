@@ -32,4 +32,12 @@ export class ApiUrlHelperService {
   public static getSignUpUrl(): string {
     return '/register';
   }
+
+  public static getPrivacy(): string {
+    return '/privacy';
+  }
+
+  public static getImprint(): string {
+    return '/imprint';
+  }
 }

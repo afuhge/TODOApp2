@@ -10,17 +10,17 @@ import {HeaderModule} from '../../parts/header/header.module';
   declarations: [
     PageNotFoundComponent
   ],
-    imports: [
-        CommonModule,
-        RouterModule.forChild([
-            {
-                path: '',
-                component: PageNotFoundComponent,
-            },
-        ]),
-        FontAwesomeModule,
-        HeaderModule,
-    ],
+  imports: [
+    CommonModule,
+    RouterModule.forChild([
+      {
+        path: '',
+        component: PageNotFoundComponent,
+      },
+    ]),
+    FontAwesomeModule,
+    HeaderModule,
+  ],
   exports: [
     PageNotFoundComponent,
   ],

@@ -1,111 +1,116 @@
 <app-modal-wrapper (primaryAction)="addUser()" [header]="'Add User'" (secondaryAction)="closeModal()"
                    [primaryText]="'Add User'" [headerClasses]="'text-cyan-400'"
                    [classes]=" actionDisabled? 'bg-cyan-200 border-cyan-200': 'bg-cyan-400 hover:bg-cyan-500 border-cyan-400 hover:border-cyan-500'">
-    <form [formGroup]="form" (keyup.enter)="addUser()" class="">
-        <div class="flex flex-col">
-          <div>
-            <label for="firstName" [ngClass]="firstNameInvalid? 'text-red-500' : 'text-cyan-500'">First name
-              <span class="has-tooltip">*<span class="tooltip">required</span></span></label>
-          </div>
-          <div class="flex space-x-2">
-            <div class="flex-1">
-            <input type="text" [ngClass]="firstNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' "
-                   class="border-b-2 border-gray-200 px-2 py-px w-full focus:outline-none'
-            " name="" value="" placeholder="John" id="firstName" formControlName="firstName" >
-            </div>
-            <div [class.invisible]="!firstNameInvalid">
-              <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
-            </div>
-          </div>
+  <form [formGroup]="form" (keyup.enter)="addUser()" class="">
+    <div class="flex flex-col">
+      <div>
+        <label for="firstName" [ngClass]="firstNameInvalid? 'text-red-500' : 'text-cyan-500'">First name
+          <span class="has-tooltip">*<span class="tooltip">required</span></span></label>
+      </div>
+      <div class="flex space-x-2">
+        <div class="flex-1">
+          <input type="text"
+                 [ngClass]="firstNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' "
+                 class="border-b-2 border-gray-200 px-2 py-px w-full focus:outline-none'
+            " name="" value="" placeholder="John" id="firstName" formControlName="firstName">
         </div>
-      <span
-        [class.invisible]="!firstNameInvalid"
-        class="text-red-500 text-xs">First name is required</span>
-
-      <div class="flex flex-col">
-        <div>
-          <label for="lastName" [ngClass]="lastNameInvalid? 'text-red-500' : 'text-cyan-500'">Last name
-            <span class="has-tooltip">*<span class="tooltip">required</span></span></label>
-        </div>
-        <div class="flex space-x-2">
-          <div class="flex-1">
-            <input type="text" [ngClass]="lastNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' "
-                   class="border-b-2 border-gray-200 px-2 py-px w-full focus:outline-none'
-            " name="" value="" placeholder="Doe" id="lastName" formControlName="lastName" >
-          </div>
-          <div [class.invisible]="!lastNameInvalid">
-            <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
-          </div>
+        <div [class.invisible]="!firstNameInvalid">
+          <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
         </div>
       </div>
-      <span
-        [class.invisible]="!lastNameInvalid"
-        class="text-red-500 text-xs">Last name is required</span>
+    </div>
+    <span
+      [class.invisible]="!firstNameInvalid"
+      class="text-red-500 text-xs">First name is required</span>
 
-
-
-      <div class="flex flex-col">
-        <div>
-          <label for="mail" [ngClass]="mailInvalid? 'text-red-500' : 'text-cyan-500'">E-Mail
-            <span class="has-tooltip">*<span class="tooltip">required</span></span></label>
+    <div class="flex flex-col">
+      <div>
+        <label for="lastName" [ngClass]="lastNameInvalid? 'text-red-500' : 'text-cyan-500'">Last name
+          <span class="has-tooltip">*<span class="tooltip">required</span></span></label>
+      </div>
+      <div class="flex space-x-2">
+        <div class="flex-1">
+          <input type="text"
+                 [ngClass]="lastNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' "
+                 class="border-b-2 border-gray-200 px-2 py-px w-full focus:outline-none'
+            " name="" value="" placeholder="Doe" id="lastName" formControlName="lastName">
         </div>
-        <div class="flex space-x-2">
-          <div class="flex-1">
-            <input type="text" [ngClass]="mailInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' "
-                   class="border-b-2 border-gray-200 px-2 py-px w-full focus:outline-none'
-            " name="" value="" placeholder="john.doe@email.com" id="mail" formControlName="eMail" >
-          </div>
-          <div [class.invisible]="!mailInvalid">
-            <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
-          </div>
+        <div [class.invisible]="!lastNameInvalid">
+          <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
         </div>
       </div>
-      <span
-        [class.invisible]="!mailInvalid"
-        class="text-red-500 text-xs">E-Mail has wrong format</span>
+    </div>
+    <span
+      [class.invisible]="!lastNameInvalid"
+      class="text-red-500 text-xs">Last name is required</span>
 
 
-      <div class="flex flex-col">
-        <div>
-          <label for="userName" [ngClass]="userNameInvalid? 'text-red-500' : 'text-cyan-500'">Username
-            <span class="has-tooltip">*<span class="tooltip">required</span></span></label>
+    <div class="flex flex-col">
+      <div>
+        <label for="mail" [ngClass]="mailInvalid? 'text-red-500' : 'text-cyan-500'">E-Mail
+          <span class="has-tooltip">*<span class="tooltip">required</span></span></label>
+      </div>
+      <div class="flex space-x-2">
+        <div class="flex-1">
+          <input type="text"
+                 [ngClass]="mailInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' "
+                 class="border-b-2 border-gray-200 px-2 py-px w-full focus:outline-none'
+            " name="" value="" placeholder="john.doe@email.com" id="mail" formControlName="eMail">
         </div>
-        <div class="flex space-x-2">
-          <div class="flex-1">
-            <input type="text" [ngClass]="userNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' "
-                   class="border-b-2 border-gray-200 px-2 py-px w-full focus:outline-none'
-            " name="" value="" placeholder="johndoe" id="userName" formControlName="userName" >
-          </div>
-          <div [class.invisible]="!userNameInvalid">
-            <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
-          </div>
+        <div [class.invisible]="!mailInvalid">
+          <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
         </div>
       </div>
-      <span
-        [class.invisible]="!userNameInvalid"
-        class="text-red-500 text-xs">Username is required</span>
+    </div>
+    <span
+      [class.invisible]="!mailInvalid"
+      class="text-red-500 text-xs">E-Mail has wrong format</span>
 
-      <div class="flex flex-col">
-        <div>
-          <label for="password" [ngClass]="passwordInvalid? 'text-red-500' : 'text-cyan-500'">Password
-            <span class="has-tooltip">*<span class="tooltip">required</span></span></label>
+
+    <div class="flex flex-col">
+      <div>
+        <label for="userName" [ngClass]="userNameInvalid? 'text-red-500' : 'text-cyan-500'">Username
+          <span class="has-tooltip">*<span class="tooltip">required</span></span></label>
+      </div>
+      <div class="flex space-x-2">
+        <div class="flex-1">
+          <input type="text"
+                 [ngClass]="userNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' "
+                 class="border-b-2 border-gray-200 px-2 py-px w-full focus:outline-none'
+            " name="" value="" placeholder="johndoe" id="userName" formControlName="userName">
         </div>
-        <div class="flex space-x-2">
-          <div class="flex-1">
-            <input type="password" #password [ngClass]="passwordInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' "
-                   class="border-b-2 border-gray-200 px-2 py-px w-full focus:outline-none relative'
-            " name="" value="secret" placeholder="12345" id="password" formControlName="password" >
-            <span class="absolute right-16"><fa-icon [icon]="show? eyeOpen: eyeClose" (click)="togglePassword()" class="text-gray-300"></fa-icon></span>
-          </div>
-          <div [class.invisible]="!passwordInvalid">
-            <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
-          </div>
+        <div [class.invisible]="!userNameInvalid">
+          <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
         </div>
       </div>
-      <span
-        [class.invisible]="!passwordInvalid"
-        class="text-red-500 text-xs">Password needs at least 5 chars</span>
-    </form>
+    </div>
+    <span
+      [class.invisible]="!userNameInvalid"
+      class="text-red-500 text-xs">Username is required</span>
+
+    <div class="flex flex-col">
+      <div>
+        <label for="password" [ngClass]="passwordInvalid? 'text-red-500' : 'text-cyan-500'">Password
+          <span class="has-tooltip">*<span class="tooltip">required</span></span></label>
+      </div>
+      <div class="flex space-x-2">
+        <div class="flex-1">
+          <input type="password" #password
+                 [ngClass]="passwordInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' "
+                 class="border-b-2 border-gray-200 px-2 py-px w-full focus:outline-none relative'
+            " name="" value="secret" placeholder="12345" id="password" formControlName="password">
+          <span class="absolute right-16"><fa-icon [icon]="show? eyeOpen: eyeClose" (click)="togglePassword()"
+                                                   class="text-gray-300"></fa-icon></span>
+        </div>
+        <div [class.invisible]="!passwordInvalid">
+          <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
+        </div>
+      </div>
+    </div>
+    <span
+      [class.invisible]="!passwordInvalid"
+      class="text-red-500 text-xs">Password needs at least 5 chars</span>
+  </form>
 
 </app-modal-wrapper>
 

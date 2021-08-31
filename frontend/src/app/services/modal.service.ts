@@ -1,21 +1,15 @@
-import {
-  Component,
-  Injectable,
-  ComponentFactoryResolver,
-  ApplicationRef,
-  Injector,
-  EmbeddedViewRef,
-  ComponentRef,
-} from '@angular/core'
+import {ApplicationRef, ComponentFactoryResolver, ComponentRef, EmbeddedViewRef, Injectable, Injector,} from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ModalService {
   public componentRef: ComponentRef<any>;
+
   constructor(private componentFactoryResolver: ComponentFactoryResolver,
               private appRef: ApplicationRef,
-              private injector: Injector) { }
+              private injector: Injector) {
+  }
 
   private appendDialogComponentToBody(component: any): ComponentRef<any> {
     const componentFactory =

@@ -1,12 +1,13 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {ModalService} from '../../services/modal.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserData } from '../add-user-modal/add-user-modal.component';
-import { UserService } from '../../services/user.service';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UserData} from '../add-user-modal/add-user-modal.component';
+import {UserService} from '../../services/user.service';
 import {User} from '../../models/user';
-import { faExclamationCircle, faEye, faEyeSlash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import {faExclamationCircle, faEye, faEyeSlash, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 
-
+@UntilDestroy()
 @Component({
   selector: 'app-edit-user-modal',
   templateUrl: './edit-user-modal.component.html',
@@ -27,7 +28,7 @@ export class EditUserModalComponent implements OnInit {
   public form: FormGroup = new FormGroup({
     firstName: new FormControl('', Validators.required),
     lastName: new FormControl('', Validators.required),
-    eMail: new FormControl('',  [Validators.email, Validators.required]),
+    eMail: new FormControl('', [Validators.email, Validators.required]),
     userName: new FormControl('', Validators.required),
     password: new FormControl('', [Validators.required, Validators.minLength(5)]),
     color: new FormControl(''),
@@ -41,18 +42,22 @@ export class EditUserModalComponent implements OnInit {
     private modalService: ModalService,
     private userService: UserService,
   ) {
-    this.form.valueChanges.subscribe((value) => {
-      this.formData = value as UserData;
-      this.firstNameInvalid = (this.form.get('firstName').invalid && (this.form.get('firstName').dirty || this.form.get('firstName').touched));
-      this.lastNameInvalid = (this.form.get('lastName').invalid && (this.form.get('lastName').dirty || this.form.get('lastName').touched));
-      this.userNameInvalid = (this.form.get('userName').invalid && (this.form.get('userName').dirty || this.form.get('userName').touched));
-      this.mailInvalid = (this.form.get('eMail').invalid && (this.form.get('eMail').dirty || this.form.get('eMail').touched));
-      this.passwordInvalid = (this.form.get('password').invalid && (this.form.get('password').dirty || this.form.get('password').touched));
-    });
+    this.form.valueChanges
+      .pipe(untilDestroyed(this))
+      .subscribe((value) => {
+        this.formData = value as UserData;
+        this.firstNameInvalid = (this.form.get('firstName').invalid && (this.form.get('firstName').dirty || this.form.get('firstName').touched));
+        this.lastNameInvalid = (this.form.get('lastName').invalid && (this.form.get('lastName').dirty || this.form.get('lastName').touched));
+        this.userNameInvalid = (this.form.get('userName').invalid && (this.form.get('userName').dirty || this.form.get('userName').touched));
+        this.mailInvalid = (this.form.get('eMail').invalid && (this.form.get('eMail').dirty || this.form.get('eMail').touched));
+        this.passwordInvalid = (this.form.get('password').invalid && (this.form.get('password').dirty || this.form.get('password').touched));
+      });
 
-    this.form.statusChanges.subscribe((status) => {
-      this.actionDisabled = status === 'INVALID';
-    });
+    this.form.statusChanges
+      .pipe(untilDestroyed(this))
+      .subscribe((status) => {
+        this.actionDisabled = status === 'INVALID';
+      });
 
   }
 
@@ -64,8 +69,10 @@ export class EditUserModalComponent implements OnInit {
     if (!this.actionDisabled) {
       const edittedUser: User = {
         id: this.user.id,
-        ...this.form.value};
+        ...this.form.value
+      };
       this.userService.editUser(edittedUser)
+        .pipe(untilDestroyed(this))
         .subscribe((user: User) => {
           this.edittedUser.emit(user);
         });
@@ -78,14 +85,14 @@ export class EditUserModalComponent implements OnInit {
       if (confirm('Are you sure you want to leave without saving?')) {
         this.modalService.closeModal();
       }
-    }else {
+    } else {
       this.modalService.closeModal();
     }
   }
 
   public togglePassword(): void {
-    this.show = ! this.show;
-    this.password.nativeElement.type =  this.password.nativeElement.type === 'text' ? 'password' : 'text';
+    this.show = !this.show;
+    this.password.nativeElement.type = this.password.nativeElement.type === 'text' ? 'password' : 'text';
   }
 
 }

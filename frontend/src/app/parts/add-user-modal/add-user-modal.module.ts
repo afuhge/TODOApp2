@@ -2,7 +2,7 @@ import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {AddUserModalComponent} from './add-user-modal.component';
 import {ModalWrapperModule} from '../../libs/modal-wrapper/modal-wrapper.module';
-import { ReactiveFormsModule } from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 
@@ -10,12 +10,12 @@ import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
   declarations: [
     AddUserModalComponent,
   ],
-    imports: [
-        CommonModule,
-        ModalWrapperModule,
-        ReactiveFormsModule,
-        FontAwesomeModule,
-    ],
+  imports: [
+    CommonModule,
+    ModalWrapperModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+  ],
   exports: [
     AddUserModalComponent,
   ],

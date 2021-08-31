@@ -16,21 +16,21 @@
       <form [formGroup]="form" class="flex space-x-2 mt-2 justify-between items-center">
         <div>
           <a (click)="addUser()"
-                  class="has-tooltip bg-cyan-400 hover:bg-cyan-500 cursor-pointer border-cyan-400 hover:border-cyan-500 focus:outline-none rounded-md p-2 border-2 text-white">
+             class="has-tooltip bg-cyan-400 hover:bg-cyan-500 cursor-pointer border-cyan-400 hover:border-cyan-500 focus:outline-none rounded-md p-2 border-2 text-white">
             <fa-icon [icon]="addIcon" class="text-white"></fa-icon>
 
             Add User
           </a>
         </div>
-        <div>
-            <input class="border-b-2 border-gray-300 hover:border-cyan-500 focus:outline-none"
-                   placeholder="Filter" formControlName="searchTerm"
-                   type="text">
-            <button (click)="reset()"
-                    class="focus:outline-none text-gray-400 hover:text-cyan-600 has-tooltip">
-              <fa-icon [icon]="resetIcon"></fa-icon>
-              <span class='tooltip '>Reset</span>
-            </button>
+        <div *ngIf="users$ | async;">
+          <input class="border-b-2 border-gray-300 hover:border-cyan-500 focus:outline-none"
+                 placeholder="Filter" formControlName="searchTerm"
+                 type="text">
+          <button (click)="reset()"
+                  class="focus:outline-none text-gray-400 hover:text-cyan-600 has-tooltip">
+            <fa-icon [icon]="resetIcon"></fa-icon>
+            <span class='tooltip '>Reset</span>
+          </button>
         </div>
       </form>
 
@@ -99,18 +99,40 @@
           </div>
         </ng-container>
         <ng-template #noUsers>
-          <div class="mt-8">
-            <div class="px-6 py-4 rounded-lg border-2 border-cyan-500 border-l-8">
-              <div class="flex items-center space-x-4">
-                <div>
-                  <fa-icon [icon]="info" class="text-cyan-500 text-xl"></fa-icon>
-                </div>
-                <div class="text-gray-400">
-                  No users available.
+          <ng-container *ngIf="isFiltered; else nothing">
+            <div class="mt-8">
+              <div class="px-6 py-10 rounded-lg border-4 border-gray-300 border-dotted">
+                <div class="flex flex-col justify-center items-center space-y-4">
+                  <div class="mb-2">
+                    <fa-icon [icon]="search" class="text-4xl text-gray-400"></fa-icon>
+                  </div>
+                  <div class="text-gray-400 font-semibold text-xl">
+                    Sorry, there are no results for '{{ this.form.get('searchTerm').value }}'.
+                  </div>
+                  <div class="text-gray-400">
+                    Please retry the search with another search term.
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
+          </ng-container>
+          <ng-template #nothing>
+            <div class="mt-8">
+              <div class="px-6 py-10 rounded-lg border-4 border-gray-300 border-dotted">
+                <div class="flex flex-col justify-center items-center space-y-4">
+                  <div class="mb-2">
+                    <fa-icon [icon]="userSlash" class="text-4xl text-gray-400"></fa-icon>
+                  </div>
+                  <div class="text-gray-400 font-semibold text-xl">
+                    Sorry, no users available.
+                  </div>
+                  <div class="text-gray-400">
+                    You can add a user, if you want.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </ng-template>
         </ng-template>
       </ng-container>
       <ng-template #loading>

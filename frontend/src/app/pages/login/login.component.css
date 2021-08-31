@@ -36,8 +36,8 @@
 
 .textbox span {
   position: absolute;
-  right:5px;
-  top:40%;
+  right: 5px;
+  top: 40%;
 }
 
 .textbox input:focus ~ label,

@@ -11,7 +11,7 @@
     <div class="container relative mx-auto bg-white p-8 rounded-md"
          style="border: 1px solid #72ceb4; min-height: 450px;">
       <div class="text-4xl text-cyan-500 mb-10">
-       Today's ToDos for <span class="font-semibold">{{ currentUser?.firstName}} {{currentUser?.lastName}}</span>
+        Today's ToDos for <span class="font-semibold">{{ currentUser?.firstName}} {{currentUser?.lastName}}</span>
       </div>
 
       <!-- component -->
@@ -34,17 +34,17 @@
         <ng-template #noTodos>
           <div class="mt-8">
             <div class="px-6 py-10 rounded-lg border-4 border-gray-300 border-dotted">
-                <div class="flex flex-col justify-center items-center space-y-4">
-                  <div class="mb-2">
-                    <fa-icon [icon]="beer" class="text-4xl text-gray-400"></fa-icon>
-                  </div>
-                  <div class="text-gray-400 font-semibold text-xl">
-                    Nothing to do for you today.
-                  </div>
-                  <div class="text-gray-400">
-                    Grab a beer and relax.
-                  </div>
+              <div class="flex flex-col justify-center items-center space-y-4">
+                <div class="mb-2">
+                  <fa-icon [icon]="beer" class="text-4xl text-gray-400"></fa-icon>
                 </div>
+                <div class="text-gray-400 font-semibold text-xl">
+                  Nothing to do for you today.
+                </div>
+                <div class="text-gray-400">
+                  Grab a beer and relax.
+                </div>
+              </div>
             </div>
           </div>
         </ng-template>

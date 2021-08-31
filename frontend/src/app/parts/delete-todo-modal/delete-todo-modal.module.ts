@@ -1,8 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { DeleteTodoModalComponent } from './delete-todo-modal.component';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {DeleteTodoModalComponent} from './delete-todo-modal.component';
 import {ModalWrapperModule} from '../../libs/modal-wrapper/modal-wrapper.module';
-
 
 
 @NgModule({
@@ -17,4 +16,5 @@ import {ModalWrapperModule} from '../../libs/modal-wrapper/modal-wrapper.module'
     DeleteTodoModalComponent,
   ],
 })
-export class DeleteTodoModalModule { }
+export class DeleteTodoModalModule {
+}

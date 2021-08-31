@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {BehaviorSubject, Observable, of} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {User} from '../models/user';
 import {LocalStorageService} from './local-storage.service';
-import { map } from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 
 @Injectable()
 export class UserService {
@@ -12,8 +12,9 @@ export class UserService {
   public currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
   private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
+
   constructor(
     private http: HttpClient,
     private localStorageService: LocalStorageService,
@@ -23,7 +24,11 @@ export class UserService {
   }
 
   public loadUser(): Observable<User[]> {
-    return this.http.get<User[]>(this.usersUrl);
+    return this.http.get<User[]>(this.usersUrl)
+      .pipe(
+        map((res: any[]) => {
+          return res.map((user) => User.fromJSON(user));
+        }));
 
   }
 
@@ -32,16 +37,20 @@ export class UserService {
   }
 
   public addUser(user: User): Observable<User> {
-    return this.http.post<User>(this.usersUrl, user, this.httpOptions);
-      /*.pipe(
-      map((res: any) => {
-        return User.fromJSON(res);
-      })*/
+    return this.http.post<User>(this.usersUrl, user, this.httpOptions)
+      .pipe(
+        map((res: any) => {
+          return User.fromJSON(res);
+        }));
   }
 
   public editUser(user: User): Observable<User> {
     const url = `${this.usersUrl}/${user.id}`;
-    return this.http.put<User>(url, user, this.httpOptions);
+    return this.http.put<User>(url, user, this.httpOptions)
+      .pipe(
+        map((res: any) => {
+          return User.fromJSON(res);
+        }));
   }
 
   public deleteUser(user: User): Observable<any> {

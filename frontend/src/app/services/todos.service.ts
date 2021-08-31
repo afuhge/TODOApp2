@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
-import {User} from '../models/user';
+import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TODO} from '../models/todo';
-import {BehaviorSubject, Observable, of} from 'rxjs';
+import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,31 +13,48 @@ export class TodosService {
   private usersUrl = 'http://localhost:3000/users';  // URL to web api
 
   private httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
+
   constructor(
     private http: HttpClient,
   ) {
   }
 
   public loadTodo(): Observable<TODO[]> {
-    return this.http.get<TODO[]>(this.todosUrl);
+    return this.http.get<TODO[]>(this.todosUrl)
+      .pipe(
+        map((res: any[]) => {
+          return res.map((todo) => TODO.fromJSON(todo));
+        }));
 
   }
 
   public loadTodosOfUser(userId: number): Observable<TODO[]> {
     const url = `${this.usersUrl}/${userId}/todos`;
-    return this.http.get<TODO[]>(url);
+    return this.http.get<TODO[]>(url)
+      .pipe(
+        map((res: any[]) => {
+          return res.map((todo) => TODO.fromJSON(todo));
+        }));
   }
 
   public addTodo(todo: TODO): Observable<TODO> {
-    return this.http.post<TODO>(this.todosUrl, todo, this.httpOptions);
+    return this.http.post<TODO>(this.todosUrl, todo, this.httpOptions)
+      .pipe(
+        map((res: any) => {
+          return TODO.fromJSON(res);
+        }));
   }
 
   public editTodo(todo: TODO): Observable<TODO> {
     const url = `${this.todosUrl}/${todo.id}`;
 
-    return this.http.put<TODO>(url, todo, this.httpOptions);
+    return this.http.put<TODO>(url, todo, this.httpOptions)
+      .pipe(
+        map((res: any) => {
+          return TODO.fromJSON(res);
+        }));
   }
 
   public deleteTodo(todo: TODO): Observable<any> {

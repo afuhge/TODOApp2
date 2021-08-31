@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {User} from '../models/user';
 
 @Injectable({
@@ -6,7 +6,9 @@ import {User} from '../models/user';
 })
 export class LocalStorageService {
 
-  constructor() { }
+  constructor() {
+  }
+
   public key = 'currentUser';
 
   public setCurrentUser(user: User): void {

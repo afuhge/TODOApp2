@@ -1,14 +1,15 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { UserData } from '../../parts/add-user-modal/add-user-modal.component';
-import { faExclamationCircle, faEye, faEyeSlash, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { Title } from '@angular/platform-browser';
-import { Router } from '@angular/router';
-import { ApiUrlHelperService } from '../../services/api-url-helper.service';
-import { User } from '../../models/user';
-import { UserService } from '../../services/user.service';
-import { ColorHelperService } from '../../services/color-helper.service';
-import { LocalStorageService } from '../../services/local-storage.service';
+import {Component, ElementRef, ViewChild} from '@angular/core';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {UserData} from '../../parts/add-user-modal/add-user-modal.component';
+import {faExclamationCircle, faEye, faEyeSlash, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import {Title} from '@angular/platform-browser';
+import {Router} from '@angular/router';
+import {ApiUrlHelperService} from '../../services/api-url-helper.service';
+import {User} from '../../models/user';
+import {UserService} from '../../services/user.service';
+import {ColorHelperService} from '../../services/color-helper.service';
+import {LocalStorageService} from '../../services/local-storage.service';
+import {untilDestroyed} from '@ngneat/until-destroy';
 
 @Component({
   selector: 'app-register',
@@ -52,54 +53,59 @@ export class RegisterComponent {
   ) {
     this.titleService.setTitle('Register');
 
-    this.form.valueChanges.subscribe((value) => {
-      this.formData = value as UserData;
-      this.firstNameInvalid = (
-        this.form.get('firstName').invalid &&
-        (
-          this.form.get('firstName').dirty || this.form.get('firstName').touched
-        )
-      );
-      this.lastNameInvalid = (
-        this.form.get('lastName').invalid &&
-        (
-          this.form.get('lastName').dirty || this.form.get('lastName').touched
-        )
-      );
-      this.userNameInvalid = (
-        this.form.get('userName').invalid &&
-        (
-          this.form.get('userName').dirty || this.form.get('userName').touched
-        )
-      );
-      this.mailInvalid = (
-        this.form.get('eMail').invalid &&
-        (
-          this.form.get('eMail').dirty || this.form.get('eMail').touched
-        )
-      );
-      this.passwordInvalid = (
-        this.form.get('password').invalid &&
-        (
-          this.form.get('password').dirty || this.form.get('password').touched
-        )
-      );
-    });
+    this.form.valueChanges
+      .pipe(untilDestroyed(this))
+      .subscribe((value) => {
+        this.formData = value as UserData;
+        this.firstNameInvalid = (
+          this.form.get('firstName').invalid &&
+          (
+            this.form.get('firstName').dirty || this.form.get('firstName').touched
+          )
+        );
+        this.lastNameInvalid = (
+          this.form.get('lastName').invalid &&
+          (
+            this.form.get('lastName').dirty || this.form.get('lastName').touched
+          )
+        );
+        this.userNameInvalid = (
+          this.form.get('userName').invalid &&
+          (
+            this.form.get('userName').dirty || this.form.get('userName').touched
+          )
+        );
+        this.mailInvalid = (
+          this.form.get('eMail').invalid &&
+          (
+            this.form.get('eMail').dirty || this.form.get('eMail').touched
+          )
+        );
+        this.passwordInvalid = (
+          this.form.get('password').invalid &&
+          (
+            this.form.get('password').dirty || this.form.get('password').touched
+          )
+        );
+      });
 
-    this.form.statusChanges.subscribe((status) => {
-      console.log(status);
-      this.actionDisabled = status === 'INVALID';
-    });
+    this.form.statusChanges
+      .pipe(untilDestroyed(this))
+      .subscribe((status) => {
+        this.actionDisabled = status === 'INVALID';
+      });
   }
 
   public signUp(): void {
-      const newUser: User = {
-        ...this.form.value,
-        todos: [],
-        isAdmin: false,
-      };
-      newUser.color = this.colorService.convertNameIntoColor(newUser);
-      this.userService.addUser(newUser).subscribe((user: User) => {
+    const newUser: User = {
+      ...this.form.value,
+      todos: [],
+      isAdmin: false,
+    };
+    newUser.color = this.colorService.convertNameIntoColor(newUser);
+    this.userService.addUser(newUser)
+      .pipe(untilDestroyed(this))
+      .subscribe((user: User) => {
         this.localStorageService.setCurrentUser(user);
         this.userService.currentUser.next(user);
         this.router.navigateByUrl(ApiUrlHelperService.getDashboardUrl());
@@ -111,7 +117,7 @@ export class RegisterComponent {
       if (confirm('Are you sure you want to leave this site?')) {
         this.router.navigateByUrl(ApiUrlHelperService.getLoginUrl());
       }
-    }else {
+    } else {
       this.router.navigateByUrl(ApiUrlHelperService.getLoginUrl());
     }
   }

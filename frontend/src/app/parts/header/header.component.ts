@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
-import { ApiUrlHelperService } from '../../services/api-url-helper.service';
-import { Router } from '@angular/router';
-import { faChevronDown, faSignOutAlt, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { LocalStorageService } from '../../services/local-storage.service';
-import { User } from '../../models/user';
-import { UserService } from '../../services/user.service';
-import { ColorHelperService } from '../../services/color-helper.service';
+import {Component} from '@angular/core';
+import {ApiUrlHelperService} from '../../services/api-url-helper.service';
+import {Router} from '@angular/router';
+import {faChevronDown, faSignOutAlt, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import {LocalStorageService} from '../../services/local-storage.service';
+import {User} from '../../models/user';
+import {UserService} from '../../services/user.service';
+import {ColorHelperService} from '../../services/color-helper.service';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -36,9 +38,11 @@ export class HeaderComponent {
     this.landingURL = ApiUrlHelperService.getLandingUrl();
     this.loginURL = ApiUrlHelperService.getLoginUrl();
     this.signUpURL = ApiUrlHelperService.getSignUpUrl();
-    this.userService.getCurrentUser().subscribe((user: User) => {
-      this.currentUser = user;
-    });
+    this.userService.getCurrentUser()
+      .pipe(untilDestroyed(this))
+      .subscribe((user: User) => {
+        this.currentUser = user;
+      });
   }
 
   public signOut(): void {

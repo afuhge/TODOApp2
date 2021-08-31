@@ -1,6 +1,15 @@
 import {Component} from '@angular/core';
 
-import {faInfoCircle, faPencilAlt, faSearch, faTimesCircle, faTrash, faUserPlus, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import {
+  faInfoCircle,
+  faPencilAlt,
+  faSearch,
+  faTimesCircle,
+  faTrash,
+  faUserPlus,
+  faUserSlash,
+  IconDefinition
+} from '@fortawesome/free-solid-svg-icons';
 import {UserService} from '../../services/user.service';
 import {Title} from '@angular/platform-browser';
 import {NotifcationService} from '../../services/notifcation.service';
@@ -11,14 +20,15 @@ import {DeleteUserModalComponent} from '../../parts/delete-user-modal/delete-use
 import {User} from '../../models/user';
 import {Observable} from 'rxjs';
 import {FormControl, FormGroup} from '@angular/forms';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 
-
+@UntilDestroy()
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.css']
 })
-export class UsersComponent{
+export class UsersComponent {
   public users: User[] = [];
   public filteredUsers: User[] = [];
   public editIcon: IconDefinition = faPencilAlt;
@@ -27,74 +37,95 @@ export class UsersComponent{
   public searchIcon: IconDefinition = faSearch;
   public info: IconDefinition = faInfoCircle;
   public resetIcon: IconDefinition = faTimesCircle;
+  public userSlash: IconDefinition = faUserSlash;
+  public search: IconDefinition = faSearch;
+
   public users$: Observable<User[]>;
+  public isFiltered = false;
 
   public form: FormGroup = new FormGroup({
     searchTerm: new FormControl(''),
   });
+
   constructor(
     private userService: UserService,
     private titleService: Title,
     private notifierService: NotifcationService,
     private modalService: ModalService,
   ) {
-   this.users$ = this.userService.loadUser();
-   this.users$.subscribe((el: User[]) => {
-     this.users = el;
-     this.filteredUsers = this.users;
-   });
+    this.users$ = this.userService.loadUser();
+    this.users$
+      .pipe(untilDestroyed(this))
+      .subscribe((el: User[]) => {
+        this.users = el;
+        this.filteredUsers = this.users;
+      });
 
 
-   this.titleService.setTitle('User Management');
+    this.titleService.setTitle('User Management');
 
-   this.form.valueChanges.subscribe((value) => {
-     this.searchUser();
-   });
+    this.form.valueChanges
+      .pipe(untilDestroyed(this))
+      .subscribe((value) => {
+        this.searchUser();
+      });
+
+    this.form.get('searchTerm').valueChanges
+      .pipe(untilDestroyed(this))
+      .subscribe((value) => {
+        this.isFiltered = value !== '';
+      });
   }
 
 
   editUser(user: User): void {
     const modal = this.modalService.showModal(EditUserModalComponent);
     modal.instance.user = user;
-    modal.instance.edittedUser.subscribe(
-      (edittedUser: User) => {
+    modal.instance.edittedUser
+      .pipe(untilDestroyed(this))
+      .subscribe(
+        (edittedUser: User) => {
           const index = this.users.findIndex((el: User) => el.id === edittedUser.id);
           if (index > -1) {
             this.users.splice(index, 1, edittedUser);
             this.notifierService.success('Edit user successful!');
           }
         },
-      (err) => {
-        this.notifierService.error('Edit user failed!');
-      }
-    );
+        (err) => {
+          this.notifierService.error('Edit user failed!');
+        }
+      );
   }
 
   deleteUser(user: User): void {
-   const modal = this.modalService.showModal(DeleteUserModalComponent);
-   modal.instance.user = user;
-   modal.instance.deletedUser.subscribe(() => {
-    const index = this.users.findIndex((el: User) => el.id === user.id);
-    if (index > -1) {
-      this.users.splice(index, 1);
-      this.notifierService.success('Delete user successful!');
-    }
-   },
-     (err) => {
-       this.notifierService.error('Delete user failed!');
-     });
+    const modal = this.modalService.showModal(DeleteUserModalComponent);
+    modal.instance.user = user;
+    modal.instance.deletedUser
+      .pipe(untilDestroyed(this))
+      .subscribe(() => {
+          const index = this.users.findIndex((el: User) => el.id === user.id);
+          if (index > -1) {
+            this.users.splice(index, 1);
+            this.notifierService.success('Delete user successful!');
+          }
+        },
+        (err) => {
+          this.notifierService.error('Delete user failed!');
+        });
   }
 
   public addUser(): void {
     const modal = this.modalService.showModal(AddUserModalComponent);
-    modal.instance.createdUser.subscribe((user: User) => {
-      this.users.push(user);
-      this.notifierService.success('Add user successful!');
+    modal.instance.createdUser
+      .pipe(untilDestroyed(this))
+      .subscribe((user: User) => {
+          this.users.push(user);
+          this.notifierService.success('Add user successful!');
 
-    },
-      (err) => {
-        this.notifierService.error('Add user failed!');
-      });
+        },
+        (err) => {
+          this.notifierService.error('Add user failed!');
+        });
   }
 
   public searchUser(): void {
@@ -103,15 +134,16 @@ export class UsersComponent{
     if (searchTerm !== '') {
       this.filteredUsers = this.filteredUsers.filter((user: User) => {
         return user.userName.includes(searchTerm) ||
-            user.firstName.includes(searchTerm) ||
-            user.lastName.includes(searchTerm) ||
-            user.eMail.includes(searchTerm);
+          user.firstName.includes(searchTerm) ||
+          user.lastName.includes(searchTerm) ||
+          user.eMail.includes(searchTerm);
       });
     }
   }
 
   public reset(): void {
     this.form.reset();
+    this.isFiltered = false;
     this.resetFilteredUsers();
   }
 

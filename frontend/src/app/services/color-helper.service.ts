@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {User} from '../models/user';
 
 @Injectable({
@@ -6,7 +6,8 @@ import {User} from '../models/user';
 })
 export class ColorHelperService {
 
-  constructor() { }
+  constructor() {
+  }
 
   public convertNameIntoColor(user: User): string {
     const fullName = `${user.firstName} ${user.lastName}`;
@@ -17,6 +18,7 @@ export class ColorHelperService {
       .toUpperCase();
     return '#00000'.substring(0, 6 - c.length + 1) + c;
   }
+
   private hashCode(str: string): number {
     let hash = 0;
     for (let i = 0; i < str.length; i++) {

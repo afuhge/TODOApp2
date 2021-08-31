@@ -1,18 +1,20 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { ModalService } from '../../services/modal.service';
-import { UserService } from '../../services/user.service';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
+import {ModalService} from '../../services/modal.service';
+import {UserService} from '../../services/user.service';
 
-import { User } from '../../models/user';
-import { faCheckCircle, faInfoCircle, faTimesCircle, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { FormControl, FormGroup } from '@angular/forms';
-import { faCircle } from '@fortawesome/free-regular-svg-icons';
-import { Observable } from 'rxjs';
+import {User} from '../../models/user';
+import {faCheckCircle, faInfoCircle, faTimesCircle, IconDefinition} from '@fortawesome/free-solid-svg-icons';
+import {FormControl, FormGroup} from '@angular/forms';
+import {faCircle} from '@fortawesome/free-regular-svg-icons';
+import {Observable} from 'rxjs';
+import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
 
 class Assignee {
   public isSelected: boolean;
   public user: User;
 }
 
+@UntilDestroy()
 @Component({
   selector: 'app-add-assignees-modal',
   templateUrl: './add-assignees-modal.component.html',
@@ -39,15 +41,19 @@ export class AddAssigneesModalComponent {
 
   constructor(private modalService: ModalService, private userService: UserService) {
     this.users$ = this.userService.loadUser();
-    this.users$.subscribe((users: User[]) => {
-      this.allUsers = users;
-      this.selectedUsers = this.mapUsers();
-      this.filteredUsers = this.selectedUsers;
-    });
+    this.users$
+      .pipe(untilDestroyed(this))
+      .subscribe((users: User[]) => {
+        this.allUsers = users;
+        this.selectedUsers = this.mapUsers();
+        this.filteredUsers = this.selectedUsers;
+      });
 
-    this.form.valueChanges.subscribe((value) => {
-      this.searchUser();
-    });
+    this.form.valueChanges
+      .pipe(untilDestroyed(this))
+      .subscribe((value) => {
+        this.searchUser();
+      });
   }
 
   public mapUsers(): Assignee[] {

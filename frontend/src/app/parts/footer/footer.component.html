@@ -6,22 +6,20 @@
     </div>
     <div class="flex flex-col justify-center  items-center space-y-2">
       <div class="flex space-x-8">
-        <a [href]="linkedInUrl" target=”_blank” class="has-tooltip cursor-pointer hover:text-gray-700 text-xl">
+        <a [href]="linkedInUrl" target=”_blank” class=" cursor-pointer hover:text-gray-700 text-xl">
           <fa-icon [icon]="linkedIn" class="text-gray-400 hover:text-gray-700"></fa-icon>
-          <span class='tooltip '>LinkedIn</span>
         </a>
-        <a [href]="gitHubUrl" target=”_blank” class="has-tooltip hover:text-gray-700 cursor-pointer text-xl">
+        <a [href]="gitHubUrl" target=”_blank” class=" hover:text-gray-700 cursor-pointer text-xl">
           <fa-icon [icon]="gitHub" class="text-gray-400 hover:text-gray-700"></fa-icon>
-          <span class='tooltip '>GitHub</span>
         </a>
       </div>
 
       <div class="flex space-x-4">
-        <div [routerLink]="'/privacy'" [routerLinkActive]="'text-gray-700'" class="cursor-pointer hover:text-gray-700">
+        <div [routerLink]="privacy" [routerLinkActive]="'text-gray-700'" class="cursor-pointer hover:text-gray-700">
           Privacy
         </div>
         <span>|</span>
-        <div class="hover:text-gray-700 cursor-pointer">
+        <div [routerLink]="imprint" [routerLinkActive]="'text-gray-700'" class="hover:text-gray-700 cursor-pointer">
           Imprint
         </div>
       </div>

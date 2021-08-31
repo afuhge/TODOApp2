@@ -1,5 +1,3 @@
-import { User } from './user';
-
 export class Todo {
   public id: number = 0;
   public name: string = '';
@@ -7,4 +5,5 @@ export class Todo {
   public assignees: number[] = [];
   public creator: number = 0;
   public isDone: boolean = false;
+  public order: number = 0;
 }

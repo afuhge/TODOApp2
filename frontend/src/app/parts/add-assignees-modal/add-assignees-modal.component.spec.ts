@@ -1,6 +1,6 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AddAssigneesModalComponent } from './add-assignees-modal.component';
+import {AddAssigneesModalComponent} from './add-assignees-modal.component';
 
 describe('AddAssigneesModalComponent', () => {
   let component: AddAssigneesModalComponent;
@@ -8,9 +8,9 @@ describe('AddAssigneesModalComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ AddAssigneesModalComponent ]
+      declarations: [AddAssigneesModalComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -1,4 +1,3 @@
-
 <app-modal-wrapper (primaryAction)="editUser()" [header]="'Edit User'" (secondaryAction)="closeModal()"
                    [primaryText]="'Save User'" [headerClasses]="'text-cyan-400'"
                    [classes]="actionDisabled? 'bg-cyan-200 border-cyan-200':'bg-cyan-400 hover:bg-cyan-500 border-cyan-400 hover:border-cyan-500'">
@@ -10,9 +9,10 @@
       </div>
       <div class="flex space-x-2">
         <div class="flex-1">
-          <input type="text" [ngClass]="firstNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' "
+          <input type="text"
+                 [ngClass]="firstNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' "
                  class="border-b-2 border-gray-200 px-2 py-px w-full  focus:outline-none'
-            " name="" value="" placeholder="John" id="firstName" formControlName="firstName" >
+            " name="" value="" placeholder="John" id="firstName" formControlName="firstName">
         </div>
         <div [class.invisible]="!firstNameInvalid">
           <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
@@ -30,8 +30,10 @@
       </div>
       <div class="flex space-x-2">
         <div class="flex-1">
-          <input type="text" [ngClass]="lastNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' " class="border-b-2 border-gray-200 px-2 py-px w-full  focus:outline-none'
-            " name="" value="" placeholder="Doe" id="lastName" formControlName="lastName" >
+          <input type="text"
+                 [ngClass]="lastNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' "
+                 class="border-b-2 border-gray-200 px-2 py-px w-full  focus:outline-none'
+            " name="" value="" placeholder="Doe" id="lastName" formControlName="lastName">
         </div>
         <div [class.invisible]="!lastNameInvalid">
           <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
@@ -43,7 +45,6 @@
       class="text-red-500 text-xs">Last name is required</span>
 
 
-
     <div class="flex flex-col">
       <div>
         <label for="mail" [ngClass]="mailInvalid? 'text-red-500' : 'text-cyan-500'">E-Mail
@@ -51,8 +52,10 @@
       </div>
       <div class="flex space-x-2">
         <div class="flex-1">
-          <input type="text" [ngClass]="mailInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' " class="border-b-2 border-gray-200 px-2 py-px w-full  focus:outline-none'
-            " name="" value="" placeholder="john.doe@email.com" id="mail" formControlName="eMail" >
+          <input type="text"
+                 [ngClass]="mailInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' "
+                 class="border-b-2 border-gray-200 px-2 py-px w-full  focus:outline-none'
+            " name="" value="" placeholder="john.doe@email.com" id="mail" formControlName="eMail">
         </div>
         <div [class.invisible]="!mailInvalid">
           <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
@@ -71,8 +74,10 @@
       </div>
       <div class="flex space-x-2">
         <div class="flex-1">
-          <input type="text" [ngClass]="userNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' " class="border-b-2 border-gray-200 px-2 py-px w-full  focus:outline-none'
-            " name="" value="" placeholder="johndoe" id="userName" formControlName="userName" >
+          <input type="text"
+                 [ngClass]="userNameInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' "
+                 class="border-b-2 border-gray-200 px-2 py-px w-full  focus:outline-none'
+            " name="" value="" placeholder="johndoe" id="userName" formControlName="userName">
         </div>
         <div [class.invisible]="!userNameInvalid">
           <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
@@ -90,10 +95,12 @@
       </div>
       <div class="flex space-x-2">
         <div class="flex-1">
-          <input type="password"  #password [ngClass]="passwordInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' "
+          <input type="password" #password
+                 [ngClass]="passwordInvalid?'border-red-500 focus:outline-none' : 'border-gray-200  focus:border-cyan-500 focus:outline-none' "
                  class="border-b-2 border-gray-200 px-2 py-px w-full  focus:outline-none relative'
-            " name="" value="secret" placeholder="12345" id="password" formControlName="password" >
-          <span class="absolute right-16"><fa-icon [icon]="show? eyeOpen: eyeClose" (click)="togglePassword()" class="text-gray-300"></fa-icon></span>
+            " name="" value="secret" placeholder="12345" id="password" formControlName="password">
+          <span class="absolute right-16"><fa-icon [icon]="show? eyeOpen: eyeClose" (click)="togglePassword()"
+                                                   class="text-gray-300"></fa-icon></span>
         </div>
         <div [class.invisible]="!passwordInvalid">
           <fa-icon [icon]="error" class="text-red-500 text-xl"></fa-icon>
@@ -111,7 +118,8 @@
       </div>
       <div class="flex space-x-2">
         <div class="flex-1">
-          <input type="color" class="w-1/2 border-none" name="" value="" placeholder=" " id="color" formControlName="color" >
+          <input type="color" class="w-1/2 border-none" name="" value="" placeholder=" " id="color"
+                 formControlName="color">
         </div>
       </div>
     </div>

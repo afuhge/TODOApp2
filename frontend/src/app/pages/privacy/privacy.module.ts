@@ -1,31 +1,27 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {LoginComponent} from './login.component';
+import {PrivacyComponent} from './privacy.component';
 import {RouterModule} from '@angular/router';
-import {ReactiveFormsModule} from '@angular/forms';
 import {HeaderModule} from '../../parts/header/header.module';
-import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 
 
 @NgModule({
   declarations: [
-    LoginComponent
+    PrivacyComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild([
       {
         path: '',
-        component: LoginComponent,
-      },
+        component: PrivacyComponent,
+      }
     ]),
-    ReactiveFormsModule,
-    HeaderModule,
-    FontAwesomeModule,
+    HeaderModule
   ],
   exports: [
-    LoginComponent,
+    PrivacyComponent,
   ],
 })
-export class LoginModule {
+export class PrivacyModule {
 }
