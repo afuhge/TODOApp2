@@ -4,6 +4,7 @@ import {HeaderComponent} from './header.component';
 import {RouterModule} from '@angular/router';
 import {FontAwesomeModule} from '@fortawesome/angular-fontawesome';
 import {InitialsPipe} from './initials-pipe';
+import {ReactiveFormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -11,11 +12,12 @@ import {InitialsPipe} from './initials-pipe';
     HeaderComponent,
     InitialsPipe,
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    FontAwesomeModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        FontAwesomeModule,
+        ReactiveFormsModule
+    ],
   exports: [
     HeaderComponent,
   ]

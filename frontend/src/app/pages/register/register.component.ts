@@ -107,7 +107,7 @@ export class RegisterComponent {
       .pipe(untilDestroyed(this))
       .subscribe((user: User) => {
         this.localStorageService.setCurrentUser(user);
-        this.userService.currentUser.next(user);
+        this.userService.currentUser$.next(user);
         this.router.navigateByUrl(ApiUrlHelperService.getDashboardUrl());
       });
   }

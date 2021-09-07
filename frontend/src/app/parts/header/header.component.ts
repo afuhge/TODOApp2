@@ -7,6 +7,7 @@ import {User} from '../../models/user';
 import {UserService} from '../../services/user.service';
 import {ColorHelperService} from '../../services/color-helper.service';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @UntilDestroy()
 @Component({
@@ -26,6 +27,10 @@ export class HeaderComponent {
   public hidden = true;
   public currentUser: User;
 
+  public form: FormGroup = new FormGroup({
+    toggle: new FormControl(''),
+  });
+
   constructor(
     private router: Router,
     private localStorageService: LocalStorageService,
@@ -38,16 +43,21 @@ export class HeaderComponent {
     this.landingURL = ApiUrlHelperService.getLandingUrl();
     this.loginURL = ApiUrlHelperService.getLoginUrl();
     this.signUpURL = ApiUrlHelperService.getSignUpUrl();
-    this.userService.getCurrentUser()
+    this.userService.getCurrentUser$()
       .pipe(untilDestroyed(this))
       .subscribe((user: User) => {
         this.currentUser = user;
       });
+
+    this.form.valueChanges.subscribe((value) =>  {
+      this.toggleTheme();
+    });
   }
 
   public signOut(): void {
     this.localStorageService.deleteUser();
-    this.userService.currentUser.next(null);
+    this.userService.currentUser$.next(null);
+    this.localStorageService.deleteToken();
     this.router.navigateByUrl(ApiUrlHelperService.getLandingUrl());
   }
 
@@ -57,5 +67,17 @@ export class HeaderComponent {
 
   public toggleDropDown(): void {
     this.hidden = !this.hidden;
+  }
+
+  public toggleTheme(): void {
+    const html = document.querySelector('html');
+    const text = document.getElementById('text');
+    if (html.classList.contains('dark')) {
+        html.classList.remove('dark');
+        text.innerText = 'Light Theme';
+      } else {
+        html.classList.add('dark');
+        text.innerText = 'Dark Theme';
+      }
   }
 }

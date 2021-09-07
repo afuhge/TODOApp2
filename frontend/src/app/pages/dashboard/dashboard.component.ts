@@ -40,7 +40,7 @@ export class DashboardComponent {
     private notifierService: NotifcationService,
   ) {
     this.titleService.setTitle('Dashboard');
-    this.userService.getCurrentUser()
+    this.userService.getCurrentUser$()
       .pipe(untilDestroyed(this))
       .subscribe((user: User) => {
         this.currentUser = user;

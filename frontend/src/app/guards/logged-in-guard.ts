@@ -16,7 +16,7 @@ export class LoggedInGuard implements CanActivate {
   }
 
   public canActivate(route: ActivatedRouteSnapshot): Observable<boolean> {
-    return this.userService.currentUser.pipe(map((user: User) => {
+    return this.userService.currentUser$.pipe(map((user: User) => {
       if (user) {
         return true;
       }

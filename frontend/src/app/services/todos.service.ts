@@ -3,26 +3,28 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {TODO} from '../models/todo';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
+import {AbstractAPiService} from './AbstractAPiService';
+import {LocalStorageService} from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class TodosService {
+export class TodosService extends AbstractAPiService {
 
-  private todosUrl = 'http://localhost:3000/todos';  // URL to web api
-  private usersUrl = 'http://localhost:3000/users';  // URL to web api
+  private todosUrl = `${this.BASE_URL}/todos`;  // URL to web api
+  private usersUrl = `${this.BASE_URL}/users`;  // URL to web api
 
-  private httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
-  };
+
 
   constructor(
     private http: HttpClient,
+    protected localStorageService: LocalStorageService,
   ) {
+    super(localStorageService);
   }
 
   public loadTodo(): Observable<TODO[]> {
-    return this.http.get<TODO[]>(this.todosUrl)
+    return this.http.get<TODO[]>(this.todosUrl, this.httpOptions)
       .pipe(
         map((res: any[]) => {
           return res.map((todo) => TODO.fromJSON(todo));
@@ -32,7 +34,7 @@ export class TodosService {
 
   public loadTodosOfUser(userId: number): Observable<TODO[]> {
     const url = `${this.usersUrl}/${userId}/todos`;
-    return this.http.get<TODO[]>(url)
+    return this.http.get<TODO[]>(url, this.httpOptions)
       .pipe(
         map((res: any[]) => {
           return res.map((todo) => TODO.fromJSON(todo));

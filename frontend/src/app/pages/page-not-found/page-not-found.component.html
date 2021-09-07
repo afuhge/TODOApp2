@@ -2,25 +2,25 @@
 
 
 <div class="absolute -translate-y-10 transform translate-x-1/2">
-  <span class="font-semibold text-transparent bg-clip-text bg-gradient-to-b from-cyan-500 opacity-30"
+  <span class="font-semibold text-transparent bg-clip-text bg-gradient-to-b from-cyan-500 opacity-30 dark:from-cyan-400"
         style="font-size: 30rem;">4</span>
-  <span class="font-semibold text-transparent bg-clip-text bg-gradient-to-b from-yellow-500 opacity-30"
+  <span class="font-semibold text-transparent bg-clip-text bg-gradient-to-b from-yellow-500 opacity-30 dark:from-yellow-400 "
         style="font-size: 30rem;">0</span>
-  <span class=" font-semibold text-transparent bg-clip-text bg-gradient-to-b from-rose-500 opacity-30"
+  <span class=" font-semibold text-transparent bg-clip-text bg-gradient-to-b from-rose-500 opacity-30 dark:from-rose-400"
         style="font-size: 30rem;">4</span>
 </div>
 
 <div class="flex justify-center items-center relative" style="margin-top:25rem;">
 
   <div class="space-y-6">
-    <div class="font-semibold text-7xl text-cyan-500 pb-8">
+    <div class="font-semibold text-7xl text-cyan-500 dark:text-cyan-400 pb-8">
       Oops! nothing here!
     </div>
-    <div class="text-prose">
+    <div class="text-prose dark:text-gray-400">
       We are sorry, the page you are asking for does not exist.
     </div>
     <div class="flex  text-white">
-      <button (click)="goToLandingPage()" class="p-2 rounded-md bg-cyan-500 hover:bg-cyan-600">
+      <button (click)="goToLandingPage()" class="p-2 rounded-md bg-cyan-500 hover:bg-cyan-600 dark:bg-cyan-400 dark:hover:bg-cyan-500">
         <fa-icon [icon]="home" class="text-xl pr-2"></fa-icon>
         Take me home
       </button>

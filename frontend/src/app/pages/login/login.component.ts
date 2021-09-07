@@ -9,6 +9,7 @@ import {Observable} from 'rxjs';
 import {LocalStorageService} from '../../services/local-storage.service';
 import {faEye, faEyeSlash, IconDefinition} from '@fortawesome/free-solid-svg-icons';
 import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
+import {AuthenticationService} from '../../services/authentication.service';
 
 @UntilDestroy()
 @Component({
@@ -17,17 +18,11 @@ import {UntilDestroy, untilDestroyed} from '@ngneat/until-destroy';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  private user = {
-    username: 'annie',
-    password: '12345',
-  };
-  // TODO
 
   @ViewChild('password') password: ElementRef;
   public actionDisabled = true;
   public loginSuccessful = true;
   public users: User[] = [];
-  public users$: Observable<User[]>;
   public show = false;
   public eyeOpen: IconDefinition = faEye;
   public eyeClose: IconDefinition = faEyeSlash;
@@ -42,6 +37,7 @@ export class LoginComponent {
     private titleService: Title,
     private userService: UserService,
     private localStorageService: LocalStorageService,
+    private authenticationService: AuthenticationService,
   ) {
 
     this.titleService.setTitle('Login');
@@ -50,34 +46,25 @@ export class LoginComponent {
       .subscribe((status => {
         this.actionDisabled = status === 'INVALID';
       }));
-
-    this.users$ = this.userService.loadUser();
-    this.users$
-      .pipe(untilDestroyed(this))
-      .subscribe((el: User[]) => {
-        this.users = el;
-      });
   }
 
-  private checkInputs(): boolean {
-    if (this.form.get('username').value !== this.user.username || this.form.get('password').value !== this.user.password) {
-      return false;
-    }
-    return true;
-  }
 
 
   public signIn(): void {
-    if (this.checkInputs()) {
-      this.loginSuccessful = true;
-      const userName: string = this.form.get('username').value;
-      const user = this.findUserByUsername(userName);
-      this.localStorageService.setCurrentUser(user);
-      this.userService.currentUser.next(user);
-      this.router.navigateByUrl(ApiUrlHelperService.getDashboardUrl());
-    } else {
-      this.loginSuccessful = false;
-    }
+      this.authenticationService.loginUser(this.form.value)
+        .subscribe((token: string) => {
+            this.localStorageService.setToken(token);
+
+            this.loginSuccessful = true;
+            this.userService.fetchCurrentUser().subscribe((user: User) => {
+              this.localStorageService.setCurrentUser(user);
+
+              this.router.navigateByUrl(ApiUrlHelperService.getDashboardUrl());
+            });
+        }, (err) => {
+          console.log(err);
+          this.loginSuccessful = false;
+        });
   }
 
   private findUserByUsername(userName: string): User {

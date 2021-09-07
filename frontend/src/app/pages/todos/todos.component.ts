@@ -97,7 +97,7 @@ export class TodosComponent {
         this.users = el;
       });
 
-    this.userService.currentUser
+    this.userService.currentUser$
       .pipe(untilDestroyed(this))
       .subscribe((user: User) => {
         this.currentUser = user;

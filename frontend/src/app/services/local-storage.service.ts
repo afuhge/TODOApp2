@@ -10,6 +10,7 @@ export class LocalStorageService {
   }
 
   public key = 'currentUser';
+  public token = 'token';
 
   public setCurrentUser(user: User): void {
     const currentUser: string = JSON.stringify(user);
@@ -22,5 +23,17 @@ export class LocalStorageService {
 
   public deleteUser(): void {
     localStorage.removeItem(this.key);
+  }
+
+  public setToken(token: string): void {
+    localStorage.setItem(this.token, token);
+  }
+
+  public getToken(): string {
+    return localStorage.getItem(this.token);
+  }
+
+  public deleteToken(): void {
+    localStorage.removeItem(this.token);
   }
 }

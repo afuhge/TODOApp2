@@ -2,9 +2,15 @@ import express, {Request, Response} from 'express';
 import {User} from './src/model/user';
 import {id, todos, users} from './src/data';
 import {Todo} from './src/model/todo';
-
 var cors = require('cors');
 const application = express();
+import * as jwt from 'jsonwebtoken';
+const bodyParser = require('body-parser');
+const accessTokenSecret = 'todoapp123';
+
+application.use(bodyParser.json());
+
+
 application.use(cors());
 application.use(express.json());
 application.use(express.urlencoded({
@@ -13,10 +19,52 @@ application.use(express.urlencoded({
 
 const port = 3000;
 
+interface UserRequest extends Request {
+  user?: User
+}
+
+const authenticateJWT = async (req: UserRequest, res: Response, next: any) => {
+  const authHeader = req.headers.authorization;
+  console.log(authHeader);
+  if (authHeader) {
+    const token = authHeader.split(' ')[1];
+
+    jwt.verify(token, accessTokenSecret, (err: any) => {
+      if (err) {
+        return res.sendStatus(403);
+      }
+
+      const decodedToken = jwt.decode(token) as any;
+      const userId: number = decodedToken.id;
+
+      console.log(userId);
+
+      const userInDB = users.find(u => u.id === userId);
+
+      console.log(userInDB);
+
+      if (!userInDB) {
+        res.sendStatus(401);
+      } else {
+        req.user = userInDB;
+        next();
+      }
+    });
+  } else {
+    res.sendStatus(401);
+  }
+};
+
+
 // users
-application.get('/users', (req: Request, res: Response) => {
+application.get('/users', authenticateJWT, (req: Request, res: Response) => {
   res.contentType('application/json');
   res.send(JSON.stringify(users));
+});
+
+application.get('/users/current', authenticateJWT, (req: UserRequest, res: Response) => {
+  res.contentType('application/json');
+  res.send(JSON.stringify(req.user));
 });
 
 application.get('/users/:userId', (req: Request, res: Response) => {
@@ -31,7 +79,7 @@ application.get('/users/:userId', (req: Request, res: Response) => {
   }
 });
 
-application.get('/users/:userId/todos', (req: Request, res: Response) => {
+application.get('/users/:userId/todos', authenticateJWT, (req: Request, res: Response) => {
   const userId = +req.params.userId;
   const user = users.find((user: User) => user.id === userId);
   if (!user) {
@@ -39,8 +87,7 @@ application.get('/users/:userId/todos', (req: Request, res: Response) => {
     res.send();
   } else {
     const userTodos: Todo[] = [];
-    console.log(user);
-    user.todos.forEach((todoId) => {
+    user.todos?.forEach((todoId) => {
       const todo = todos.find((todo: Todo) => todo.id === todoId);
       if (!todo) {
         res.status(404);
@@ -54,7 +101,7 @@ application.get('/users/:userId/todos', (req: Request, res: Response) => {
   }
 });
 
-application.post('/users', (req: Request, res: Response) => {
+application.post('/users', authenticateJWT, (req: Request, res: Response) => {
   const user = req.body;
   user.id = id();
   users.push(user);
@@ -63,7 +110,7 @@ application.post('/users', (req: Request, res: Response) => {
   res.send(JSON.stringify(user));
 });
 
-application.put('/users/:userId', (req: Request, res: Response) => {
+application.put('/users/:userId', authenticateJWT,(req: Request, res: Response) => {
   const userId = +req.params.userId;
   const index = users.findIndex((user: User) => user.id === userId);
   if (index === -1) {
@@ -77,8 +124,10 @@ application.put('/users/:userId', (req: Request, res: Response) => {
   }
 });
 
-application.delete('/users/:userId', (req: Request, res: Response) => {
+application.delete('/users/:userId', authenticateJWT,(req: Request, res: Response) => {
+  console.log('delete');
   const userId = +req.params.userId;
+  console.log('userId', userId);
   const index = users.findIndex((user: User) => user.id === userId);
   if (index === -1) {
     res.status(404);
@@ -93,12 +142,12 @@ application.delete('/users/:userId', (req: Request, res: Response) => {
 
 // todos
 
-application.get('/todos', (req: Request, res: Response) => {
+application.get('/todos', authenticateJWT,(req: Request, res: Response) => {
   res.contentType('application/json');
   res.send(JSON.stringify(todos));
 });
 
-application.post('/todos', (req: Request, res: Response) => {
+application.post('/todos', authenticateJWT, (req: Request, res: Response) => {
   const todo = req.body;
   todo.id = id();
   todos.push(todo);
@@ -107,7 +156,7 @@ application.post('/todos', (req: Request, res: Response) => {
   res.send(JSON.stringify(todo));
 });
 
-application.put('/todos/:todoId', (req: Request, res: Response) => {
+application.put('/todos/:todoId', authenticateJWT, (req: Request, res: Response) => {
   const todoId = +req.params.todoId;
   const index = todos.findIndex((todo: Todo) => todo.id === todoId);
   if (index === -1) {
@@ -122,7 +171,7 @@ application.put('/todos/:todoId', (req: Request, res: Response) => {
 });
 
 
-application.delete('/todos/:todoId', (req: Request, res: Response) => {
+application.delete('/todos/:todoId', authenticateJWT,(req: Request, res: Response) => {
   const todoId = +req.params.todoId;
   const index = todos.findIndex((todo: Todo) => todo.id === todoId);
   if (index === -1) {
@@ -134,6 +183,28 @@ application.delete('/todos/:todoId', (req: Request, res: Response) => {
     res.send();
   }
 });
+
+
+application.post('/login',(req, res) => {
+  // Read username and password from request body
+  const { username, password } = req.body;
+  console.log(username, password);
+  // Filter user from the users array by username and password
+  const user = users.find(u => { return u.userName === username && u.password === password });
+  console.log(user);
+  if (user) {
+    // Generate an access token
+    const accessToken = jwt.sign({ id: user.id, username: user.userName,  role: user.isAdmin }, accessTokenSecret);
+
+    res.json({
+      accessToken
+    });
+  } else {
+    res.send('Username or password incorrect');
+  }
+});
+
+
 
 
 application.listen(port, () => {

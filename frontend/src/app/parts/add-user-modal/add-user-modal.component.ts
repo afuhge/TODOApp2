@@ -37,13 +37,13 @@ export class AddUserModalComponent implements OnInit {
   public eyeClose: IconDefinition = faEyeSlash;
   public formData: UserData = new UserData();
   public error: IconDefinition = faExclamationCircle;
-  public firstNameInvalid: boolean = false;
-  public lastNameInvalid: boolean = false;
-  public userNameInvalid: boolean = false;
-  public mailInvalid: boolean = false;
-  public passwordInvalid: boolean = false;
+  public firstNameInvalid = false;
+  public lastNameInvalid = false;
+  public userNameInvalid = false;
+  public mailInvalid = false;
+  public passwordInvalid = false;
   public actionDisabled: boolean;
-  public isDirty: boolean = true;
+  public isDirty = true;
 
   @Output() createdUser: EventEmitter<User> = new EventEmitter<User>();
 
@@ -79,6 +79,7 @@ export class AddUserModalComponent implements OnInit {
     if (!this.actionDisabled) {
       const newUser: User = {...this.form.value};
       newUser.color = this.colorService.convertNameIntoColor(newUser);
+      newUser.todos = [];
       this.userService.addUser(newUser)
         .pipe(untilDestroyed(this))
         .subscribe((user: User) => {
