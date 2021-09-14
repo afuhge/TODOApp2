@@ -15,11 +15,11 @@
 
       <form [formGroup]="searchForm" class="flex mt-2 justify-end items-center" *ngIf="todos$ | async">
         <div>
-          <input class="search-input"
+          <input class="search-input dark:text-gray-300"
                  placeholder="Filter" formControlName="searchTerm"
                  type="text">
           <button (click)="reset()"
-                  class="reset-button has-tooltip">
+                  class="reset-button has-tooltip dark:text-gray-400">
             <fa-icon [icon]="resetIcon"></fa-icon>
             <span class='tooltip '>Reset</span>
           </button>
@@ -29,23 +29,23 @@
       <!-- component -->
       <ng-container *ngIf="todos$ | async; else loading">
         <ng-container *ngIf="filteredTodos?.length; else noTodos">
-          <div class="border-b-2  mb-4 border-gray-300 p-2 font-semibold  grid grid-cols-12 items-center">
+          <div class="border-b-2  mb-4 border-gray-300 dark:border-gray-500 p-2 font-semibold  grid grid-cols-12 items-center dark:text-gray-300">
             <div class=""></div>
             <div class="col-span-4 flex space-x-2">
               <div>
-                <fa-icon [icon]="todo" class="text-gray-400"></fa-icon>
+                <fa-icon [icon]="todo" class="text-gray-400 dark:text-gray-400"></fa-icon>
               </div>
               <div>Name</div>
             </div>
             <div class="col-span-2 flex space-x-2">
               <div>
-                <fa-icon [icon]="date" class="text-gray-400"></fa-icon>
+                <fa-icon [icon]="date" class="text-gray-400 dark:text-gray-400"></fa-icon>
               </div>
-              <div>Date</div>
+              <div class="">Date</div>
             </div>
             <div class="col-span-4 flex space-x-2">
-              <fa-icon [icon]="assignees" class="text-gray-400"></fa-icon>
-              <div>Assignees</div>
+              <fa-icon [icon]="assignees" class="text-gray-400 dark:text-gray-400"></fa-icon>
+              <div class="">Assignees</div>
             </div>
           </div>
 
@@ -59,7 +59,7 @@
           </div>
         </ng-container>
         <form [formGroup]="form" (ngSubmit)="addTodo()" *ngIf="!isFiltered"
-              class="py-2 px-4 border-2 border-gray-100 grid grid-cols-12 items-center rounded-xl mt-4">
+              class="py-2 px-4 border-2 border-gray-100 grid grid-cols-12 items-center rounded-xl mt-4 dark:border-gray-500">
           <div>
             <button type="submit" [disabled]="!form.valid" class="has-tooltip">
               <fa-icon [icon]="plusIcon"
@@ -69,32 +69,33 @@
           </div>
           <div class="text-xl col-span-4">
             <input type="text" placeholder="Enter todo name" formControlName="name"
-                   class="outline-none">
+                   class="outline-none dark:text-gray-300">
           </div>
           <div class="col-span-2 flex items-center space-x-2">
-            <input [owlDateTime]="fromdatepicker" placeholder="dd.mm.yyyy" class="outline-none " formControlName="date"
+            <input [owlDateTime]="fromdatepicker" placeholder="dd.mm.yyyy" class="outline-none dark:text-gray-300" formControlName="date"
                    style="width:96px; pointer-events: none;">
             <owl-date-time #fromdatepicker [pickerType]="'calendar'" backdropClass="popup"
                            pickerMode="inline"></owl-date-time>
-            <fa-icon [icon]="calendar" [owlDateTimeTrigger]="fromdatepicker">
+            <fa-icon [icon]="calendar" [owlDateTimeTrigger]="fromdatepicker" class="dark:text-gray-400">
             </fa-icon>
           </div>
           <div class=" col-span-4">
             <button (click)="addAssignees($event,  this.newTodo.assignees)" class="px-2">
                                     <span [ngClass]="selectedAssignees.length > 1? 'text-gray-700'
-                                            : 'text-gray-500'" class="hover:text-cyan-500">
+                                            : 'text-gray-500'" class="hover:text-cyan-500 dark:text-gray-300">
                                         {{this.newTodo.assignees.length}} assignees</span>
-              <fa-icon [icon]="assignees" class="pl-2"></fa-icon>
+              <fa-icon [icon]="assignees" class="pl-2 dark:text-gray-400"></fa-icon>
             </button>
           </div>
         </form>
+
         <ng-template #noTodos>
           <ng-container *ngIf="isFiltered; else nothing">
             <div class="mt-8">
               <div class="placeholder-outline">
                 <div class="flex flex-col justify-center items-center space-y-4">
                   <div class="mb-2">
-                    <fa-icon [icon]="search" class="text-4xl text-gray-400"></fa-icon>
+                    <fa-icon [icon]="search" class="text-4xl text-gray-400 "></fa-icon>
                   </div>
                   <div class="text-gray-400 font-semibold text-xl">
                     Sorry, there are no results for '{{ this.searchForm.get('searchTerm').value }}'.
@@ -109,14 +110,14 @@
           <ng-template #nothing>
             <div class="mt-8">
               <div class="placeholder-outline">
-                <div class="flex flex-col justify-center items-center space-y-4">
+                <div class="flex flex-col justify-center items-center space-y-4 text-gray-400 dark:text-gray-500">
                   <div class="mb-2">
-                    <fa-icon [icon]="boxOpen" class="text-4xl text-gray-400"></fa-icon>
+                    <fa-icon [icon]="boxOpen" class="text-4xl"></fa-icon>
                   </div>
-                  <div class="text-gray-400 font-semibold text-xl">
+                  <div class=" font-semibold text-xl">
                     Sorry, no todos available.
                   </div>
-                  <div class="text-gray-400">
+                  <div>
                     You can add a todo, if you want.
                   </div>
                 </div>

@@ -1,5 +1,5 @@
 <div class="fixed top-24 right-0 z-40 space-y-2">
-  <div class="bg-white rounded-md space-y-2 shadow-md border-l-4 w-80 px-4 py-2"
+  <div class="bg-white dark:bg-gray-700 rounded-md dark:text-gray-100 space-y-2 shadow-md border-l-4 w-80 px-4 py-2"
        *ngFor="let notification of notifications"
        @simpleFadeAnimation
        [ngClass]="notification.isSuccess? 'border-green-500': 'border-rose-500'">
@@ -10,7 +10,7 @@
       </div>
       <div class="col-span-5">
         <div class="font-semibold">{{ notification.title }}</div>
-        <div class="text-gray-500">{{ notification.message }}</div>
+        <div class="text-gray-500 dark:text-gray-100">{{ notification.message }}</div>
       </div>
       <div class="text-right">
         <button (click)="closeNotification(notification)" class="outline-none">

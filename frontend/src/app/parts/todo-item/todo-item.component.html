@@ -1,5 +1,5 @@
 <form [formGroup]="todoForm" [class.opacity-40]="todo?.isDone" style="min-height: 52px;"
-      class="py-2 px-4 todo border-2 border-gray-100 cursor-move  grid grid-cols-12 items-center rounded-xl">
+      class="py-2 px-4 todo border-2 border-gray-100 cursor-move  grid grid-cols-12 items-center rounded-xl dark:border-gray-500">
   <div (click)="markAsDone(todo)" class="has-tooltip">
     <fa-icon [icon]="todo?.isDone? checked: check"
              class=" text-gray-500 hover:text-rose-400 cursor-pointer text-xl"></fa-icon>
@@ -7,11 +7,11 @@
   </div>
   <div class="text-xl col-span-4 truncate">
     <input type="text" placeholder="" formControlName="name" (blur)="saveName()"
-           class="outline-none" [ngClass]="todo?.isDone? 'line-through' : null">
+           class="outline-none dark:text-gray-300" [ngClass]="todo?.isDone? 'line-through' : null">
   </div>
   <div class="col-span-2 flex items-center space-x-2 date">
     <input [owlDateTime]="fromdatepicker" formControlName="date" (dateTimeInput)="saveDate($event)"
-           placeholder="dd.mm.yyyy" class="outline-none " style="width:96px; pointer-events: none">
+           placeholder="dd.mm.yyyy" class="outline-none dark:text-gray-300" style="width:96px; pointer-events: none">
     <owl-date-time #fromdatepicker [pickerType]="'calendar'" pickerMode="popup"></owl-date-time>
     <fa-icon [icon]="calendar" class="datepicker" [owlDateTimeTrigger]="fromdatepicker">
     </fa-icon>

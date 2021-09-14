@@ -11,8 +11,12 @@ body {
 }
 
 
+.tooltip_light {
+  @apply absolute rounded shadow-lg p-1 bg-white text-sm text-black mt-8 opacity-0;
+}
+
 .tooltip {
-  @apply absolute rounded shadow-lg p-1 bg-white dark:bg-gray-900 dark:text-gray-100 text-sm text-black mt-8 opacity-0;
+  @apply absolute rounded shadow-lg p-1 bg-white dark:bg-gray-700 dark:text-gray-100 text-sm text-black mt-8 opacity-0;
 }
 
 .has-tooltip:hover .tooltip {
@@ -33,8 +37,9 @@ body {
 .widget {
   @apply relative w-full max-w-5xl;
 }
+
 .widget-blur {
-  @apply  absolute left-2 top-2 right-2 bottom-2 filter blur-md;
+  @apply  absolute inset-0 filter blur;
 }
 
 .widget-content {
@@ -46,7 +51,7 @@ body {
 }
 
 .placeholder-outline {
-  @apply px-6 py-10 rounded-lg border-4 border-gray-300 border-dotted;
+  @apply px-6 py-10 rounded-lg border-4 border-gray-300 dark:border-gray-400 border-dotted;
 }
 
 .table-d {
@@ -58,7 +63,7 @@ body {
 }
 
 .loading-indicator {
-  @apply bg-gray-100 animate-pulse p-8 my-2 rounded-lg
+  @apply bg-gray-100 dark:bg-gray-600 animate-pulse p-8 my-2 rounded-lg
 }
 
 .blurred-circle {
@@ -78,7 +83,7 @@ body {
 }
 
 .modal-delete-button {
-  @apply bg-rose-500 dark:bg-rose-400 dark:hover:bg-rose-500 hover:bg-rose-600 border-rose-500 dark:border-rose-400 hover:border-rose-600 dark:hover:border-rose-500;
+  @apply bg-rose-500 hover:bg-rose-600 border-rose-500 hover:border-rose-600;
 }
 
 .link {

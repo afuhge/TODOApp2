@@ -102,14 +102,14 @@
           <ng-container *ngIf="isFiltered; else nothing">
             <div class="mt-8">
               <div class="placeholder-outline">
-                <div class="flex flex-col justify-center items-center space-y-4">
+                <div class="flex flex-col justify-center items-center space-y-4 text-gray-400 dark:text-gray-500">
                   <div class="mb-2">
-                    <fa-icon [icon]="search" class="text-4xl text-gray-400"></fa-icon>
+                    <fa-icon [icon]="search" class="text-4xl"></fa-icon>
                   </div>
-                  <div class="text-gray-400 font-semibold text-xl">
+                  <div class="font-semibold text-xl">
                     Sorry, there are no results for '{{ this.form.get('searchTerm').value }}'.
                   </div>
-                  <div class="text-gray-400">
+                  <div>
                     Please retry the search with another search term.
                   </div>
                 </div>
